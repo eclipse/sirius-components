@@ -47,7 +47,7 @@ const widgetToPropertySection = (projectId, formId, widget, widgetSubscriptions)
           projectId={projectId}
           formId={formId}
           label={widget.label}
-          value={widget.stringValue}
+          textValue={widget.stringValue}
           widgetId={widget.id}
           subscribers={subscribers}
         />
