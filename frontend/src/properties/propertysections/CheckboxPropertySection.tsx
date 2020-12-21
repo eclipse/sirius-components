@@ -11,13 +11,14 @@
  *     Obeo - initial API and implementation
  *******************************************************************************/
 import { useMutation } from '@apollo/client';
-import { Checkbox } from 'core/checkbox/Checkbox';
-import { Text } from 'core/text/Text';
+import Checkbox from '@material-ui/core/Checkbox';
+import FormControl from '@material-ui/core/FormControl';
+import FormGroup from '@material-ui/core/FormGroup';
+import FormLabel from '@material-ui/core/FormLabel';
 import { Permission } from 'project/Permission';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { editCheckboxMutation } from './mutations';
-import styles from './PropertySection.module.css';
 
 const propTypes = {
   projectId: PropTypes.string.isRequired,
@@ -44,10 +45,14 @@ export const CheckboxPropertySection = ({ projectId, formId, widgetId, label, va
 
   return (
     <>
-      <Text className={styles.label}>{label}</Text>
-      <Permission requiredAccessLevel="EDIT">
-        <Checkbox name={label} label="" checked={value} onChange={onChange} data-testid={label} />
-      </Permission>
+      <FormControl component="fieldset">
+        <FormLabel component="legend">{label}</FormLabel>
+        <Permission requiredAccessLevel="EDIT">
+          <FormGroup aria-label={label} row>
+            <Checkbox checked={value} onChange={onChange} name={label} color="primary" data-testid={label} />
+          </FormGroup>
+        </Permission>
+      </FormControl>
     </>
   );
 };
