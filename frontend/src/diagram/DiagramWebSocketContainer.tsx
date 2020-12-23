@@ -533,10 +533,11 @@ export const DiagramWebSocketContainer = ({
     };
     let invokeLabelEditFromContextualPalette;
     if (renameable) {
+      let elementIdSuffix = element instanceof SEdge ? '_centerlabel' : '_label';
       invokeLabelEditFromContextualPalette = () =>
         diagramServer.actionDispatcher.dispatchAll([
           { kind: HIDE_CONTEXTUAL_TOOLBAR_ACTION },
-          new EditLabelAction(element.id + '_label'),
+          new EditLabelAction(element.id + elementIdSuffix),
         ]);
     }
     let invokeDeleteFromContextualPalette;

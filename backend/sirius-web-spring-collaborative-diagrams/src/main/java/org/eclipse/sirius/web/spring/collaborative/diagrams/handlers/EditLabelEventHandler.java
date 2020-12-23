@@ -25,8 +25,10 @@ import org.eclipse.sirius.web.collaborative.diagrams.api.IDiagramService;
 import org.eclipse.sirius.web.collaborative.diagrams.api.dto.EditLabelInput;
 import org.eclipse.sirius.web.collaborative.diagrams.api.dto.EditLabelSuccessPayload;
 import org.eclipse.sirius.web.diagrams.Diagram;
+import org.eclipse.sirius.web.diagrams.Edge;
 import org.eclipse.sirius.web.diagrams.Node;
 import org.eclipse.sirius.web.diagrams.description.DiagramDescription;
+import org.eclipse.sirius.web.diagrams.description.EdgeDescription;
 import org.eclipse.sirius.web.diagrams.description.NodeDescription;
 import org.eclipse.sirius.web.representations.VariableManager;
 import org.eclipse.sirius.web.services.api.dto.ErrorPayload;
@@ -49,6 +51,8 @@ import io.micrometer.core.instrument.MeterRegistry;
 @Service
 public class EditLabelEventHandler implements IDiagramEventHandler {
     private static final String LABEL_SUFFIX = "_label"; //$NON-NLS-1$
+
+    private static final String CENTERLABEL_SUFFIX = "_centerlabel"; //$NON-NLS-1$
 
     private final IObjectService objectService;
 
@@ -88,25 +92,40 @@ public class EditLabelEventHandler implements IDiagramEventHandler {
     public EventHandlerResponse handle(IEditingContext editingContext, IDiagramContext diagramContext, IDiagramInput diagramInput) {
         this.counter.increment();
 
+        EventHandlerResponse response = null;
         if (diagramInput instanceof EditLabelInput) {
             EditLabelInput input = (EditLabelInput) diagramInput;
+            Diagram diagram = diagramContext.getDiagram();
             if (input.getLabelId().endsWith(LABEL_SUFFIX)) {
-                Diagram diagram = diagramContext.getDiagram();
                 String nodeId = this.extractNodeId(input.getLabelId());
                 var node = this.diagramService.findNodeById(diagram, nodeId);
                 if (node.isPresent()) {
                     this.invokeDirectEditTool(node.get(), editingContext, diagram, input.getNewText());
-                    return new EventHandlerResponse(true, representation -> true, new EditLabelSuccessPayload(diagram));
+                    response = new EventHandlerResponse(true, representation -> true, new EditLabelSuccessPayload(diagram));
+                }
+            } else if (input.getLabelId().endsWith(CENTERLABEL_SUFFIX)) {
+                String inputId = this.extractEdgeId(input.getLabelId());
+                var edge = this.diagramService.findEdgeById(diagram, inputId);
+                if (edge.isPresent()) {
+                    this.invokeDirectEditTool(edge.get(), editingContext, diagram, input.getNewText());
+                    response = new EventHandlerResponse(true, representation -> true, new EditLabelSuccessPayload(diagram));
                 }
             }
         }
-
-        String message = this.messageService.invalidInput(diagramInput.getClass().getSimpleName(), EditLabelInput.class.getSimpleName());
-        return new EventHandlerResponse(false, representation -> false, new ErrorPayload(message));
+        if (response != null) {
+            return response;
+        } else {
+            String message = this.messageService.invalidInput(diagramInput.getClass().getSimpleName(), EditLabelInput.class.getSimpleName());
+            return new EventHandlerResponse(false, representation -> false, new ErrorPayload(message));
+        }
     }
 
     private String extractNodeId(String labelId) {
         return labelId.substring(0, labelId.length() - LABEL_SUFFIX.length());
+    }
+
+    private String extractEdgeId(String labelId) {
+        return labelId.substring(0, labelId.length() - CENTERLABEL_SUFFIX.length());
     }
 
     private void invokeDirectEditTool(Node node, IEditingContext editingContext, Diagram diagram, String newText) {
@@ -126,6 +145,23 @@ public class EditLabelEventHandler implements IDiagramEventHandler {
         }
     }
 
+    private void invokeDirectEditTool(Edge edge, IEditingContext editingContext, Diagram diagram, String newText) {
+        var optionalEdgeDescription = this.findEdgeDescription(edge, diagram);
+        if (optionalEdgeDescription.isPresent()) {
+            EdgeDescription edgeDescription = optionalEdgeDescription.get();
+
+            var optionalSelf = this.objectService.getObject(editingContext, edge.getTargetObjectId());
+            if (optionalSelf.isPresent()) {
+                Object self = optionalSelf.get();
+
+                VariableManager variableManager = new VariableManager();
+                variableManager.put(VariableManager.SELF, self);
+                edgeDescription.getLabelEditHandler().apply(variableManager, newText);
+                this.logger.debug("Edited label of diagram element {} to {}", edge.getId(), newText); //$NON-NLS-1$
+            }
+        }
+    }
+
     private Optional<NodeDescription> findNodeDescription(Node node, Diagram diagram) {
         // @formatter:off
         return this.representationDescriptionService
@@ -133,6 +169,16 @@ public class EditLabelEventHandler implements IDiagramEventHandler {
                 .filter(DiagramDescription.class::isInstance)
                 .map(DiagramDescription.class::cast)
                 .flatMap(diagramDescription -> this.diagramDescriptionService.findNodeDescriptionById(diagramDescription, node.getDescriptionId()));
+        // @formatter:on
+    }
+
+    private Optional<EdgeDescription> findEdgeDescription(Edge edge, Diagram diagram) {
+        // @formatter:off
+        return this.representationDescriptionService
+                   .findRepresentationDescriptionById(diagram.getDescriptionId())
+                   .filter(DiagramDescription.class::isInstance)
+                   .map(DiagramDescription.class::cast)
+                   .flatMap(diagramDescription -> this.diagramDescriptionService.findEdgeDescriptionById(diagramDescription, edge.getDescriptionId()));
         // @formatter:on
     }
 }

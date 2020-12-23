@@ -127,6 +127,7 @@ const convertEdge = (edge) => {
     style,
     routingPoints,
     features: createFeatureSet([deletableFeature, selectFeature, fadeFeature, hoverFeedbackFeature]),
+    editableLabel: centerLabel,
     children: children,
   };
 };

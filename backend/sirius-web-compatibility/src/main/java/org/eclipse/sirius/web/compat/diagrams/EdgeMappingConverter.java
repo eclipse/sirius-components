@@ -139,6 +139,7 @@ public class EdgeMappingConverter {
 
         ToolConverter toolConverter = new ToolConverter(this.interpreter, this.editService);
         var deleteHandler = toolConverter.createDeleteToolHandler(edgeMapping.getDeletionDescription());
+        var labelEditHandler = toolConverter.createDirectEditToolHandler(edgeMapping.getLabelDirectEdit());
 
         return EdgeDescription.newEdgeDescription(UUID.fromString(this.identifierProvider.getIdentifier(edgeMapping)))
                 .idProvider(idProvider)
@@ -155,6 +156,7 @@ public class EdgeMappingConverter {
                 .targetNodesProvider(targetNodesProvider)
                 .styleProvider(styleProvider)
                 .deleteHandler(deleteHandler)
+                .labelEditHandler(labelEditHandler)
                 .build();
         // @formatter:on
     }

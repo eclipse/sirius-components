@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.function.BiFunction;
 import java.util.function.Function;
 
 import org.eclipse.sirius.web.annotations.Immutable;
@@ -71,6 +72,8 @@ public final class EdgeDescription {
     private Function<VariableManager, EdgeStyle> styleProvider;
 
     private Function<VariableManager, Status> deleteHandler;
+
+    private BiFunction<VariableManager, String, Status> labelEditHandler;
 
     private EdgeDescription() {
         // Prevent instantiation
@@ -140,6 +143,10 @@ public final class EdgeDescription {
         return this.deleteHandler;
     }
 
+    public BiFunction<VariableManager, String, Status> getLabelEditHandler() {
+        return this.labelEditHandler;
+    }
+
     public static Builder newEdgeDescription(UUID id) {
         return new Builder(id);
     }
@@ -188,6 +195,8 @@ public final class EdgeDescription {
         private Function<VariableManager, EdgeStyle> styleProvider;
 
         private Function<VariableManager, Status> deleteHandler;
+
+        private BiFunction<VariableManager, String, Status> labelEditHandler;
 
         private Builder(UUID id) {
             this.id = Objects.requireNonNull(id);
@@ -269,6 +278,11 @@ public final class EdgeDescription {
             return this;
         }
 
+        public Builder labelEditHandler(BiFunction<VariableManager, String, Status> labelEditHandler) {
+            this.labelEditHandler = Objects.requireNonNull(labelEditHandler);
+            return this;
+        }
+
         public EdgeDescription build() {
             EdgeDescription edgeDescription = new EdgeDescription();
             edgeDescription.id = Objects.requireNonNull(this.id);
@@ -287,6 +301,7 @@ public final class EdgeDescription {
             edgeDescription.targetNodesProvider = Objects.requireNonNull(this.targetNodesProvider);
             edgeDescription.styleProvider = Objects.requireNonNull(this.styleProvider);
             edgeDescription.deleteHandler = Objects.requireNonNull(this.deleteHandler);
+            edgeDescription.labelEditHandler = Objects.requireNonNull(this.labelEditHandler);
             return edgeDescription;
         }
     }
