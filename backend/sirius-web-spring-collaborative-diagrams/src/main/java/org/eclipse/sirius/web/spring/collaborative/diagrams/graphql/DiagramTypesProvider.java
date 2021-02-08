@@ -34,6 +34,7 @@ import org.eclipse.sirius.web.diagrams.description.DiagramDescription;
 import org.eclipse.sirius.web.diagrams.description.NodeDescription;
 import org.eclipse.sirius.web.diagrams.tools.CreateEdgeTool;
 import org.eclipse.sirius.web.diagrams.tools.CreateNodeTool;
+import org.eclipse.sirius.web.diagrams.tools.DropTool;
 import org.eclipse.sirius.web.diagrams.tools.EdgeCandidate;
 import org.eclipse.sirius.web.diagrams.tools.ToolSection;
 import org.eclipse.sirius.web.graphql.utils.providers.GraphQLEnumTypeProvider;
@@ -85,6 +86,7 @@ public class DiagramTypesProvider implements ITypeProvider {
             ToolSection.class,
             CreateEdgeTool.class,
             CreateNodeTool.class,
+            DropTool.class,
             EdgeCandidate.class
         );
         var graphQLObjectTypes = objectClasses.stream()

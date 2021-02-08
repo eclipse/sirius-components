@@ -36,4 +36,6 @@ public interface ICollaborativeDiagramMessageService {
     String nodeDescriptionNotFound(String id);
 
     String edgeDescriptionNotFound(String id);
+
+    String invalidDrop();
 }

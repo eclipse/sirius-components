@@ -13,6 +13,7 @@
 import { useLazyQuery, useMutation, useSubscription } from '@apollo/client';
 import { Text } from 'core/text/Text';
 import { DiagramWebSocketContainerProps } from 'diagram/DiagramWebSocketContainer.types';
+import { DropArea } from 'diagram/DropArea';
 import {
   COMPLETE__STATE,
   HANDLE_COMPLETE__ACTION,
@@ -48,7 +49,7 @@ import { Toolbar } from 'diagram/Toolbar';
 import PropTypes from 'prop-types';
 import React, { useCallback, useEffect, useReducer, useRef } from 'react';
 import 'reflect-metadata'; // Required because Sprotty uses Inversify and both frameworks are written in TypeScript with experimental features.
-import { EditLabelAction, FitToScreenAction, SEdge, SNode } from 'sprotty';
+import { EditLabelAction, FitToScreenAction, HoverFeedbackAction, SEdge, SNode } from 'sprotty';
 import styles from './Diagram.module.css';
 import {
   deleteFromDiagramMutation,
@@ -362,6 +363,11 @@ export const DiagramWebSocketContainer = ({
     [projectId, representationId, invokeNodeToolMutation, invokeEdgeToolMutation]
   );
 
+  const invokeHover = (id: string, mouseIsOver: boolean) => {
+    if (diagramServer) {
+      diagramServer.actionDispatcher.dispatch(new HoverFeedbackAction(id, mouseIsOver));
+    }
+  };
   /**
    * Initialize the diagram server used by Sprotty in order to perform the diagram edition. This
    * initialization will be done each time we are in the loading state.
@@ -585,10 +591,16 @@ export const DiagramWebSocketContainer = ({
   }
   let content = (
     <div id="diagram-container" className={styles.diagramContainer}>
-      <div id="diagram-wrapper" className={styles.diagramWrapper}>
-        <div ref={diagramDomElement} id="diagram" className={styles.diagram} />
-        {contextualPaletteContent}
-      </div>
+      <DropArea
+        projectId={projectId}
+        representationId={representationId}
+        toolSections={toolSections}
+        invokeHover={invokeHover}>
+        <div id="diagram-wrapper" className={styles.diagramWrapper}>
+          <div ref={diagramDomElement} id="diagram" className={styles.diagram} />
+          {contextualPaletteContent}
+        </div>
+      </DropArea>
     </div>
   );
 

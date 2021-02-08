@@ -248,6 +248,22 @@ export const invokeEdgeToolOnDiagramMutation = gql`
   }
 `;
 
+export const invokeDropToolOnDiagramMutation = gql`
+  mutation invokeDropToolOnDiagram($input: InvokeDropToolOnDiagramInput!) {
+    invokeDropToolOnDiagram(input: $input) {
+      __typename
+      ... on InvokeDropToolOnDiagramSuccessPayload {
+        diagram {
+          id
+        }
+      }
+      ... on ErrorPayload {
+        message
+      }
+    }
+  }
+`;
+
 export const getToolSectionsQuery = gql`
   fragment edgeCandidateField on EdgeCandidate {
     sources {
@@ -279,6 +295,12 @@ export const getToolSectionsQuery = gql`
             edgeCandidates {
               ...edgeCandidateField
             }
+          }
+          ... on DropTool {
+            targetDescriptions {
+              id
+            }
+            appliesToDiagramRoot
           }
         }
       }

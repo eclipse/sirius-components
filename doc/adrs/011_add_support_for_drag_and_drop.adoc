@@ -1,0 +1,75 @@
+= ADR-011 - Add support for drag and drop
+
+== Context
+
+We have introduce the unsynchronized diagram since the ADR-003.
+To populate an unsynchronized diagram, we can use a standard `CreateNodeTool`.
+But we can expect to drag an existing element from the model explorer.
+
+== Decision
+
+The faster way to provide drop data is to create a new `DropTool` API that implements the `ITool` to manage this behavior. A `DropTool` could be fetch in toolSections like others `ITool`.
+This is not ideal because some properties like "label" and "imageURL" does not be useful.
+
+A dedicated data fetcher that give diagram description properties could be a preferable start point and could be implemented (and decorated with drop data) if a similar behavior is requested.
+
+== Status
+
+WIP
+
+== Consequences
+
+A `DropTool` will be added to the available `ITool` implementation.
+
+*A first iteration* will be done with a basic approach:
+
+A `DropTool` will specify all available targets (`NodeDescription`, diagram background) but nothing about the underlying source kind.
+
+```
+public final class DropTool implements ITool {
+
+    //...
+
+    private List<NodeDescription> targetDescriptions;
+
+    private boolean appliesToDiagramRoot;
+
+    //...
+}
+```
+
+The first `DropTool` that match with the target will be used.
+
+*A second iteration* will introduce a sourceKinds data.
+The DropTool will define a list of `dropCanditates`.
+A `DropCandidate` :
+
+```
+public final class DropTool implements ITool {
+
+    //...
+
+    private List<DropCandidate> dropCandidates;
+
+    //...
+}
+```
+```
+public final class DropCandidate {
+
+    private List<String> sourceKinds;
+
+    private List<NodeDescription> targets;
+
+    private boolean appliesToDiagramRoot;
+
+    //...
+}
+```
+The first `DropTool` that match with the sourceKind and the target will be used.
+
+*A final iteration* will support the `.odesign` compatibility thanks to the conversion from `Container Drop` to a DropTool.
+
+== References
+
+- https://www.eclipse.org/sirius/doc/specifier/diagrams/Diagrams.html#container_tools

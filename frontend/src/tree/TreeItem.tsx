@@ -665,6 +665,17 @@ export const TreeItem = ({ editingContextId, item, depth, onExpand, selection, s
     }
   };
 
+  const { kind } = item;
+  const draggable = kind !== 'Document' && kind !== 'Diagram';
+  const dragStart = (e) => {
+    if (selection?.kind !== 'Document' && selection?.kind !== 'Diagram') {
+      e.dataTransfer.setData('id', selection.id);
+    }
+  };
+  const dragOver = (e) => {
+    e.stopPropagation();
+  };
+
   /* ref, tabindex and onFocus are used to set the React component focusabled and to set the focus to the corresponding DOM part */
   return (
     <>
@@ -674,6 +685,9 @@ export const TreeItem = ({ editingContextId, item, depth, onExpand, selection, s
         tabIndex={0}
         onFocus={onFocus}
         onKeyDown={onBeginEditing}
+        draggable={draggable}
+        onDragStart={dragStart}
+        onDragOver={dragOver}
         data-treeitemid={item.id}
         data-haschildren={item.hasChildren.toString()}
         data-depth={depth}

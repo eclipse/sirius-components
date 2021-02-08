@@ -37,6 +37,11 @@ import org.eclipse.sirius.web.representations.VariableManager;
 @Immutable
 @GraphQLObjectType
 public final class NodeDescription {
+    /**
+     * The name of the variable used to store and retrieve the node container from a variable manager.
+     */
+    public static final String NODE_CONTAINER = "nodeContainer"; //$NON-NLS-1$
+
     private UUID id;
 
     private SynchronizationPolicy synchronizationPolicy;

@@ -37,6 +37,8 @@ public final class MessageConstants {
 
     public static final String DELETE_FAILED = "DELETE_FAILED"; //$NON-NLS-1$
 
+    public static final String INVALID_DROP = "INVALID_DROP"; //$NON-NLS-1$
+
     private MessageConstants() {
         // Prevent instantiation
     }

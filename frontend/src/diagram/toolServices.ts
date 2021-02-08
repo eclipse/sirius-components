@@ -23,6 +23,18 @@ export function isContextualTool(tool, element) {
   return result;
 }
 
+export function canDrop(tool, targetId, targetDescriptionId, representationId) {
+  let result = false;
+  if (tool.__typename === 'DropTool') {
+    if (targetId === representationId) {
+      result = tool.appliesToDiagramRoot;
+    } else {
+      result = tool.targetDescriptions.some((aTargetDescription) => aTargetDescription.id === targetDescriptionId);
+    }
+  }
+  return result;
+}
+
 export function canInvokeTool(tool, sourceElement, targetElement) {
   let result = false;
   if (tool.__typename === 'CreateNodeTool') {
@@ -33,6 +45,14 @@ export function canInvokeTool(tool, sourceElement, targetElement) {
     result = tool.edgeCandidates
       .filter((edgeCandidate) => edgeCandidate.sources.some((source) => source.id === sourceElement.descriptionId))
       .some((edgeCandidate) => edgeCandidate.targets.some((target) => target.id === targetElement.descriptionId));
+  } else if (tool.__typename === 'DropTool') {
+    result = tool.dropCandidates
+      .filter((dropCandidate) => dropCandidate.sourceKinds.some((sourceKind) => sourceKind === sourceElement.kind))
+      .some(
+        (dropCandidate) =>
+          (dropCandidate.appliesToDiagramRoot && targetElement.kind === 'Diagram') ||
+          dropCandidate.targets.some((target) => target.id === targetElement.descriptionId)
+      );
   }
   return result;
 }

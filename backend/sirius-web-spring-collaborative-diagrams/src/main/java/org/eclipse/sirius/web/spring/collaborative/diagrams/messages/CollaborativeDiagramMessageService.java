@@ -75,4 +75,9 @@ public class CollaborativeDiagramMessageService implements ICollaborativeDiagram
     public String deleteFailed() {
         return this.messageSourceAccessor.getMessage(MessageConstants.DELETE_FAILED);
     }
+
+    @Override
+    public String invalidDrop() {
+        return this.messageSourceAccessor.getMessage(MessageConstants.INVALID_DROP);
+    }
 }
