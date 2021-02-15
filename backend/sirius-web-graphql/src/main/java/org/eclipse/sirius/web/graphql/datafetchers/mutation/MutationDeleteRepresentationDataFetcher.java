@@ -84,7 +84,7 @@ public class MutationDeleteRepresentationDataFetcher implements IDataFetcherWith
         if (optionalRepresentation.isPresent()) {
             RepresentationDescriptor representation = optionalRepresentation.get();
 
-            boolean canEdit = this.dataFetchingEnvironmentService.canEdit(environment, representation.getProjectId());
+            boolean canEdit = this.dataFetchingEnvironmentService.canEditProject(environment, representation.getProjectId());
             if (canEdit) {
                 // @formatter:off
                 payload = this.editingContextEventProcessorRegistry.dispatchEvent(representation.getProjectId(), input)

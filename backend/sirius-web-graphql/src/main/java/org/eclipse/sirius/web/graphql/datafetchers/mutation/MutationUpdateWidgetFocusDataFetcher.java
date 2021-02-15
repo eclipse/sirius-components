@@ -74,7 +74,7 @@ public class MutationUpdateWidgetFocusDataFetcher implements IDataFetcherWithFie
 
         IPayload payload = new ErrorPayload(this.messageService.unexpectedError());
 
-        boolean canEdit = this.dataFetchingEnvironmentService.canEdit(environment, input.getProjectId());
+        boolean canEdit = this.dataFetchingEnvironmentService.canEditProject(environment, input.getProjectId());
         if (canEdit) {
             // @formatter:off
             payload = this.editingContextEventProcessorRegistry.dispatchEvent(input.getProjectId(), input)

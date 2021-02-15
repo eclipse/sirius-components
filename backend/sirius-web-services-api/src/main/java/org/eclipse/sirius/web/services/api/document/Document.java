@@ -13,40 +13,39 @@
 package org.eclipse.sirius.web.services.api.document;
 
 import java.text.MessageFormat;
+import java.util.Objects;
 import java.util.UUID;
 
-import org.eclipse.sirius.web.annotations.graphql.GraphQLObjectType;
-import org.eclipse.sirius.web.services.api.projects.Project;
+import org.eclipse.sirius.web.services.api.editingcontexts.EditingContext;
 
 /**
  * Interface used by all documents.
  *
  * @author sbegaudeau
  */
-@GraphQLObjectType(name = "Document")
 public class Document {
 
     private UUID id;
 
-    private Project project;
+    private EditingContext editingContext;
 
     private String name;
 
     private String content;
 
-    public Document(UUID id, Project project, String name, String content) {
-        this.id = id;
-        this.project = project;
-        this.name = name;
-        this.content = content;
+    public Document(UUID id, EditingContext editingContext, String name, String content) {
+        this.id = Objects.requireNonNull(id);
+        this.editingContext = Objects.requireNonNull(editingContext);
+        this.name = Objects.requireNonNull(name);
+        this.content = Objects.requireNonNull(content);
     }
 
     public UUID getId() {
         return this.id;
     }
 
-    public Project getProject() {
-        return this.project;
+    public EditingContext getEditingContext() {
+        return this.editingContext;
     }
 
     public String getName() {
@@ -59,7 +58,7 @@ public class Document {
 
     @Override
     public String toString() {
-        String pattern = "{0} '{'id: {1}, projectId: {2}, name: {3}'}'"; //$NON-NLS-1$
-        return MessageFormat.format(pattern, this.getClass().getSimpleName(), this.id, this.project.getId(), this.name);
+        String pattern = "{0} '{'id: {1}, editingContextId: {2}, name: {3}'}'"; //$NON-NLS-1$
+        return MessageFormat.format(pattern, this.getClass().getSimpleName(), this.id, this.editingContext.getId(), this.name);
     }
 }

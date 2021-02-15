@@ -79,7 +79,7 @@ public class MutationPublishModelerDataFetcher implements IDataFetcherWithFieldC
         if (optionalModeler.isPresent()) {
             Modeler modeler = optionalModeler.get();
 
-            boolean canEdit = this.dataFetchingEnvironmentService.canEdit(environment, modeler.getProject().getId());
+            boolean canEdit = this.dataFetchingEnvironmentService.canEditProject(environment, modeler.getProject().getId());
             if (canEdit) {
                 payload = this.modelerService.publishModeler(input);
             } else {

@@ -23,6 +23,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Type;
@@ -44,6 +45,10 @@ public class ModelerEntity {
     @ManyToOne
     @JoinColumn(name = "project_id")
     private ProjectEntity project;
+
+    @OneToOne
+    @JoinColumn(name = "editingcontext_id")
+    private EditingContextEntity editingContext;
 
     @Enumerated(EnumType.STRING)
     @Type(type = "org.eclipse.sirius.web.persistence.util.VisibilityEnumType")
@@ -73,6 +78,14 @@ public class ModelerEntity {
         this.project = project;
     }
 
+    public EditingContextEntity getEditingContext() {
+        return this.editingContext;
+    }
+
+    public void setEditingContext(EditingContextEntity editingContext) {
+        this.editingContext = editingContext;
+    }
+
     public PublicationStatusEntity getPublicationStatus() {
         return this.publicationStatus;
     }
@@ -83,10 +96,11 @@ public class ModelerEntity {
 
     @Override
     public String toString() {
-        String pattern = "{0} '{'id: {1}, name: {2}, owner: {3}, project: '{' id: {4}, name: {5} '}', status: {6}'}'"; //$NON-NLS-1$
+        String pattern = "{0} '{'id: {1}, name: {2}, owner: {3}, project: '{' id: {4}, name: {5} '}', editingContext: '{' id: {6} '}', status: {7}'}'"; //$NON-NLS-1$
         // @formatter:off
         return MessageFormat.format(pattern, this.getClass().getSimpleName(), this.id, this.name,
                                              this.project.getId(), this.project.getName(),
+                                             this.editingContext.getId(),
                                              this.publicationStatus);
         // @formatter:on
     }

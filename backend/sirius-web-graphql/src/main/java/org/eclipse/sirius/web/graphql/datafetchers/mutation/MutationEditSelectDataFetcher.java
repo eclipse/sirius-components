@@ -73,7 +73,7 @@ public class MutationEditSelectDataFetcher implements IDataFetcherWithFieldCoord
         var input = this.dataFetchingEnvironmentService.getInput(environment, EditSelectInput.class);
 
         IPayload payload = new EditSelectSuccessPayload(this.messageService.unauthorized());
-        boolean canEdit = this.dataFetchingEnvironmentService.canEdit(environment, input.getProjectId());
+        boolean canEdit = this.dataFetchingEnvironmentService.canEditProject(environment, input.getProjectId());
         if (canEdit) {
             // @formatter:off
             payload = this.editingContextEventProcessorRegistry.dispatchEvent(input.getProjectId(), input)

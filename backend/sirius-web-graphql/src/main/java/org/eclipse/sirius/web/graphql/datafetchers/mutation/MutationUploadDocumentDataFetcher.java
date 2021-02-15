@@ -98,7 +98,7 @@ public class MutationUploadDocumentDataFetcher implements IDataFetcherWithFieldC
         UploadDocumentInput input = new UploadDocumentInput(projectId, file);
         IPayload payload = new ErrorPayload(this.messageService.unauthorized());
 
-        boolean canEdit = this.dataFetchingEnvironmentService.canEdit(environment, projectId);
+        boolean canEdit = this.dataFetchingEnvironmentService.canEditProject(environment, projectId);
         if (canEdit) {
             // @formatter:off
             payload = this.editingContextEventProcessorRegistry.dispatchEvent(projectId, input)

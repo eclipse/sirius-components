@@ -22,9 +22,11 @@ import java.util.stream.Collectors;
 import org.eclipse.sirius.web.core.api.ErrorPayload;
 import org.eclipse.sirius.web.core.api.IPayload;
 import org.eclipse.sirius.web.persistence.entities.AccountEntity;
+import org.eclipse.sirius.web.persistence.entities.EditingContextEntity;
 import org.eclipse.sirius.web.persistence.entities.ProjectEntity;
 import org.eclipse.sirius.web.persistence.entities.VisibilityEntity;
 import org.eclipse.sirius.web.persistence.repositories.IAccountRepository;
+import org.eclipse.sirius.web.persistence.repositories.IEditingContextRepository;
 import org.eclipse.sirius.web.persistence.repositories.IProjectRepository;
 import org.eclipse.sirius.web.services.api.events.ProjectCreatedEvent;
 import org.eclipse.sirius.web.services.api.projects.CreateProjectInput;
@@ -53,14 +55,18 @@ public class ProjectService implements IProjectService {
 
     private final IAccountRepository accountRepository;
 
+    private final IEditingContextRepository editingContextRepository;
+
     private final ProjectMapper projectMapper;
 
     private final ApplicationEventPublisher applicationEventPublisher;
 
-    public ProjectService(IServicesMessageService messageService, IProjectRepository projectRepository, IAccountRepository accountRepository, ApplicationEventPublisher applicationEventPublisher) {
+    public ProjectService(IServicesMessageService messageService, IProjectRepository projectRepository, IAccountRepository accountRepository, IEditingContextRepository editingContextRepository,
+            ApplicationEventPublisher applicationEventPublisher) {
         this.messageService = Objects.requireNonNull(messageService);
         this.projectRepository = Objects.requireNonNull(projectRepository);
         this.accountRepository = Objects.requireNonNull(accountRepository);
+        this.editingContextRepository = Objects.requireNonNull(editingContextRepository);
         this.applicationEventPublisher = Objects.requireNonNull(applicationEventPublisher);
         this.projectMapper = new ProjectMapper();
     }
@@ -73,6 +79,11 @@ public class ProjectService implements IProjectService {
     @Override
     public Optional<Project> getProject(UUID projectId) {
         return this.projectRepository.findByIdIfVisibleBy(projectId, this.getCurrentUserName()).map(this.projectMapper::toDTO);
+    }
+
+    @Override
+    public Optional<Project> getProjectByCurrentEditingContextId(UUID editingContextId) {
+        return this.projectRepository.findByCurrentEditingContextIfVisibleBy(editingContextId, this.getCurrentUserName()).map(this.projectMapper::toDTO);
     }
 
     @Override
@@ -106,10 +117,17 @@ public class ProjectService implements IProjectService {
         return payload;
     }
 
+    private EditingContextEntity createEditingContextEntity() {
+        EditingContextEntity editingContextEntity = new EditingContextEntity();
+        editingContextEntity = this.editingContextRepository.save(editingContextEntity);
+        return editingContextEntity;
+    }
+
     private ProjectEntity createProjectEntity(String projectName, AccountEntity owner, Visibility visibility) {
         ProjectEntity projectEntity = new ProjectEntity();
         projectEntity.setName(projectName);
         projectEntity.setOwner(owner);
+        projectEntity.setCurrentEditingContext(this.createEditingContextEntity());
         if (visibility == Visibility.PUBLIC) {
             projectEntity.setVisibility(VisibilityEntity.PUBLIC);
         } else {
@@ -124,8 +142,11 @@ public class ProjectService implements IProjectService {
 
     @Override
     public void delete(UUID projectId) {
-        if (this.projectRepository.existsByIdAndIsVisibleBy(projectId, this.getCurrentUserName())) {
+        var optionalProjectEntity = this.projectRepository.findByIdIfVisibleBy(projectId, this.getCurrentUserName());
+        if (optionalProjectEntity.isPresent()) {
             this.projectRepository.deleteById(projectId);
+            UUID editingContextId = optionalProjectEntity.get().getCurrentEditingContext().getId();
+            this.editingContextRepository.deleteById(editingContextId);
         }
     }
 

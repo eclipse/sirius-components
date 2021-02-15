@@ -24,6 +24,7 @@ import org.eclipse.sirius.web.core.api.IPayload;
 import org.eclipse.sirius.web.persistence.entities.AccountEntity;
 import org.eclipse.sirius.web.persistence.entities.ProjectEntity;
 import org.eclipse.sirius.web.persistence.repositories.IAccountRepository;
+import org.eclipse.sirius.web.persistence.repositories.IEditingContextRepository;
 import org.eclipse.sirius.web.persistence.repositories.IProjectRepository;
 import org.eclipse.sirius.web.services.api.projects.CreateProjectInput;
 import org.eclipse.sirius.web.services.api.projects.CreateProjectSuccessPayload;
@@ -70,9 +71,12 @@ public class ProjectServiceTestCases {
         }
     };
 
+    private IEditingContextRepository fakeEditingContextRepository = new NoOpEditingContextRepository();
+
     private ApplicationEventPublisher noOpApplicationEventPublisher = new NoOpApplicationEventPublisher();
 
-    private ProjectService projectService = new ProjectService(this.noOpMessageService, this.noOpProjectRepository, this.fakeAccountRepository, this.noOpApplicationEventPublisher);
+    private ProjectService projectService = new ProjectService(this.noOpMessageService, this.noOpProjectRepository, this.fakeAccountRepository, this.fakeEditingContextRepository,
+            this.noOpApplicationEventPublisher);
 
     @Test
     public void testProjectCreationWithInvalidName() {

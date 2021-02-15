@@ -21,8 +21,10 @@ import java.util.stream.Collectors;
 
 import org.eclipse.sirius.web.core.api.ErrorPayload;
 import org.eclipse.sirius.web.core.api.IPayload;
+import org.eclipse.sirius.web.persistence.entities.EditingContextEntity;
 import org.eclipse.sirius.web.persistence.entities.ModelerEntity;
 import org.eclipse.sirius.web.persistence.entities.PublicationStatusEntity;
+import org.eclipse.sirius.web.persistence.repositories.IEditingContextRepository;
 import org.eclipse.sirius.web.persistence.repositories.IModelerRepository;
 import org.eclipse.sirius.web.persistence.repositories.IProjectRepository;
 import org.eclipse.sirius.web.services.api.modelers.CreateModelerInput;
@@ -51,10 +53,13 @@ public class ModelerService implements IModelerService {
 
     private final IModelerRepository modelerRepository;
 
-    public ModelerService(IServicesMessageService messageService, IProjectRepository projectRepository, IModelerRepository modelerRepository) {
+    private final IEditingContextRepository editingContextRepository;
+
+    public ModelerService(IServicesMessageService messageService, IProjectRepository projectRepository, IModelerRepository modelerRepository, IEditingContextRepository editingContextRepository) {
         this.messageService = Objects.requireNonNull(messageService);
         this.projectRepository = Objects.requireNonNull(projectRepository);
         this.modelerRepository = Objects.requireNonNull(modelerRepository);
+        this.editingContextRepository = Objects.requireNonNull(editingContextRepository);
     }
 
     @Override
@@ -68,12 +73,19 @@ public class ModelerService implements IModelerService {
                 modelerEntity.setName(input.getName());
                 modelerEntity.setProject(this.projectRepository.findById(input.getProjectId()).get());
                 modelerEntity.setPublicationStatus(PublicationStatusEntity.DRAFT);
+                modelerEntity.setEditingContext(this.createEditingContextEntity());
 
                 modelerEntity = this.modelerRepository.save(modelerEntity);
                 return new CreateModelerSuccessPayload(this.toDTO(modelerEntity));
             }
         }).orElse(new ErrorPayload(this.messageService.projectNotFound()));
 
+    }
+
+    private EditingContextEntity createEditingContextEntity() {
+        EditingContextEntity editingContextEntity = new EditingContextEntity();
+        editingContextEntity = this.editingContextRepository.save(editingContextEntity);
+        return editingContextEntity;
     }
 
     @Override

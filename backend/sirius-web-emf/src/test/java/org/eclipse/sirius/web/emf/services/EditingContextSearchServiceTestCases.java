@@ -26,6 +26,7 @@ import org.eclipse.emf.edit.provider.ComposedAdapterFactory;
 import org.eclipse.sirius.web.core.api.IEditingContext;
 import org.eclipse.sirius.web.core.api.IEditingContextSearchService;
 import org.eclipse.sirius.web.persistence.entities.DocumentEntity;
+import org.eclipse.sirius.web.persistence.entities.EditingContextEntity;
 import org.eclipse.sirius.web.persistence.entities.ProjectEntity;
 import org.eclipse.sirius.web.persistence.repositories.IDocumentRepository;
 import org.eclipse.sirius.web.persistence.repositories.IProjectRepository;
@@ -91,20 +92,24 @@ public class EditingContextSearchServiceTestCases {
     public void testEditingContextWithDocuments() {
         UUID projectId = UUID.randomUUID();
 
+        EditingContextEntity editingContextEntity = new EditingContextEntity();
+        editingContextEntity.setId(UUID.randomUUID());
+
         ProjectEntity projectEntity = new ProjectEntity();
         projectEntity.setId(projectId);
         projectEntity.setName(""); //$NON-NLS-1$
+        projectEntity.setCurrentEditingContext(editingContextEntity);
 
         DocumentEntity firstDocumentEntity = new DocumentEntity();
         firstDocumentEntity.setId(UUID.randomUUID());
         firstDocumentEntity.setName("First Document"); //$NON-NLS-1$
-        firstDocumentEntity.setProject(projectEntity);
+        firstDocumentEntity.setEditingContext(editingContextEntity);
         firstDocumentEntity.setContent(CONTENT);
 
         DocumentEntity secondDocumentEntity = new DocumentEntity();
         secondDocumentEntity.setId(UUID.randomUUID());
         secondDocumentEntity.setName("Second Document"); //$NON-NLS-1$
-        secondDocumentEntity.setProject(projectEntity);
+        secondDocumentEntity.setEditingContext(editingContextEntity);
         secondDocumentEntity.setContent(CONTENT);
 
         IProjectRepository projectRepository = new NoOpProjectRepository();

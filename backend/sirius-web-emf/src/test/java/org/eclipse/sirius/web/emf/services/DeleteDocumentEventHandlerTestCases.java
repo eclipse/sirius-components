@@ -20,12 +20,9 @@ import java.util.UUID;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain;
-import org.eclipse.sirius.web.services.api.accounts.Profile;
 import org.eclipse.sirius.web.services.api.document.DeleteDocumentInput;
 import org.eclipse.sirius.web.services.api.document.Document;
 import org.eclipse.sirius.web.services.api.document.IDocumentService;
-import org.eclipse.sirius.web.services.api.projects.Project;
-import org.eclipse.sirius.web.services.api.projects.Visibility;
 import org.junit.Test;
 
 import io.micrometer.core.instrument.simple.SimpleMeterRegistry;
@@ -38,8 +35,7 @@ import io.micrometer.core.instrument.simple.SimpleMeterRegistry;
 public class DeleteDocumentEventHandlerTestCases {
     @Test
     public void testDeleteDocument() {
-        UUID projectId = UUID.randomUUID();
-        Document document = new Document(UUID.randomUUID(), new Project(projectId, "", new Profile(UUID.randomUUID(), "username"), Visibility.PUBLIC), "name", "content"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+        Document document = new Document(UUID.randomUUID(), new org.eclipse.sirius.web.services.api.editingcontexts.EditingContext(UUID.randomUUID()), "name", "content"); //$NON-NLS-1$ //$NON-NLS-2$
 
         IDocumentService documentService = new NoOpDocumentService() {
             @Override
@@ -47,7 +43,7 @@ public class DeleteDocumentEventHandlerTestCases {
                 return Optional.of(document);
             }
         };
-        DeleteDocumentEventHandler handler = new DeleteDocumentEventHandler(documentService, new NoOpEMFMessageService(), new SimpleMeterRegistry());
+        DeleteDocumentEventHandler handler = new DeleteDocumentEventHandler(documentService, new NoOpProjectService(), new NoOpEMFMessageService(), new SimpleMeterRegistry());
 
         var input = new DeleteDocumentInput(document.getId());
 

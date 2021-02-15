@@ -37,8 +37,8 @@ public class DocumentEntity {
     private UUID id;
 
     @ManyToOne
-    @JoinColumn(name = "project_id")
-    private ProjectEntity project;
+    @JoinColumn(name = "editingcontext_id")
+    private EditingContextEntity editingContext;
 
     private String name;
 
@@ -52,12 +52,12 @@ public class DocumentEntity {
         this.id = id;
     }
 
-    public ProjectEntity getProject() {
-        return this.project;
+    public EditingContextEntity getEditingContext() {
+        return this.editingContext;
     }
 
-    public void setProject(ProjectEntity project) {
-        this.project = project;
+    public void setEditingContext(EditingContextEntity editingContext) {
+        this.editingContext = editingContext;
     }
 
     public String getName() {

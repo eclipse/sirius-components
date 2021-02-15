@@ -41,12 +41,9 @@ import org.eclipse.sirius.emfjson.resource.JsonResource;
 import org.eclipse.sirius.emfjson.resource.JsonResourceImpl;
 import org.eclipse.sirius.web.core.api.IEditingContext;
 import org.eclipse.sirius.web.emf.services.messages.IEMFMessageService;
-import org.eclipse.sirius.web.services.api.accounts.Profile;
 import org.eclipse.sirius.web.services.api.document.Document;
 import org.eclipse.sirius.web.services.api.document.IDocumentService;
 import org.eclipse.sirius.web.services.api.document.UploadDocumentInput;
-import org.eclipse.sirius.web.services.api.projects.Project;
-import org.eclipse.sirius.web.services.api.projects.Visibility;
 import org.eclipse.sirius.web.spring.graphql.api.UploadFile;
 import org.junit.Test;
 
@@ -154,7 +151,7 @@ public class UploadDocumentEventHandlerTestCases {
         IDocumentService documentService = new NoOpDocumentService() {
             @Override
             public Optional<Document> createDocument(UUID projectId, String name, String content) {
-                return Optional.of(new Document(UUID.randomUUID(), new Project(projectId, "", new Profile(UUID.randomUUID(), "username"), Visibility.PUBLIC), name, content)); //$NON-NLS-1$ //$NON-NLS-2$
+                return Optional.of(new Document(UUID.randomUUID(), new org.eclipse.sirius.web.services.api.editingcontexts.EditingContext(UUID.randomUUID()), name, content));
             }
         };
         IEMFMessageService messageService = new NoOpEMFMessageService();
@@ -225,7 +222,7 @@ public class UploadDocumentEventHandlerTestCases {
 
             @Override
             public Optional<Document> createDocument(UUID projectId, String name, String content) {
-                return Optional.of(new Document(documentId, new Project(projectId, "", new Profile(UUID.randomUUID(), "username"), Visibility.PUBLIC), name, content)); //$NON-NLS-1$ //$NON-NLS-2$
+                return Optional.of(new Document(documentId, new org.eclipse.sirius.web.services.api.editingcontexts.EditingContext(UUID.randomUUID()), name, content));
             }
         };
         IEMFMessageService messageService = new NoOpEMFMessageService();

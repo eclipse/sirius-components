@@ -12,7 +12,6 @@
  *******************************************************************************/
 package org.eclipse.sirius.web.spring.collaborative.projects;
 
-import java.text.MessageFormat;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -100,7 +99,6 @@ public class EditingContextEventProcessorRegistry implements IEditingContextEven
             optionalEditingContextEventProcessor = Optional.of(editingContextEventProcessor);
         }
 
-        this.logger.warn(MessageFormat.format("The editing context \"{0}\" does not exist", editingContextId)); //$NON-NLS-1$
         return optionalEditingContextEventProcessor;
     }
 

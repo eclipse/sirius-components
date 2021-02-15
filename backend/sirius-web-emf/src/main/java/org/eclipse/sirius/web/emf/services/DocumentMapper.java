@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2019, 2020 Obeo.
+ * Copyright (c) 2019, 2021 Obeo.
  * This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v2.0
  * which accompanies this distribution, and is available at
@@ -13,11 +13,9 @@
 package org.eclipse.sirius.web.emf.services;
 
 import org.eclipse.sirius.web.persistence.entities.DocumentEntity;
-import org.eclipse.sirius.web.persistence.entities.ProjectEntity;
-import org.eclipse.sirius.web.services.api.accounts.Profile;
+import org.eclipse.sirius.web.persistence.entities.EditingContextEntity;
 import org.eclipse.sirius.web.services.api.document.Document;
-import org.eclipse.sirius.web.services.api.projects.Project;
-import org.eclipse.sirius.web.services.api.projects.Visibility;
+import org.eclipse.sirius.web.services.api.editingcontexts.EditingContext;
 
 /**
  * Class used to convert document entities to document data transfer objects and vice versa.
@@ -26,11 +24,9 @@ import org.eclipse.sirius.web.services.api.projects.Visibility;
  */
 public class DocumentMapper {
     public Document toDTO(DocumentEntity documentEntity) {
-        ProjectEntity projectEntity = documentEntity.getProject();
+        EditingContextEntity editingContextEntity = documentEntity.getEditingContext();
 
-        var profile = new Profile(projectEntity.getOwner().getId(), projectEntity.getOwner().getUsername());
-        var visibility = Visibility.valueOf(projectEntity.getVisibility().name());
-        Project project = new Project(projectEntity.getId(), projectEntity.getName(), profile, visibility);
-        return new Document(documentEntity.getId(), project, documentEntity.getName(), documentEntity.getContent());
+        EditingContext editingContext = new EditingContext(editingContextEntity.getId());
+        return new Document(documentEntity.getId(), editingContext, documentEntity.getName(), documentEntity.getContent());
     }
 }

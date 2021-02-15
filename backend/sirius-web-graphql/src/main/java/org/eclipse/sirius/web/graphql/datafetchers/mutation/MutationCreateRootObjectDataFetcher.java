@@ -74,7 +74,7 @@ public class MutationCreateRootObjectDataFetcher implements IDataFetcherWithFiel
 
         IPayload payload = new ErrorPayload(this.messageService.unauthorized());
 
-        boolean canEdit = this.dataFetchingEnvironmentService.canEdit(environment, input.getProjectId());
+        boolean canEdit = this.dataFetchingEnvironmentService.canEditProject(environment, input.getProjectId());
         if (canEdit) {
             // @formatter:off
             payload = this.editingContextEventProcessorRegistry.dispatchEvent(input.getProjectId(), input)

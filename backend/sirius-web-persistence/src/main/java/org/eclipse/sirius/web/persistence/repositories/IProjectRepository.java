@@ -52,6 +52,10 @@ public interface IProjectRepository extends PagingAndSortingRepository<ProjectEn
     Optional<ProjectEntity> findByIdIfVisibleBy(UUID projectId, String currentUsername);
 
     @Audited
+    @Query(name = "Project.findByCurrentEditingContextIdIfVisibleBy", nativeQuery = true)
+    Optional<ProjectEntity> findByCurrentEditingContextIfVisibleBy(UUID editingContextId, String currentUsername);
+
+    @Audited
     @Override
     Optional<ProjectEntity> findById(UUID id);
 

@@ -13,6 +13,8 @@
 package org.eclipse.sirius.web.graphql.datafetchers.mutation;
 
 import java.util.Objects;
+import java.util.Optional;
+import java.util.UUID;
 
 import org.eclipse.sirius.web.annotations.graphql.GraphQLMutationTypes;
 import org.eclipse.sirius.web.annotations.spring.graphql.MutationDataFetcher;
@@ -26,6 +28,8 @@ import org.eclipse.sirius.web.services.api.document.DeleteDocumentInput;
 import org.eclipse.sirius.web.services.api.document.DeleteDocumentSuccessPayload;
 import org.eclipse.sirius.web.services.api.document.Document;
 import org.eclipse.sirius.web.services.api.document.IDocumentService;
+import org.eclipse.sirius.web.services.api.projects.IProjectService;
+import org.eclipse.sirius.web.services.api.projects.Project;
 import org.eclipse.sirius.web.spring.graphql.api.IDataFetcherWithFieldCoordinates;
 
 import graphql.schema.DataFetchingEnvironment;
@@ -61,15 +65,18 @@ public class MutationDeleteDocumentDataFetcher implements IDataFetcherWithFieldC
 
     private final IDocumentService documentService;
 
+    private final IProjectService projectService;
+
     private final IEditingContextEventProcessorRegistry editingContextEventProcessorRegistry;
 
     private final IGraphQLMessageService messageService;
 
     public MutationDeleteDocumentDataFetcher(IDataFetchingEnvironmentService dataFetchingEnvironmentService, IEditingContextEventProcessorRegistry editingContextEventProcessorRegistry,
-            IDocumentService documentService, IGraphQLMessageService messageService) {
+            IDocumentService documentService, IProjectService projectService, IGraphQLMessageService messageService) {
         this.dataFetchingEnvironmentService = Objects.requireNonNull(dataFetchingEnvironmentService);
         this.editingContextEventProcessorRegistry = Objects.requireNonNull(editingContextEventProcessorRegistry);
         this.documentService = Objects.requireNonNull(documentService);
+        this.projectService = Objects.requireNonNull(projectService);
         this.messageService = Objects.requireNonNull(messageService);
     }
 
@@ -83,12 +90,19 @@ public class MutationDeleteDocumentDataFetcher implements IDataFetcherWithFieldC
         if (optionalDocument.isPresent()) {
             Document document = optionalDocument.get();
 
-            boolean canEdit = this.dataFetchingEnvironmentService.canEdit(environment, document.getProject().getId());
+            boolean canEdit = this.dataFetchingEnvironmentService.canEditEditingContext(environment, document.getEditingContext().getId());
             if (canEdit) {
-                // @formatter:off
-                payload = this.editingContextEventProcessorRegistry.dispatchEvent(document.getProject().getId(), input)
-                        .orElse(new ErrorPayload(this.messageService.unexpectedError()));
-                // @formatter:on
+                UUID editingContextId = document.getEditingContext().getId();
+                Optional<UUID> optionalProjectId = this.projectService.getProjectByCurrentEditingContextId(editingContextId).map(Project::getId);
+                if (optionalProjectId.isPresent()) {
+                    // @formatter:off
+                    payload = this.editingContextEventProcessorRegistry.dispatchEvent(optionalProjectId.get(), input)
+                            .orElse(new ErrorPayload(this.messageService.unexpectedError()));
+                    // @formatter:on
+                } else {
+                    payload = new ErrorPayload(this.messageService.unexpectedError());
+                }
+
             } else {
                 payload = new ErrorPayload(this.messageService.unauthorized());
             }

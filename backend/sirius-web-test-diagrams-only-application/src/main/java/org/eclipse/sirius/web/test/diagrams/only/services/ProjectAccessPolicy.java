@@ -31,14 +31,4 @@ public class ProjectAccessPolicy implements IProjectAccessPolicy {
         return AccessLevel.ADMIN;
     }
 
-    @Override
-    public boolean canEdit(String username, UUID projectId) {
-        return true;
-    }
-
-    @Override
-    public boolean canAdmin(String username, UUID projectId) {
-        return true;
-    }
-
 }

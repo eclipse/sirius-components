@@ -116,4 +116,9 @@ public class NoOpProjectRepository implements IProjectRepository {
     public AccessLevelEntity getUserAccessLevel(UUID projectId, String userName) {
         return AccessLevelEntity.READ;
     }
+
+    @Override
+    public Optional<ProjectEntity> findByCurrentEditingContextIfVisibleBy(UUID editingContextId, String currentUsername) {
+        return Optional.empty();
+    }
 }

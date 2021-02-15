@@ -10,23 +10,23 @@
  * Contributors:
  *     Obeo - initial API and implementation
  *******************************************************************************/
-package org.eclipse.sirius.web.services.api.projects;
+package org.eclipse.sirius.web.test.diagrams.only.services;
 
 import java.util.UUID;
 
+import org.eclipse.sirius.web.services.api.editingcontexts.IEditingContextAccessPolicy;
+import org.eclipse.sirius.web.services.api.projects.AccessLevel;
+import org.springframework.stereotype.Service;
+
 /**
- * Determines what kinds of operations a user can perform on a project and its content.
+ * The editing context access policy for Sirius Web.
  *
  * @author pcdavid
  */
-public interface IProjectAccessPolicy {
-    AccessLevel getAccessLevel(String username, UUID projectId);
-
-    default boolean canEdit(String username, UUID projectId) {
-        return this.getAccessLevel(username, projectId).compareTo(AccessLevel.EDIT) >= 0;
-    }
-
-    default boolean canAdmin(String username, UUID projectId) {
-        return this.getAccessLevel(username, projectId).compareTo(AccessLevel.ADMIN) >= 0;
+@Service
+public class EditingContextAccessPolicy implements IEditingContextAccessPolicy {
+    @Override
+    public AccessLevel getAccessLevel(String username, UUID editingContextId) {
+        return AccessLevel.ADMIN;
     }
 }

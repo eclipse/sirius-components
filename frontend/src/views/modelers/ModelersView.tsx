@@ -251,7 +251,7 @@ const ModelersTable = ({ projectId, modelers, onMore }) => {
             {modelers.map((modeler) => (
               <TableRow key={modeler.id}>
                 <TableCell>
-                  <Link component={RouterLink} to={`projects/${projectId}/edit`} color="inherit">
+                  <Link component={RouterLink} to={`/projects/${projectId}/edit`} color="inherit">
                     {modeler.name}
                   </Link>
                 </TableCell>

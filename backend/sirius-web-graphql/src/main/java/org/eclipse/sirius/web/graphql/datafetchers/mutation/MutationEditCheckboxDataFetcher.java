@@ -73,7 +73,7 @@ public class MutationEditCheckboxDataFetcher implements IDataFetcherWithFieldCoo
         var input = this.dataFetchingEnvironmentService.getInput(environment, EditCheckboxInput.class);
 
         IPayload payload = new EditCheckboxSuccessPayload(this.messageService.unauthorized());
-        boolean canEdit = this.dataFetchingEnvironmentService.canEdit(environment, input.getProjectId());
+        boolean canEdit = this.dataFetchingEnvironmentService.canEditProject(environment, input.getProjectId());
         if (canEdit) {
             // @formatter:off
             payload = this.editingContextEventProcessorRegistry.dispatchEvent(input.getProjectId(), input)

@@ -30,7 +30,12 @@ public interface IDataFetchingEnvironmentService {
 
     String getSubscriptionId(DataFetchingEnvironment environment);
 
-    boolean canEdit(DataFetchingEnvironment environment, UUID projectId);
+    boolean canEditProject(DataFetchingEnvironment environment, UUID projectId);
 
-    boolean canAdmin(DataFetchingEnvironment environment, UUID projectId);
+    boolean canAdminProject(DataFetchingEnvironment environment, UUID projectId);
+
+    boolean canEditEditingContext(DataFetchingEnvironment environment, UUID editingContextId);
+
+    boolean canAdminEditingContext(DataFetchingEnvironment environment, UUID editingContextId);
+
 }

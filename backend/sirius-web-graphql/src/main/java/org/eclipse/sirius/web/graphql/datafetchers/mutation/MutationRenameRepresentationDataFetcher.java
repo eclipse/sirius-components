@@ -83,7 +83,7 @@ public class MutationRenameRepresentationDataFetcher implements IDataFetcherWith
 
         UUID projectId = input.getProjectId();
         if (projectId != null) {
-            boolean canEditProject = this.dataFetchingEnvironmentService.canEdit(environment, projectId);
+            boolean canEditProject = this.dataFetchingEnvironmentService.canEditProject(environment, projectId);
             if (!canEditProject) {
                 payload = new ErrorPayload(this.messageService.unauthorized());
             } else {
@@ -91,7 +91,7 @@ public class MutationRenameRepresentationDataFetcher implements IDataFetcherWith
                 if (optionalRepresentationDescriptor.isPresent()) {
                     RepresentationDescriptor representationDescriptor = optionalRepresentationDescriptor.get();
 
-                    boolean canEdit = this.dataFetchingEnvironmentService.canEdit(environment, representationDescriptor.getProjectId());
+                    boolean canEdit = this.dataFetchingEnvironmentService.canEditProject(environment, representationDescriptor.getProjectId());
                     if (canEdit) {
                         // @formatter:off
                         payload = this.editingContextEventProcessorRegistry.dispatchEvent(representationDescriptor.getProjectId(), input)

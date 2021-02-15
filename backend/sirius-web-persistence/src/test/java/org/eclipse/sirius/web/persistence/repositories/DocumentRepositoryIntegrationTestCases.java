@@ -15,9 +15,11 @@ package org.eclipse.sirius.web.persistence.repositories;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.eclipse.sirius.web.persistence.entities.AccountEntity;
 import org.eclipse.sirius.web.persistence.entities.DocumentEntity;
+import org.eclipse.sirius.web.persistence.entities.EditingContextEntity;
 import org.eclipse.sirius.web.persistence.entities.ProjectEntity;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -65,6 +67,9 @@ public class DocumentRepositoryIntegrationTestCases {
     private IProjectRepository projectRepository;
 
     @Autowired
+    private IEditingContextRepository editingContextRepository;
+
+    @Autowired
     private IDocumentRepository documentRepository;
 
     @Test
@@ -74,7 +79,7 @@ public class DocumentRepositoryIntegrationTestCases {
 
         DocumentEntity document = new DocumentEntity();
         document.setName(FIRST_DOCUMENT_NAME);
-        document.setProject(project);
+        document.setEditingContext(project.getCurrentEditingContext());
         document.setContent(DOCUMENT_CONTENT);
 
         var savedDocument = this.documentRepository.save(document);
@@ -86,8 +91,7 @@ public class DocumentRepositoryIntegrationTestCases {
             assertThat(documentFound.getId()).isNotNull();
             assertThat(documentFound.getName()).isEqualTo(FIRST_DOCUMENT_NAME);
             assertThat(documentFound.getContent()).isEqualTo(DOCUMENT_CONTENT);
-            assertThat(documentFound.getProject().getId()).isEqualTo(project.getId());
-            assertThat(documentFound.getProject().getName()).isEqualTo(project.getName());
+            assertThat(documentFound.getEditingContext().getId()).isEqualTo(project.getCurrentEditingContext().getId());
         });
     }
 
@@ -98,21 +102,21 @@ public class DocumentRepositoryIntegrationTestCases {
 
         DocumentEntity firstDocument = new DocumentEntity();
         firstDocument.setName(FIRST_DOCUMENT_NAME);
-        firstDocument.setProject(project);
+        firstDocument.setEditingContext(project.getCurrentEditingContext());
         firstDocument.setContent(DOCUMENT_CONTENT);
 
         this.documentRepository.save(firstDocument);
 
         DocumentEntity secondDocument = new DocumentEntity();
         secondDocument.setName(SECOND_DOCUMENT_NAME);
-        secondDocument.setProject(project);
+        secondDocument.setEditingContext(project.getCurrentEditingContext());
         secondDocument.setContent(DOCUMENT_CONTENT);
 
         this.documentRepository.save(secondDocument);
 
         DocumentEntity thirdDocument = new DocumentEntity();
         thirdDocument.setName(THIRD_DOCUMENT_NAME);
-        thirdDocument.setProject(project);
+        thirdDocument.setEditingContext(project.getCurrentEditingContext());
         thirdDocument.setContent(DOCUMENT_CONTENT);
 
         this.documentRepository.save(thirdDocument);
@@ -129,7 +133,7 @@ public class DocumentRepositoryIntegrationTestCases {
 
         DocumentEntity firstDocument = new DocumentEntity();
         firstDocument.setName(FIRST_DOCUMENT_NAME);
-        firstDocument.setProject(project);
+        firstDocument.setEditingContext(project.getCurrentEditingContext());
         firstDocument.setContent(DOCUMENT_CONTENT);
         this.documentRepository.save(firstDocument);
 
@@ -147,13 +151,13 @@ public class DocumentRepositoryIntegrationTestCases {
 
         DocumentEntity firstDocument = new DocumentEntity();
         firstDocument.setName(FIRST_DOCUMENT_NAME);
-        firstDocument.setProject(project);
+        firstDocument.setEditingContext(project.getCurrentEditingContext());
         firstDocument.setContent(DOCUMENT_CONTENT);
         DocumentEntity firstSavedDocument = this.documentRepository.save(firstDocument);
 
         DocumentEntity secondDocument = new DocumentEntity();
         secondDocument.setName(FIRST_DOCUMENT_NAME);
-        secondDocument.setProject(project);
+        secondDocument.setEditingContext(project.getCurrentEditingContext());
         secondDocument.setContent(DOCUMENT_CONTENT);
         DocumentEntity secondSavedDocument = this.documentRepository.save(secondDocument);
 
@@ -168,7 +172,7 @@ public class DocumentRepositoryIntegrationTestCases {
 
         DocumentEntity firstDocument = new DocumentEntity();
         firstDocument.setName(FIRST_DOCUMENT_NAME);
-        firstDocument.setProject(projectEntity);
+        firstDocument.setEditingContext(projectEntity.getCurrentEditingContext());
         firstDocument.setContent(DOCUMENT_CONTENT);
         this.documentRepository.save(firstDocument);
 
@@ -184,9 +188,14 @@ public class DocumentRepositoryIntegrationTestCases {
         owner.setRole(ROLE_USER);
         AccountEntity savedOwner = this.accountRepository.save(owner);
 
+        EditingContextEntity editingContextEntity = new EditingContextEntity();
+        editingContextEntity.setId(UUID.randomUUID());
+        editingContextEntity = this.editingContextRepository.save(editingContextEntity);
+
         ProjectEntity project = new ProjectEntity();
         project.setName(PROJECT_NAME);
         project.setOwner(savedOwner);
+        project.setCurrentEditingContext(editingContextEntity);
         ProjectEntity savedProject = this.projectRepository.save(project);
         return savedProject;
     }

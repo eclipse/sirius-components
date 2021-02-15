@@ -28,6 +28,7 @@ import org.eclipse.sirius.web.core.api.IEditingContext;
 import org.eclipse.sirius.web.core.api.IEditingContextPersistenceService;
 import org.eclipse.sirius.web.persistence.entities.AccountEntity;
 import org.eclipse.sirius.web.persistence.entities.DocumentEntity;
+import org.eclipse.sirius.web.persistence.entities.EditingContextEntity;
 import org.eclipse.sirius.web.persistence.entities.ProjectEntity;
 import org.eclipse.sirius.web.persistence.repositories.IDocumentRepository;
 import org.junit.Test;
@@ -64,9 +65,13 @@ public class EditingContextPersistenceServiceTestCases {
         owner.setUsername("jdoe"); //$NON-NLS-1$
         projectEntity.setOwner(owner);
 
+        EditingContextEntity editingContextEntity = new EditingContextEntity();
+        editingContextEntity.setId(UUID.randomUUID());
+        projectEntity.setCurrentEditingContext(editingContextEntity);
+
         DocumentEntity existingEntity = new DocumentEntity();
         existingEntity.setId(id);
-        existingEntity.setProject(projectEntity);
+        existingEntity.setEditingContext(editingContextEntity);
         existingEntity.setName(name);
         existingEntity.setContent(""); //$NON-NLS-1$
 
@@ -94,6 +99,6 @@ public class EditingContextPersistenceServiceTestCases {
         DocumentEntity documentEntity = entities.get(0);
         assertThat(documentEntity.getId()).isEqualTo(id);
         assertThat(documentEntity.getName()).isEqualTo(name);
-        assertThat(documentEntity.getProject().getId()).isEqualTo(projectId);
+        assertThat(documentEntity.getEditingContext().getId()).isEqualTo(editingContextEntity.getId());
     }
 }

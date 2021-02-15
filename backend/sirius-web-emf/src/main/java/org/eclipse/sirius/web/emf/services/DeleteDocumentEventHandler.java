@@ -15,6 +15,7 @@ package org.eclipse.sirius.web.emf.services;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 import org.eclipse.emf.common.util.URI;
@@ -27,11 +28,14 @@ import org.eclipse.sirius.web.collaborative.api.services.Monitoring;
 import org.eclipse.sirius.web.core.api.ErrorPayload;
 import org.eclipse.sirius.web.core.api.IEditingContext;
 import org.eclipse.sirius.web.core.api.IInput;
+import org.eclipse.sirius.web.core.api.IPayload;
 import org.eclipse.sirius.web.emf.services.messages.IEMFMessageService;
 import org.eclipse.sirius.web.services.api.document.DeleteDocumentInput;
 import org.eclipse.sirius.web.services.api.document.DeleteDocumentSuccessPayload;
 import org.eclipse.sirius.web.services.api.document.Document;
 import org.eclipse.sirius.web.services.api.document.IDocumentService;
+import org.eclipse.sirius.web.services.api.projects.IProjectService;
+import org.eclipse.sirius.web.services.api.projects.Project;
 import org.springframework.stereotype.Service;
 
 import io.micrometer.core.instrument.Counter;
@@ -47,13 +51,16 @@ public class DeleteDocumentEventHandler implements IEditingContextEventHandler {
 
     private final IDocumentService documentService;
 
+    private final IProjectService projectService;
+
     private final IEMFMessageService messageService;
 
     private final Counter counter;
 
-    public DeleteDocumentEventHandler(IDocumentService documentService, IEMFMessageService messageService, MeterRegistry meterRegistry) {
+    public DeleteDocumentEventHandler(IDocumentService documentService, IProjectService projectService, IEMFMessageService messageService, MeterRegistry meterRegistry) {
         this.documentService = Objects.requireNonNull(documentService);
         this.messageService = Objects.requireNonNull(messageService);
+        this.projectService = Objects.requireNonNull(projectService);
 
         // @formatter:off
         this.counter = Counter.builder(Monitoring.EVENT_HANDLER)
@@ -98,7 +105,13 @@ public class DeleteDocumentEventHandler implements IEditingContextEventHandler {
 
                 this.documentService.delete(document.getId());
 
-                return new EventHandlerResponse(true, representation -> true, new DeleteDocumentSuccessPayload(document.getProject()));
+                UUID editingContextId = document.getEditingContext().getId();
+                Optional<Project> optionalProject = this.projectService.getProjectByCurrentEditingContextId(editingContextId);
+                // @formatter:off
+                IPayload result = optionalProject.map(project -> (IPayload) new DeleteDocumentSuccessPayload(project))
+                                                 .orElse(new ErrorPayload(this.messageService.unexpectedError()));
+                // @formatter:on
+                return new EventHandlerResponse(true, representation -> true, result);
             }
         }
 

@@ -17,11 +17,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 import java.util.Optional;
 import java.util.UUID;
 
-import org.eclipse.sirius.web.services.api.accounts.Profile;
 import org.eclipse.sirius.web.services.api.document.Document;
 import org.eclipse.sirius.web.services.api.document.IDocumentService;
-import org.eclipse.sirius.web.services.api.projects.Project;
-import org.eclipse.sirius.web.services.api.projects.Visibility;
 import org.junit.Test;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
@@ -54,7 +51,7 @@ public class DocumentControllerTestCases {
         IDocumentService documentService = new NoOpDocumentService() {
             @Override
             public Optional<Document> getDocument(UUID projectId, UUID documentId) {
-                return Optional.of(new Document(documentId, new Project(projectId, "", new Profile(UUID.randomUUID(), "username"), Visibility.PUBLIC), name, null)); //$NON-NLS-1$ //$NON-NLS-2$
+                return Optional.of(new Document(documentId, new org.eclipse.sirius.web.services.api.editingcontexts.EditingContext(UUID.randomUUID()), name, "content")); //$NON-NLS-1$
             }
 
             @Override

@@ -73,7 +73,7 @@ public class MutationEditTextfieldDataFetcher implements IDataFetcherWithFieldCo
         var input = this.dataFetchingEnvironmentService.getInput(environment, EditTextfieldInput.class);
 
         IPayload payload = new EditTextfieldSuccessPayload(this.messageService.unauthorized());
-        boolean canEdit = this.dataFetchingEnvironmentService.canEdit(environment, input.getProjectId());
+        boolean canEdit = this.dataFetchingEnvironmentService.canEditProject(environment, input.getProjectId());
         if (canEdit) {
             // @formatter:off
             payload = this.editingContextEventProcessorRegistry.dispatchEvent(input.getProjectId(), input)

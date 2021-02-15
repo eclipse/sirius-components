@@ -35,6 +35,11 @@ public class NoOpProjectService implements IProjectService {
     }
 
     @Override
+    public Optional<Project> getProjectByCurrentEditingContextId(UUID editingContextId) {
+        return Optional.empty();
+    }
+
+    @Override
     public List<Project> getProjects() {
         return new ArrayList<>();
     }

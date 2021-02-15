@@ -35,10 +35,11 @@ public interface IDocumentRepository extends PagingAndSortingRepository<Document
     Optional<DocumentEntity> findById(UUID id);
 
     @Audited
+    @Query("SELECT document FROM DocumentEntity document INNER JOIN ProjectEntity project ON project.currentEditingContext.id = document.editingContext.id WHERE project.id=?1")
     List<DocumentEntity> findAllByProjectId(UUID projectId);
 
     @Audited
-    @Query("SELECT document FROM DocumentEntity document WHERE document.project.id=?1 AND document.id=?2")
+    @Query("SELECT document FROM DocumentEntity document INNER JOIN ProjectEntity project ON project.currentEditingContext.id = document.editingContext.id WHERE project.id=?1 AND document.id=?2")
     Optional<DocumentEntity> findByProjectIdAndId(UUID projectId, UUID documentId);
 
     @Audited

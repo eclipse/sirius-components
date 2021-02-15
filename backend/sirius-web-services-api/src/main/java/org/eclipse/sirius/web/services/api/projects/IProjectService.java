@@ -27,6 +27,8 @@ public interface IProjectService {
 
     Optional<Project> getProject(UUID projectId);
 
+    Optional<Project> getProjectByCurrentEditingContextId(UUID editingContextId);
+
     List<Project> getProjects();
 
     IPayload createProject(CreateProjectInput input);

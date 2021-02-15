@@ -21,13 +21,10 @@ import org.assertj.core.api.Condition;
 import org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain;
 import org.eclipse.sirius.web.api.configuration.StereotypeDescription;
 import org.eclipse.sirius.web.emf.services.messages.IEMFMessageService;
-import org.eclipse.sirius.web.services.api.accounts.Profile;
 import org.eclipse.sirius.web.services.api.document.CreateDocumentInput;
 import org.eclipse.sirius.web.services.api.document.CreateDocumentSuccessPayload;
 import org.eclipse.sirius.web.services.api.document.Document;
 import org.eclipse.sirius.web.services.api.document.IDocumentService;
-import org.eclipse.sirius.web.services.api.projects.Project;
-import org.eclipse.sirius.web.services.api.projects.Visibility;
 import org.eclipse.sirius.web.services.api.stereotypes.IStereotypeDescriptionService;
 import org.junit.Test;
 
@@ -79,7 +76,7 @@ public class CreateDocumentEventHandlerTestCases {
         IDocumentService documentService = new NoOpDocumentService() {
             @Override
             public Optional<Document> createDocument(UUID projectId, String name, String content) {
-                return Optional.of(new Document(UUID.randomUUID(), new Project(projectId, "", new Profile(UUID.randomUUID(), "username"), Visibility.PUBLIC), name, content)); //$NON-NLS-1$ //$NON-NLS-2$
+                return Optional.of(new Document(UUID.randomUUID(), new org.eclipse.sirius.web.services.api.editingcontexts.EditingContext(UUID.randomUUID()), name, content));
             }
         };
         IStereotypeDescriptionService stereotypeDescriptionService = new NoOpStereotypeDescriptionService() {
@@ -111,7 +108,7 @@ public class CreateDocumentEventHandlerTestCases {
         IDocumentService documentService = new NoOpDocumentService() {
             @Override
             public Optional<Document> createDocument(UUID projectId, String name, String content) {
-                return Optional.of(new Document(UUID.randomUUID(), new Project(projectId, "", new Profile(UUID.randomUUID(), "username"), Visibility.PUBLIC), name, content)); //$NON-NLS-1$ //$NON-NLS-2$
+                return Optional.of(new Document(UUID.randomUUID(), new org.eclipse.sirius.web.services.api.editingcontexts.EditingContext(UUID.randomUUID()), name, content));
             }
         };
         IStereotypeDescriptionService stereotypeDescriptionService = new NoOpStereotypeDescriptionService() {

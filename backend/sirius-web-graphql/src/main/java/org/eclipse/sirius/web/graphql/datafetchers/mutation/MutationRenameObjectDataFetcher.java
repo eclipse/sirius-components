@@ -76,7 +76,7 @@ public class MutationRenameObjectDataFetcher implements IDataFetcherWithFieldCoo
         IPayload payload = new ErrorPayload(this.messageService.unauthorized());
 
         UUID projectId = input.getProjectId();
-        boolean canEdit = this.dataFetchingEnvironmentService.canEdit(environment, projectId);
+        boolean canEdit = this.dataFetchingEnvironmentService.canEditProject(environment, projectId);
         if (canEdit) {
             // @formatter:off
             payload = this.editingContextEventProcessorRegistry.dispatchEvent(projectId, input)

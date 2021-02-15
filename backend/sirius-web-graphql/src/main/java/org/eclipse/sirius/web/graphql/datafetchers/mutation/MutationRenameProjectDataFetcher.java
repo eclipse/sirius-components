@@ -73,7 +73,7 @@ public class MutationRenameProjectDataFetcher implements IDataFetcherWithFieldCo
         var input = this.dataFetchingEnvironmentService.getInput(environment, RenameProjectInput.class);
 
         IPayload payload = new ErrorPayload(this.messageService.unexpectedError());
-        boolean canAdmin = this.dataFetchingEnvironmentService.canAdmin(environment, input.getProjectId());
+        boolean canAdmin = this.dataFetchingEnvironmentService.canAdminProject(environment, input.getProjectId());
         if (canAdmin) {
          // @formatter:off
             payload = this.editingContextEventProcessorRegistry.dispatchEvent(input.getProjectId(), input)
