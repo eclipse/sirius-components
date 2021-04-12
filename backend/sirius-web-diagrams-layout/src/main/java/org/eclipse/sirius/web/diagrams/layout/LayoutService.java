@@ -25,6 +25,7 @@ import org.eclipse.elk.core.util.BasicProgressMonitor;
 import org.eclipse.elk.core.util.ElkUtil;
 import org.eclipse.elk.graph.ElkGraphElement;
 import org.eclipse.elk.graph.ElkNode;
+import org.eclipse.sirius.web.core.api.IRepresentationDescriptionSearchService;
 import org.eclipse.sirius.web.diagrams.Diagram;
 import org.eclipse.sirius.web.diagrams.MoveEvent;
 import org.eclipse.sirius.web.diagrams.Position;
@@ -36,7 +37,6 @@ import org.eclipse.sirius.web.diagrams.layout.incremental.IncrementalLayoutEngin
 import org.eclipse.sirius.web.diagrams.layout.incremental.IncrementalLayoutedDiagramProvider;
 import org.eclipse.sirius.web.diagrams.layout.incremental.data.DiagramLayoutData;
 import org.eclipse.sirius.web.diagrams.layout.incremental.data.ILayoutData;
-import org.eclipse.sirius.web.services.api.representations.IRepresentationDescriptionService;
 import org.springframework.stereotype.Service;
 
 /**
@@ -55,19 +55,19 @@ public class LayoutService implements ILayoutService {
 
     private final IncrementalLayoutedDiagramProvider incrementalLayoutedDiagramProvider;
 
-    private final IRepresentationDescriptionService representationDescriptionService;
+    private final IRepresentationDescriptionSearchService representationDescriptionSearchService;
 
     private final IncrementalLayoutDiagramConverter incrementalLayoutDiagramConverter;
 
     public LayoutService(ELKDiagramConverter elkDiagramConverter, IncrementalLayoutDiagramConverter incrementalLayoutDiagramConverter, LayoutConfiguratorRegistry layoutConfiguratorRegistry,
             ELKLayoutedDiagramProvider layoutedDiagramProvider, IncrementalLayoutedDiagramProvider incrementalLayoutedDiagramProvider,
-            IRepresentationDescriptionService representationDescriptionService) {
+            IRepresentationDescriptionSearchService representationDescriptionSearchService) {
         this.elkDiagramConverter = Objects.requireNonNull(elkDiagramConverter);
         this.incrementalLayoutDiagramConverter = Objects.requireNonNull(incrementalLayoutDiagramConverter);
         this.layoutConfiguratorRegistry = Objects.requireNonNull(layoutConfiguratorRegistry);
         this.elkLayoutedDiagramProvider = Objects.requireNonNull(layoutedDiagramProvider);
         this.incrementalLayoutedDiagramProvider = Objects.requireNonNull(incrementalLayoutedDiagramProvider);
-        this.representationDescriptionService = Objects.requireNonNull(representationDescriptionService);
+        this.representationDescriptionSearchService = Objects.requireNonNull(representationDescriptionSearchService);
     }
 
     @Override
@@ -75,7 +75,7 @@ public class LayoutService implements ILayoutService {
         ELKConvertedDiagram convertedDiagram = this.elkDiagramConverter.convert(diagram);
 
         ElkNode elkDiagram = convertedDiagram.getElkDiagram();
-        var representationDescription = this.representationDescriptionService.findRepresentationDescriptionById(diagram.getDescriptionId());
+        var representationDescription = this.representationDescriptionSearchService.findRepresentationDescriptionById(diagram.getDescriptionId());
         LayoutConfigurator layoutConfigurator;
         if (representationDescription.isPresent() && representationDescription.get() instanceof DiagramDescription) {
             layoutConfigurator = this.layoutConfiguratorRegistry.getLayoutConfigurator(diagram, (DiagramDescription) representationDescription.get());

@@ -16,15 +16,15 @@ import java.util.Objects;
 
 import org.eclipse.sirius.web.annotations.graphql.GraphQLMutationTypes;
 import org.eclipse.sirius.web.annotations.spring.graphql.MutationDataFetcher;
+import org.eclipse.sirius.web.collaborative.api.dto.DeleteDocumentInput;
+import org.eclipse.sirius.web.collaborative.api.dto.DeleteDocumentSuccessPayload;
+import org.eclipse.sirius.web.collaborative.api.dto.Document;
 import org.eclipse.sirius.web.collaborative.api.services.IEditingContextEventProcessorRegistry;
 import org.eclipse.sirius.web.core.api.ErrorPayload;
 import org.eclipse.sirius.web.core.api.IPayload;
 import org.eclipse.sirius.web.graphql.datafetchers.IDataFetchingEnvironmentService;
 import org.eclipse.sirius.web.graphql.messages.IGraphQLMessageService;
 import org.eclipse.sirius.web.graphql.schema.MutationTypeProvider;
-import org.eclipse.sirius.web.services.api.document.DeleteDocumentInput;
-import org.eclipse.sirius.web.services.api.document.DeleteDocumentSuccessPayload;
-import org.eclipse.sirius.web.services.api.document.Document;
 import org.eclipse.sirius.web.services.api.document.IDocumentService;
 import org.eclipse.sirius.web.spring.graphql.api.IDataFetcherWithFieldCoordinates;
 

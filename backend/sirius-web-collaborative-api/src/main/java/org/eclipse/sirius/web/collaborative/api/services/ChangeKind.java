@@ -27,8 +27,6 @@ public final class ChangeKind {
 
     public static final String REPRESENTATION_RENAMING = "REPRESENTATION_RENAMING"; //$NON-NLS-1$
 
-    public static final String PROJECT_RENAMING = "PROJECT_RENAMING"; //$NON-NLS-1$
-
     public static final String SEMANTIC_CHANGE = "SEMANTIC_CHANGE"; //$NON-NLS-1$
 
     public static final String FOCUS_CHANGE = "FOCUS_CHANGE"; //$NON-NLS-1$

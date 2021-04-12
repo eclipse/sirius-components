@@ -18,12 +18,15 @@ import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
+import org.eclipse.sirius.web.collaborative.api.dto.RepresentationDescriptor;
+import org.eclipse.sirius.web.collaborative.api.services.IRepresentationPersistenceService;
 import org.eclipse.sirius.web.collaborative.api.services.Monitoring;
 import org.eclipse.sirius.web.collaborative.diagrams.api.IDiagramContext;
 import org.eclipse.sirius.web.collaborative.diagrams.api.IDiagramCreationService;
 import org.eclipse.sirius.web.components.Element;
 import org.eclipse.sirius.web.core.api.IEditingContext;
 import org.eclipse.sirius.web.core.api.IObjectService;
+import org.eclipse.sirius.web.core.api.IRepresentationDescriptionSearchService;
 import org.eclipse.sirius.web.diagrams.Diagram;
 import org.eclipse.sirius.web.diagrams.MoveEvent;
 import org.eclipse.sirius.web.diagrams.Position;
@@ -35,9 +38,6 @@ import org.eclipse.sirius.web.diagrams.description.DiagramDescription;
 import org.eclipse.sirius.web.diagrams.layout.api.ILayoutService;
 import org.eclipse.sirius.web.diagrams.renderer.DiagramRenderer;
 import org.eclipse.sirius.web.representations.VariableManager;
-import org.eclipse.sirius.web.services.api.representations.IRepresentationDescriptionService;
-import org.eclipse.sirius.web.services.api.representations.IRepresentationService;
-import org.eclipse.sirius.web.services.api.representations.RepresentationDescriptor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -54,9 +54,9 @@ import io.micrometer.core.instrument.Timer;
 @Service
 public class DiagramCreationService implements IDiagramCreationService {
 
-    private final IRepresentationDescriptionService representationDescriptionService;
+    private final IRepresentationDescriptionSearchService representationDescriptionSearchService;
 
-    private final IRepresentationService representationService;
+    private final IRepresentationPersistenceService representationPersistenceService;
 
     private final IObjectService objectService;
 
@@ -68,10 +68,10 @@ public class DiagramCreationService implements IDiagramCreationService {
 
     private final Logger logger = LoggerFactory.getLogger(DiagramCreationService.class);
 
-    public DiagramCreationService(IRepresentationDescriptionService representationDescriptionService, IRepresentationService representationService, IObjectService objectService,
-            ILayoutService layoutService, @Value("${sirius.web.diagrams.autolayout.activate:false}") boolean activateAutoLayout, MeterRegistry meterRegistry) {
-        this.representationDescriptionService = Objects.requireNonNull(representationDescriptionService);
-        this.representationService = Objects.requireNonNull(representationService);
+    public DiagramCreationService(IRepresentationDescriptionSearchService representationDescriptionSearchService, IRepresentationPersistenceService representationPersistenceService,
+            IObjectService objectService, ILayoutService layoutService, @Value("${sirius.web.diagrams.autolayout.activate:false}") boolean activateAutoLayout, MeterRegistry meterRegistry) {
+        this.representationDescriptionSearchService = Objects.requireNonNull(representationDescriptionSearchService);
+        this.representationPersistenceService = Objects.requireNonNull(representationPersistenceService);
         this.objectService = Objects.requireNonNull(objectService);
         this.layoutService = Objects.requireNonNull(layoutService);
         this.activateAutoLayout = activateAutoLayout;
@@ -93,7 +93,7 @@ public class DiagramCreationService implements IDiagramCreationService {
         Diagram previousDiagram = diagramContext.getDiagram();
         var optionalObject = this.objectService.getObject(editingContext, previousDiagram.getTargetObjectId());
         // @formatter:off
-        var optionalDiagramDescription = this.representationDescriptionService.findRepresentationDescriptionById(previousDiagram.getDescriptionId())
+        var optionalDiagramDescription = this.representationDescriptionSearchService.findRepresentationDescriptionById(previousDiagram.getDescriptionId())
                 .filter(DiagramDescription.class::isInstance)
                 .map(DiagramDescription.class::cast);
         // @formatter:on
@@ -138,7 +138,7 @@ public class DiagramCreationService implements IDiagramCreationService {
             newDiagram = this.layoutService.incrementalLayout(newDiagram, moveEvent, startingPosition);
         }
         RepresentationDescriptor representationDescriptor = this.getRepresentationDescriptor(editingContext.getId(), newDiagram);
-        this.representationService.save(representationDescriptor);
+        this.representationPersistenceService.persist(representationDescriptor);
         long end = System.currentTimeMillis();
         this.timer.record(end - start, TimeUnit.MILLISECONDS);
         return newDiagram;

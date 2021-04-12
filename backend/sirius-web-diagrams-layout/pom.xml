@@ -55,6 +55,11 @@
 		</dependency>
 		<dependency>
 			<groupId>org.eclipse.sirius.web</groupId>
+			<artifactId>sirius-web-core-api</artifactId>
+			<version>0.2.18</version>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.sirius.web</groupId>
 			<artifactId>sirius-web-diagrams-layout-api</artifactId>
 			<version>0.2.18</version>
 		</dependency>
@@ -72,11 +77,6 @@
 			<groupId>org.eclipse.elk</groupId>
 			<artifactId>org.eclipse.elk.alg.layered</artifactId>
 			<version>${elk.version}</version>
-		</dependency>
- 		<dependency>
-			<groupId>org.eclipse.sirius.web</groupId>
-			<artifactId>sirius-web-services-api</artifactId>
-			<version>0.2.18</version>
 		</dependency>
 		<dependency>
 			<groupId>org.eclipse.sirius.web</groupId>

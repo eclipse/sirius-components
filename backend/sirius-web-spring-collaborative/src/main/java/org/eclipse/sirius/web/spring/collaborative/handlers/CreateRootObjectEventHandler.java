@@ -15,17 +15,17 @@ package org.eclipse.sirius.web.spring.collaborative.handlers;
 import java.util.Objects;
 import java.util.UUID;
 
+import org.eclipse.sirius.web.collaborative.api.dto.CreateRootObjectInput;
+import org.eclipse.sirius.web.collaborative.api.dto.CreateRootObjectSuccessPayload;
 import org.eclipse.sirius.web.collaborative.api.services.ChangeDescription;
 import org.eclipse.sirius.web.collaborative.api.services.ChangeKind;
 import org.eclipse.sirius.web.collaborative.api.services.EventHandlerResponse;
 import org.eclipse.sirius.web.collaborative.api.services.IEditingContextEventHandler;
 import org.eclipse.sirius.web.collaborative.api.services.Monitoring;
 import org.eclipse.sirius.web.core.api.ErrorPayload;
+import org.eclipse.sirius.web.core.api.IEditService;
 import org.eclipse.sirius.web.core.api.IEditingContext;
 import org.eclipse.sirius.web.core.api.IInput;
-import org.eclipse.sirius.web.services.api.document.CreateRootObjectInput;
-import org.eclipse.sirius.web.services.api.document.CreateRootObjectSuccessPayload;
-import org.eclipse.sirius.web.services.api.objects.IEditService;
 import org.eclipse.sirius.web.spring.collaborative.messages.ICollaborativeMessageService;
 import org.springframework.stereotype.Service;
 

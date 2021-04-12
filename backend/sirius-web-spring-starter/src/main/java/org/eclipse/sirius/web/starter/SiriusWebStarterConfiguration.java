@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2019, 2020 Obeo.
+ * Copyright (c) 2019, 2021 Obeo.
  * This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v2.0
  * which accompanies this distribution, and is available at
@@ -33,15 +33,12 @@ import org.springframework.context.annotation.Configuration;
 // @formatter:off
 @ComponentScan(basePackages = {
         "org.eclipse.sirius.web.diagrams.layout",
-        "org.eclipse.sirius.web.graphql",
-        "org.eclipse.sirius.web.graphql.schema",
         "org.eclipse.sirius.web.spring.graphql",
         "org.eclipse.sirius.web.spring.collaborative",
         "org.eclipse.sirius.web.spring.collaborative.diagrams",
         "org.eclipse.sirius.web.spring.collaborative.forms",
         "org.eclipse.sirius.web.spring.collaborative.trees",
         "org.eclipse.sirius.web.spring",
-        "org.eclipse.sirius.web.services",
         "org.eclipse.sirius.web.diagrams.services",
     }
 )

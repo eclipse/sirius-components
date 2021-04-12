@@ -17,21 +17,21 @@ import java.util.Optional;
 
 import org.eclipse.sirius.web.collaborative.api.dto.CreateRepresentationInput;
 import org.eclipse.sirius.web.collaborative.api.dto.CreateRepresentationSuccessPayload;
+import org.eclipse.sirius.web.collaborative.api.dto.RepresentationDescriptor;
 import org.eclipse.sirius.web.collaborative.api.services.ChangeDescription;
 import org.eclipse.sirius.web.collaborative.api.services.ChangeKind;
 import org.eclipse.sirius.web.collaborative.api.services.EventHandlerResponse;
 import org.eclipse.sirius.web.collaborative.api.services.IEditingContextEventHandler;
+import org.eclipse.sirius.web.collaborative.api.services.IRepresentationPersistenceService;
 import org.eclipse.sirius.web.collaborative.api.services.Monitoring;
 import org.eclipse.sirius.web.collaborative.diagrams.api.IDiagramCreationService;
 import org.eclipse.sirius.web.core.api.ErrorPayload;
 import org.eclipse.sirius.web.core.api.IEditingContext;
 import org.eclipse.sirius.web.core.api.IInput;
 import org.eclipse.sirius.web.core.api.IObjectService;
+import org.eclipse.sirius.web.core.api.IRepresentationDescriptionSearchService;
 import org.eclipse.sirius.web.diagrams.Diagram;
 import org.eclipse.sirius.web.diagrams.description.DiagramDescription;
-import org.eclipse.sirius.web.services.api.representations.IRepresentationDescriptionService;
-import org.eclipse.sirius.web.services.api.representations.IRepresentationService;
-import org.eclipse.sirius.web.services.api.representations.RepresentationDescriptor;
 import org.eclipse.sirius.web.spring.collaborative.diagrams.messages.ICollaborativeDiagramMessageService;
 import org.springframework.stereotype.Service;
 
@@ -47,9 +47,9 @@ import io.micrometer.core.instrument.MeterRegistry;
 @Service
 public class CreateDiagramEventHandler implements IEditingContextEventHandler {
 
-    private final IRepresentationDescriptionService representationDescriptionService;
+    private final IRepresentationDescriptionSearchService representationDescriptionSearchService;
 
-    private final IRepresentationService representationService;
+    private final IRepresentationPersistenceService representationPersistenceService;
 
     private final IDiagramCreationService diagramCreationService;
 
@@ -59,10 +59,10 @@ public class CreateDiagramEventHandler implements IEditingContextEventHandler {
 
     private final Counter counter;
 
-    public CreateDiagramEventHandler(IRepresentationDescriptionService representationDescriptionService, IRepresentationService representationService, IDiagramCreationService diagramCreationService,
-            IObjectService objectService, ICollaborativeDiagramMessageService messageService, MeterRegistry meterRegistry) {
-        this.representationDescriptionService = Objects.requireNonNull(representationDescriptionService);
-        this.representationService = Objects.requireNonNull(representationService);
+    public CreateDiagramEventHandler(IRepresentationDescriptionSearchService representationDescriptionSearchService, IRepresentationPersistenceService representationPersistenceService,
+            IDiagramCreationService diagramCreationService, IObjectService objectService, ICollaborativeDiagramMessageService messageService, MeterRegistry meterRegistry) {
+        this.representationDescriptionSearchService = Objects.requireNonNull(representationDescriptionSearchService);
+        this.representationPersistenceService = Objects.requireNonNull(representationPersistenceService);
         this.diagramCreationService = Objects.requireNonNull(diagramCreationService);
         this.objectService = Objects.requireNonNull(objectService);
         this.messageService = Objects.requireNonNull(messageService);
@@ -79,7 +79,7 @@ public class CreateDiagramEventHandler implements IEditingContextEventHandler {
         if (input instanceof CreateRepresentationInput) {
             CreateRepresentationInput createRepresentationInput = (CreateRepresentationInput) input;
             // @formatter:off
-            return this.representationDescriptionService.findRepresentationDescriptionById(createRepresentationInput.getRepresentationDescriptionId())
+            return this.representationDescriptionSearchService.findRepresentationDescriptionById(createRepresentationInput.getRepresentationDescriptionId())
                     .filter(DiagramDescription.class::isInstance)
                     .isPresent();
             // @formatter:on
@@ -95,7 +95,7 @@ public class CreateDiagramEventHandler implements IEditingContextEventHandler {
             CreateRepresentationInput createRepresentationInput = (CreateRepresentationInput) input;
 
             // @formatter:off
-            Optional<DiagramDescription> optionalDiagramDescription = this.representationDescriptionService.findRepresentationDescriptionById(createRepresentationInput.getRepresentationDescriptionId())
+            Optional<DiagramDescription> optionalDiagramDescription = this.representationDescriptionSearchService.findRepresentationDescriptionById(createRepresentationInput.getRepresentationDescriptionId())
                     .filter(DiagramDescription.class::isInstance)
                     .map(DiagramDescription.class::cast);
             // @formatter:on
@@ -117,7 +117,7 @@ public class CreateDiagramEventHandler implements IEditingContextEventHandler {
                         .build();
                 // @formatter:on
 
-                this.representationService.save(representationDescriptor);
+                this.representationPersistenceService.persist(representationDescriptor);
 
                 return new EventHandlerResponse(new ChangeDescription(ChangeKind.REPRESENTATION_CREATION, editingContext.getId()), new CreateRepresentationSuccessPayload(input.getId(), diagram));
             }

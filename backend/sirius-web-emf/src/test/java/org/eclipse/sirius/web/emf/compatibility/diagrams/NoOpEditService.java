@@ -17,10 +17,10 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+import org.eclipse.sirius.web.core.api.ChildCreationDescription;
+import org.eclipse.sirius.web.core.api.IEditService;
 import org.eclipse.sirius.web.core.api.IEditingContext;
-import org.eclipse.sirius.web.services.api.objects.ChildCreationDescription;
-import org.eclipse.sirius.web.services.api.objects.IEditService;
-import org.eclipse.sirius.web.services.api.objects.Namespace;
+import org.eclipse.sirius.web.core.api.Namespace;
 
 /**
  * Implementation of the edit service which does nothing.

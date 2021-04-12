@@ -16,11 +16,11 @@ import java.util.Objects;
 import java.util.UUID;
 
 import org.eclipse.sirius.web.annotations.spring.graphql.QueryDataFetcher;
+import org.eclipse.sirius.web.collaborative.api.dto.RepresentationDescriptor;
 import org.eclipse.sirius.web.graphql.schema.ProjectTypeProvider;
 import org.eclipse.sirius.web.representations.IRepresentation;
 import org.eclipse.sirius.web.services.api.projects.Project;
 import org.eclipse.sirius.web.services.api.representations.IRepresentationService;
-import org.eclipse.sirius.web.services.api.representations.RepresentationDescriptor;
 import org.eclipse.sirius.web.spring.graphql.api.IDataFetcherWithFieldCoordinates;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -65,6 +65,11 @@
 		</dependency>
 		<dependency>
 			<groupId>org.eclipse.sirius.web</groupId>
+			<artifactId>sirius-web-diagrams</artifactId>
+			<version>0.2.18</version>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.sirius.web</groupId>
 			<artifactId>sirius-web-collaborative-trees-api</artifactId>
 			<version>0.2.18</version>
 		</dependency>

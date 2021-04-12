@@ -21,7 +21,7 @@ import org.eclipse.sirius.web.annotations.graphql.GraphQLInputObjectType;
 import org.eclipse.sirius.web.annotations.graphql.GraphQLNonNull;
 import org.eclipse.sirius.web.annotations.graphql.GraphQLUpload;
 import org.eclipse.sirius.web.core.api.IInput;
-import org.eclipse.sirius.web.spring.graphql.api.UploadFile;
+import org.eclipse.sirius.web.core.api.UploadFile;
 
 /**
  * The input object for the project upload mutation.

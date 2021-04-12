@@ -27,8 +27,8 @@ import java.util.concurrent.TimeUnit;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.eclipse.sirius.web.core.api.UploadFile;
 import org.eclipse.sirius.web.spring.graphql.api.GraphQLConstants;
-import org.eclipse.sirius.web.spring.graphql.api.UploadFile;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;

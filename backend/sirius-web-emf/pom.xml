@@ -94,16 +94,6 @@
 		</dependency>
 		<dependency>
 			<groupId>org.eclipse.sirius.web</groupId>
-			<artifactId>sirius-web-services-api</artifactId>
-			<version>0.2.18</version>
-		</dependency>
-		<dependency>
-			<groupId>org.eclipse.sirius.web</groupId>
-			<artifactId>sirius-web-persistence</artifactId>
-			<version>0.2.18</version>
-		</dependency>
-		<dependency>
-			<groupId>org.eclipse.sirius.web</groupId>
 			<artifactId>sirius-web-interpreter</artifactId>
 			<version>0.2.18</version>
 		</dependency>

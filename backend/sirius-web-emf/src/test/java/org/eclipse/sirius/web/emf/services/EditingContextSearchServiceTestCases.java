@@ -30,6 +30,7 @@ import org.eclipse.sirius.web.persistence.entities.DocumentEntity;
 import org.eclipse.sirius.web.persistence.entities.ProjectEntity;
 import org.eclipse.sirius.web.persistence.repositories.IDocumentRepository;
 import org.eclipse.sirius.web.persistence.repositories.IProjectRepository;
+import org.eclipse.sirius.web.services.editingcontext.EditingContextSearchService;
 import org.junit.Test;
 
 import io.micrometer.core.instrument.simple.SimpleMeterRegistry;

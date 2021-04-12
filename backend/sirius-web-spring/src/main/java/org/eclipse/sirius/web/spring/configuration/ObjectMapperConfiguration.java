@@ -21,7 +21,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import org.eclipse.sirius.web.services.api.mapper.IStdDeserializerProvider;
+import org.eclipse.sirius.web.collaborative.api.services.IStdDeserializerProvider;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

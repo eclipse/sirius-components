@@ -17,7 +17,7 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
 
-import org.eclipse.sirius.web.services.api.document.Document;
+import org.eclipse.sirius.web.collaborative.api.dto.Document;
 import org.eclipse.sirius.web.services.api.document.IDocumentService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -17,9 +17,9 @@ import java.util.Objects;
 import java.util.UUID;
 
 import org.eclipse.sirius.web.annotations.spring.graphql.QueryDataFetcher;
+import org.eclipse.sirius.web.core.api.ChildCreationDescription;
+import org.eclipse.sirius.web.core.api.IEditService;
 import org.eclipse.sirius.web.graphql.schema.EditingContextTypeProvider;
-import org.eclipse.sirius.web.services.api.objects.ChildCreationDescription;
-import org.eclipse.sirius.web.services.api.objects.IEditService;
 import org.eclipse.sirius.web.spring.graphql.api.IDataFetcherWithFieldCoordinates;
 
 import graphql.schema.DataFetchingEnvironment;

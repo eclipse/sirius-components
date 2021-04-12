@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
-import org.eclipse.sirius.web.services.api.document.Document;
+import org.eclipse.sirius.web.collaborative.api.dto.Document;
 
 /**
  * An internal event indicating that a new version of a set of documents has been persisted.

@@ -16,6 +16,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+import org.eclipse.sirius.web.collaborative.api.dto.Document;
+
 /**
  * Interface of the service interacting with documents.
  *

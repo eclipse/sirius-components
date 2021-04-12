@@ -27,9 +27,9 @@ import org.eclipse.sirius.web.collaborative.forms.api.IFormService;
 import org.eclipse.sirius.web.collaborative.forms.api.IWidgetSubscriptionManagerFactory;
 import org.eclipse.sirius.web.core.api.IEditingContext;
 import org.eclipse.sirius.web.core.api.IObjectService;
+import org.eclipse.sirius.web.core.api.IRepresentationDescriptionSearchService;
 import org.eclipse.sirius.web.forms.Form;
 import org.eclipse.sirius.web.forms.description.FormDescription;
-import org.eclipse.sirius.web.services.api.representations.IRepresentationDescriptionService;
 import org.springframework.stereotype.Service;
 
 /**
@@ -41,7 +41,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class FormEventProcessorFactory implements IRepresentationEventProcessorFactory {
 
-    private final IRepresentationDescriptionService representationDescriptionService;
+    private final IRepresentationDescriptionSearchService representationDescriptionSearchService;
 
     private final IObjectService objectService;
 
@@ -53,9 +53,9 @@ public class FormEventProcessorFactory implements IRepresentationEventProcessorF
 
     private final IWidgetSubscriptionManagerFactory widgetSubscriptionManagerFactory;
 
-    public FormEventProcessorFactory(IRepresentationDescriptionService representationDescriptionService, IObjectService objectService, IFormService formService,
+    public FormEventProcessorFactory(IRepresentationDescriptionSearchService representationDescriptionSearchService, IObjectService objectService, IFormService formService,
             List<IFormEventHandler> formEventHandlers, ISubscriptionManagerFactory subscriptionManagerFactory, IWidgetSubscriptionManagerFactory widgetSubscriptionManagerFactory) {
-        this.representationDescriptionService = Objects.requireNonNull(representationDescriptionService);
+        this.representationDescriptionSearchService = Objects.requireNonNull(representationDescriptionSearchService);
         this.objectService = Objects.requireNonNull(objectService);
         this.formService = Objects.requireNonNull(formService);
         this.formEventHandlers = Objects.requireNonNull(formEventHandlers);
@@ -78,7 +78,7 @@ public class FormEventProcessorFactory implements IRepresentationEventProcessorF
             if (optionalForm.isPresent()) {
                 Form form = optionalForm.get();
                 // @formatter:off
-                Optional<FormDescription> optionalFormDescription = this.representationDescriptionService.findRepresentationDescriptionById(form.getDescriptionId())
+                Optional<FormDescription> optionalFormDescription = this.representationDescriptionSearchService.findRepresentationDescriptionById(form.getDescriptionId())
                         .filter(FormDescription.class::isInstance)
                         .map(FormDescription.class::cast);
                 // @formatter:on

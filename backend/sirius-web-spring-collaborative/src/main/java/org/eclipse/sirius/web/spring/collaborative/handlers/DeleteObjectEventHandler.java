@@ -15,18 +15,18 @@ package org.eclipse.sirius.web.spring.collaborative.handlers;
 import java.util.Objects;
 import java.util.Optional;
 
+import org.eclipse.sirius.web.collaborative.api.dto.DeleteObjectInput;
+import org.eclipse.sirius.web.collaborative.api.dto.DeleteObjectSuccessPayload;
 import org.eclipse.sirius.web.collaborative.api.services.ChangeDescription;
 import org.eclipse.sirius.web.collaborative.api.services.ChangeKind;
 import org.eclipse.sirius.web.collaborative.api.services.EventHandlerResponse;
 import org.eclipse.sirius.web.collaborative.api.services.IEditingContextEventHandler;
 import org.eclipse.sirius.web.collaborative.api.services.Monitoring;
 import org.eclipse.sirius.web.core.api.ErrorPayload;
+import org.eclipse.sirius.web.core.api.IEditService;
 import org.eclipse.sirius.web.core.api.IEditingContext;
 import org.eclipse.sirius.web.core.api.IInput;
 import org.eclipse.sirius.web.core.api.IObjectService;
-import org.eclipse.sirius.web.services.api.objects.DeleteObjectInput;
-import org.eclipse.sirius.web.services.api.objects.DeleteObjectSuccessPayload;
-import org.eclipse.sirius.web.services.api.objects.IEditService;
 import org.eclipse.sirius.web.spring.collaborative.messages.ICollaborativeMessageService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -82,8 +82,7 @@ public class DeleteObjectEventHandler implements IEditingContextEventHandler {
                 Object object = optionalObject.get();
                 this.editService.delete(object);
 
-                // FIXME Find the document in which the object is located
-                return new EventHandlerResponse(new ChangeDescription(ChangeKind.SEMANTIC_CHANGE, editingContext.getId()), new DeleteObjectSuccessPayload(input.getId(), null));
+                return new EventHandlerResponse(new ChangeDescription(ChangeKind.SEMANTIC_CHANGE, editingContext.getId()), new DeleteObjectSuccessPayload(input.getId()));
             } else {
                 this.logger.warn("The object with the id {} does not exist", deleteObjectInput.getObjectId()); //$NON-NLS-1$
             }

@@ -15,7 +15,7 @@ package org.eclipse.sirius.web.services.api.projects;
 import java.util.UUID;
 
 import org.eclipse.sirius.web.core.api.IPayload;
-import org.eclipse.sirius.web.spring.graphql.api.UploadFile;
+import org.eclipse.sirius.web.core.api.UploadFile;
 
 /**
  * Service used to import a project.

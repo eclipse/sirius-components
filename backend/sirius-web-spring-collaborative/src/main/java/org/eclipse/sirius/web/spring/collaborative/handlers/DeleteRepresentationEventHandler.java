@@ -20,12 +20,11 @@ import org.eclipse.sirius.web.collaborative.api.services.ChangeDescription;
 import org.eclipse.sirius.web.collaborative.api.services.ChangeKind;
 import org.eclipse.sirius.web.collaborative.api.services.EventHandlerResponse;
 import org.eclipse.sirius.web.collaborative.api.services.IEditingContextEventHandler;
+import org.eclipse.sirius.web.collaborative.api.services.IRepresentationDeletionService;
 import org.eclipse.sirius.web.collaborative.api.services.Monitoring;
 import org.eclipse.sirius.web.core.api.ErrorPayload;
 import org.eclipse.sirius.web.core.api.IEditingContext;
 import org.eclipse.sirius.web.core.api.IInput;
-import org.eclipse.sirius.web.services.api.representations.IRepresentationService;
-import org.eclipse.sirius.web.services.api.representations.RepresentationDescriptor;
 import org.eclipse.sirius.web.spring.collaborative.messages.ICollaborativeMessageService;
 import org.springframework.stereotype.Service;
 
@@ -40,14 +39,14 @@ import io.micrometer.core.instrument.MeterRegistry;
 @Service
 public class DeleteRepresentationEventHandler implements IEditingContextEventHandler {
 
-    private final IRepresentationService representationService;
+    private final IRepresentationDeletionService representationDeletionService;
 
     private final ICollaborativeMessageService messageService;
 
     private final Counter counter;
 
-    public DeleteRepresentationEventHandler(IRepresentationService representationService, ICollaborativeMessageService messageService, MeterRegistry meterRegistry) {
-        this.representationService = Objects.requireNonNull(representationService);
+    public DeleteRepresentationEventHandler(IRepresentationDeletionService representationDeletionService, ICollaborativeMessageService messageService, MeterRegistry meterRegistry) {
+        this.representationDeletionService = Objects.requireNonNull(representationDeletionService);
         this.messageService = Objects.requireNonNull(messageService);
 
         // @formatter:off
@@ -70,14 +69,12 @@ public class DeleteRepresentationEventHandler implements IEditingContextEventHan
         EventHandlerResponse eventHandlerResponse = new EventHandlerResponse(new ChangeDescription(ChangeKind.NOTHING, editingContext.getId()), new ErrorPayload(input.getId(), message));
         if (input instanceof DeleteRepresentationInput) {
             DeleteRepresentationInput deleteRepresentationInput = (DeleteRepresentationInput) input;
-            var optionalRepresentation = this.representationService.getRepresentation(deleteRepresentationInput.getRepresentationId());
+            var payload = this.representationDeletionService.delete(deleteRepresentationInput);
 
-            if (optionalRepresentation.isPresent()) {
-                RepresentationDescriptor representationDescriptor = optionalRepresentation.get();
-                this.representationService.delete(representationDescriptor.getId());
-
-                eventHandlerResponse = new EventHandlerResponse(new ChangeDescription(ChangeKind.REPRESENTATION_DELETION, editingContext.getId()),
-                        new DeleteRepresentationSuccessPayload(input.getId(), representationDescriptor.getId()));
+            if (payload instanceof DeleteRepresentationSuccessPayload) {
+                eventHandlerResponse = new EventHandlerResponse(new ChangeDescription(ChangeKind.REPRESENTATION_DELETION, editingContext.getId()), payload);
+            } else if (payload instanceof ErrorPayload) {
+                eventHandlerResponse = new EventHandlerResponse(new ChangeDescription(ChangeKind.NOTHING, editingContext.getId()), payload);
             }
         }
 

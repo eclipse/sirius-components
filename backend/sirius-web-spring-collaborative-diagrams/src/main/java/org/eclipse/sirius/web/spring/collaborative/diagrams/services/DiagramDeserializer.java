@@ -19,9 +19,9 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import java.util.Optional;
 
+import org.eclipse.sirius.web.collaborative.api.services.IRepresentationDeserializer;
 import org.eclipse.sirius.web.diagrams.Diagram;
 import org.eclipse.sirius.web.representations.IRepresentation;
-import org.eclipse.sirius.web.services.api.mapper.IRepresentationDeserializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;

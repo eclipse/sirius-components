@@ -45,10 +45,10 @@ import org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain;
 import org.eclipse.emf.edit.provider.ComposedAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.sirius.emfjson.resource.JsonResourceImpl;
+import org.eclipse.sirius.web.core.api.ChildCreationDescription;
+import org.eclipse.sirius.web.core.api.IEditService;
 import org.eclipse.sirius.web.core.api.IEditingContext;
-import org.eclipse.sirius.web.services.api.objects.ChildCreationDescription;
-import org.eclipse.sirius.web.services.api.objects.IEditService;
-import org.eclipse.sirius.web.services.api.objects.Namespace;
+import org.eclipse.sirius.web.core.api.Namespace;
 import org.springframework.stereotype.Service;
 
 /**

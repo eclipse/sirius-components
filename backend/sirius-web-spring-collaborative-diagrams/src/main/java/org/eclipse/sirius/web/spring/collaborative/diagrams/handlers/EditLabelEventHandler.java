@@ -29,13 +29,13 @@ import org.eclipse.sirius.web.collaborative.diagrams.api.dto.EditLabelSuccessPay
 import org.eclipse.sirius.web.core.api.ErrorPayload;
 import org.eclipse.sirius.web.core.api.IEditingContext;
 import org.eclipse.sirius.web.core.api.IObjectService;
+import org.eclipse.sirius.web.core.api.IRepresentationDescriptionSearchService;
 import org.eclipse.sirius.web.diagrams.Diagram;
 import org.eclipse.sirius.web.diagrams.Node;
 import org.eclipse.sirius.web.diagrams.description.DiagramDescription;
 import org.eclipse.sirius.web.diagrams.description.NodeDescription;
 import org.eclipse.sirius.web.diagrams.services.api.IDiagramService;
 import org.eclipse.sirius.web.representations.VariableManager;
-import org.eclipse.sirius.web.services.api.representations.IRepresentationDescriptionService;
 import org.eclipse.sirius.web.spring.collaborative.diagrams.messages.ICollaborativeDiagramMessageService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -59,7 +59,7 @@ public class EditLabelEventHandler implements IDiagramEventHandler {
 
     private final IDiagramDescriptionService diagramDescriptionService;
 
-    private final IRepresentationDescriptionService representationDescriptionService;
+    private final IRepresentationDescriptionSearchService representationDescriptionSearchService;
 
     private final ICollaborativeDiagramMessageService messageService;
 
@@ -68,11 +68,11 @@ public class EditLabelEventHandler implements IDiagramEventHandler {
     private final Counter counter;
 
     public EditLabelEventHandler(IObjectService objectService, IDiagramService diagramService, IDiagramDescriptionService diagramDescriptionService,
-            IRepresentationDescriptionService representationDescriptionService, ICollaborativeDiagramMessageService messageService, MeterRegistry meterRegistry) {
+            IRepresentationDescriptionSearchService representationDescriptionSearchService, ICollaborativeDiagramMessageService messageService, MeterRegistry meterRegistry) {
         this.objectService = Objects.requireNonNull(objectService);
         this.diagramService = Objects.requireNonNull(diagramService);
         this.diagramDescriptionService = Objects.requireNonNull(diagramDescriptionService);
-        this.representationDescriptionService = Objects.requireNonNull(representationDescriptionService);
+        this.representationDescriptionSearchService = Objects.requireNonNull(representationDescriptionSearchService);
         this.messageService = Objects.requireNonNull(messageService);
 
         // @formatter:off
@@ -131,7 +131,7 @@ public class EditLabelEventHandler implements IDiagramEventHandler {
 
     private Optional<NodeDescription> findNodeDescription(Node node, Diagram diagram) {
         // @formatter:off
-        return this.representationDescriptionService
+        return this.representationDescriptionSearchService
                 .findRepresentationDescriptionById(diagram.getDescriptionId())
                 .filter(DiagramDescription.class::isInstance)
                 .map(DiagramDescription.class::cast)

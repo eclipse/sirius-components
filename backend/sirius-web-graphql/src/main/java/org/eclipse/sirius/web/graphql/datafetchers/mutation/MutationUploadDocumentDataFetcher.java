@@ -19,16 +19,16 @@ import java.util.UUID;
 
 import org.eclipse.sirius.web.annotations.graphql.GraphQLMutationTypes;
 import org.eclipse.sirius.web.annotations.spring.graphql.MutationDataFetcher;
+import org.eclipse.sirius.web.collaborative.api.dto.UploadDocumentInput;
+import org.eclipse.sirius.web.collaborative.api.dto.UploadDocumentSuccessPayload;
 import org.eclipse.sirius.web.collaborative.api.services.IEditingContextEventProcessorRegistry;
 import org.eclipse.sirius.web.core.api.ErrorPayload;
 import org.eclipse.sirius.web.core.api.IPayload;
+import org.eclipse.sirius.web.core.api.UploadFile;
 import org.eclipse.sirius.web.graphql.datafetchers.IDataFetchingEnvironmentService;
 import org.eclipse.sirius.web.graphql.messages.IGraphQLMessageService;
 import org.eclipse.sirius.web.graphql.schema.MutationTypeProvider;
-import org.eclipse.sirius.web.services.api.document.UploadDocumentInput;
-import org.eclipse.sirius.web.services.api.document.UploadDocumentSuccessPayload;
 import org.eclipse.sirius.web.spring.graphql.api.IDataFetcherWithFieldCoordinates;
-import org.eclipse.sirius.web.spring.graphql.api.UploadFile;
 
 import graphql.schema.DataFetchingEnvironment;
 

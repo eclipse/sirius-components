@@ -24,6 +24,7 @@ import org.eclipse.sirius.web.collaborative.api.services.IEditingContextEventPro
 import org.eclipse.sirius.web.collaborative.api.services.IEditingContextEventProcessorRegistry;
 import org.eclipse.sirius.web.core.api.ErrorPayload;
 import org.eclipse.sirius.web.core.api.IPayload;
+import org.eclipse.sirius.web.core.api.UploadFile;
 import org.eclipse.sirius.web.emf.services.messages.IEMFMessageService;
 import org.eclipse.sirius.web.persistence.repositories.IIdMappingRepository;
 import org.eclipse.sirius.web.services.api.projects.CreateProjectInput;
@@ -36,7 +37,6 @@ import org.eclipse.sirius.web.services.api.projects.UnzippedProject;
 import org.eclipse.sirius.web.services.api.projects.UploadProjectSuccessPayload;
 import org.eclipse.sirius.web.services.api.projects.Visibility;
 import org.eclipse.sirius.web.services.api.representations.RepresentationDescriptor;
-import org.eclipse.sirius.web.spring.graphql.api.UploadFile;
 import org.springframework.stereotype.Service;
 
 /**

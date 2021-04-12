@@ -14,8 +14,8 @@ package org.eclipse.sirius.web.spring.collaborative.diagrams;
 
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 
+import org.eclipse.sirius.web.collaborative.api.services.IStdDeserializerProvider;
 import org.eclipse.sirius.web.diagrams.INodeStyle;
-import org.eclipse.sirius.web.services.api.mapper.IStdDeserializerProvider;
 import org.springframework.stereotype.Service;
 
 /**

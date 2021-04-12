@@ -17,10 +17,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.util.Objects;
 
+import org.eclipse.sirius.web.collaborative.api.dto.RepresentationDescriptor;
 import org.eclipse.sirius.web.persistence.entities.ProjectEntity;
 import org.eclipse.sirius.web.persistence.entities.RepresentationEntity;
 import org.eclipse.sirius.web.representations.IRepresentation;
-import org.eclipse.sirius.web.services.api.representations.RepresentationDescriptor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
