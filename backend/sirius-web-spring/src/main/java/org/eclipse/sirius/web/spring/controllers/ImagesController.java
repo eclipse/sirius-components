@@ -16,6 +16,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
@@ -116,14 +117,16 @@ public class ImagesController {
                 if (resource.exists()) {
                     response = new ResponseEntity<>(resource, headers, HttpStatus.OK);
                 }
-            } else if (imagePath.startsWith(CUSTOM_IMAGE_PREFIX)) {
-                Optional<byte[]> contents = this.customImagesService.getImageContentsByFileName(imagePath.substring(CUSTOM_IMAGE_PREFIX.length()));
-                if (contents.isPresent()) {
-                    HttpHeaders headers = new HttpHeaders();
-                    headers.setContentType(mediatype);
-                    Resource resource = new ByteArrayResource(contents.get());
-                    response = new ResponseEntity<>(resource, headers, HttpStatus.OK);
-                }
+            }
+        } else if (imagePath.startsWith(CUSTOM_IMAGE_PREFIX)) {
+            UUID imageId = UUID.fromString(imagePath.substring(CUSTOM_IMAGE_PREFIX.length()));
+            Optional<byte[]> contents = this.customImagesService.getImageContentsById(imageId);
+            Optional<String> mediaType = this.customImagesService.getImageContentsTypeById(imageId);
+            if (contents.isPresent() && mediaType.isPresent()) {
+                HttpHeaders headers = new HttpHeaders();
+                headers.setContentType(MediaType.valueOf(mediaType.get()));
+                Resource resource = new ByteArrayResource(contents.get());
+                response = new ResponseEntity<>(resource, headers, HttpStatus.OK);
             }
         }
 

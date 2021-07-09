@@ -24,7 +24,38 @@ import java.util.UUID;
 public interface ICustomImagesService {
     Optional<CustomImage> findById(UUID id);
 
-    Optional<byte[]> getImageContentsByFileName(String fileName);
+    Optional<byte[]> getImageContentsById(UUID id);
+
+    Optional<String> getImageContentsTypeById(UUID id);
 
     List<CustomImage> getAvailableImages();
+
+    /**
+     * Implementation which does nothing, used for mocks in unit tests.
+     *
+     * @author pcdavid
+     */
+    class NoOp implements ICustomImagesService {
+
+        @Override
+        public Optional<CustomImage> findById(UUID id) {
+            return Optional.empty();
+        }
+
+        @Override
+        public Optional<byte[]> getImageContentsById(UUID id) {
+            return Optional.empty();
+        }
+
+        @Override
+        public Optional<String> getImageContentsTypeById(UUID id) {
+            return Optional.empty();
+        }
+
+        @Override
+        public List<CustomImage> getAvailableImages() {
+            return List.of();
+        }
+
+    }
 }

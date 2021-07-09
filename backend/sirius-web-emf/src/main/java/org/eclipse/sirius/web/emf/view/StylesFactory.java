@@ -13,7 +13,6 @@
 package org.eclipse.sirius.web.emf.view;
 
 import java.util.Optional;
-import java.util.UUID;
 
 import org.eclipse.sirius.web.diagrams.ArrowStyle;
 import org.eclipse.sirius.web.diagrams.EdgeStyle;
@@ -82,11 +81,10 @@ public final class StylesFactory {
         switch (this.getNodeType(nodeStyle)) {
         case NodeType.NODE_IMAGE:
             String shapeId = nodeStyle.getShape();
-            String shapeFileName = customImagesService.findById(UUID.fromString(shapeId)).map(CustomImage::getFileName).orElse(DEFAULT_SHAPE_FILE);
             // @formatter:off
             result = ImageNodeStyle.newImageNodeStyle()
                                    .scalingFactor(1)
-                                   .imageURL("/custom/" + shapeFileName) //$NON-NLS-1$
+                                   .imageURL("/custom/" + shapeId) //$NON-NLS-1$
                                    .build();
             // @formatter:on
             break;

@@ -38,8 +38,13 @@ public class CustomImagesService implements ICustomImagesService {
     }
 
     @Override
-    public Optional<byte[]> getImageContentsByFileName(String fileName) {
-        return this.customImageRepository.findByFileName(fileName).map(CustomImageEntity::getContent);
+    public Optional<byte[]> getImageContentsById(UUID id) {
+        return this.customImageRepository.findById(id).map(CustomImageEntity::getContent);
+    }
+
+    @Override
+    public Optional<String> getImageContentsTypeById(UUID id) {
+        return this.customImageRepository.findById(id).map(CustomImageEntity::getContentType);
     }
 
     @Override
@@ -53,6 +58,7 @@ public class CustomImagesService implements ICustomImagesService {
     }
 
     private CustomImage toDTO(CustomImageEntity customImageEntity) {
-        return new CustomImage(customImageEntity.getId(), customImageEntity.getLabel(), customImageEntity.getFileName());
+        return new CustomImage(customImageEntity.getId(), customImageEntity.getLabel(), customImageEntity.getContentType());
     }
+
 }
