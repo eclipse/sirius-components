@@ -56,9 +56,9 @@ public class ViewPropertiesConfigurer implements IPropertiesDescriptionRegistryC
 
     private final Function<VariableManager, List<Object>> semanticElementsProvider = variableManager -> variableManager.get(VariableManager.SELF, Object.class).stream().collect(Collectors.toList());
 
-    private final ICustomImagesService customImagesService;
+    private final ICustomImagesSearchService customImagesService;
 
-    public ViewPropertiesConfigurer(ICustomImagesService customImagesService) {
+    public ViewPropertiesConfigurer(ICustomImagesSearchService customImagesService) {
         this.customImagesService = Objects.requireNonNull(customImagesService);
     }
 

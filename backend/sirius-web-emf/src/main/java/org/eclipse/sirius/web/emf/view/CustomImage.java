@@ -12,6 +12,7 @@
  *******************************************************************************/
 package org.eclipse.sirius.web.emf.view;
 
+import java.text.MessageFormat;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -43,5 +44,11 @@ public class CustomImage {
 
     public String getContentType() {
         return this.contentType;
+    }
+
+    @Override
+    public String toString() {
+        String pattern = "{0} '{' id: {1}, label: {2}, contentType: {3} '}'"; //$NON-NLS-1$
+        return MessageFormat.format(pattern, this.getClass().getSimpleName(), this.id, this.label, this.contentType);
     }
 }

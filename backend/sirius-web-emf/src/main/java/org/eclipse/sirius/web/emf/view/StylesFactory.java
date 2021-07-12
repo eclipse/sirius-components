@@ -33,8 +33,6 @@ import org.eclipse.sirius.web.view.NodeStyle;
  */
 public final class StylesFactory {
 
-    private static final String DEFAULT_SHAPE_FILE = "shape_square.svg"; //$NON-NLS-1$
-
     private static final String DEFAULT_COLOR = "black"; //$NON-NLS-1$
 
     public LabelStyleDescription createLabelStyleDescription(NodeStyle nodeStyle) {
@@ -76,15 +74,14 @@ public final class StylesFactory {
         return type;
     }
 
-    public INodeStyle createNodeStyle(NodeStyle nodeStyle, ICustomImagesService customImagesService) {
+    public INodeStyle createNodeStyle(NodeStyle nodeStyle) {
         INodeStyle result = null;
         switch (this.getNodeType(nodeStyle)) {
         case NodeType.NODE_IMAGE:
-            String shapeId = nodeStyle.getShape();
             // @formatter:off
             result = ImageNodeStyle.newImageNodeStyle()
                                    .scalingFactor(1)
-                                   .imageURL("/custom/" + shapeId) //$NON-NLS-1$
+                                   .imageURL("/custom/" + nodeStyle.getShape()) //$NON-NLS-1$
                                    .build();
             // @formatter:on
             break;

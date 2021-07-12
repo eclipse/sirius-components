@@ -29,7 +29,6 @@ import org.eclipse.sirius.emfjson.resource.JsonResource;
 import org.eclipse.sirius.web.core.api.IEditService;
 import org.eclipse.sirius.web.core.api.IObjectService;
 import org.eclipse.sirius.web.emf.services.SiriusWebJSONResourceFactoryImpl;
-import org.eclipse.sirius.web.emf.view.ICustomImagesService;
 import org.eclipse.sirius.web.emf.view.IJavaServiceProvider;
 import org.eclipse.sirius.web.emf.view.ViewConverter;
 import org.eclipse.sirius.web.persistence.entities.DocumentEntity;
@@ -59,15 +58,13 @@ public class DynamicRepresentationDescriptionService implements IDynamicRepresen
     private final ViewConverter viewConverter;
 
     public DynamicRepresentationDescriptionService(IDocumentRepository documentRepository, EPackage.Registry ePackageRegistry, IObjectService objectService, IEditService editService,
-            ICustomImagesService customImagesService, List<IJavaServiceProvider> javaServiceProviders,
-            @Value("${org.eclipse.sirius.web.features.studioDefinition:false}") boolean isStudioDefinitionEnabled) {
+            List<IJavaServiceProvider> javaServiceProviders, @Value("${org.eclipse.sirius.web.features.studioDefinition:false}") boolean isStudioDefinitionEnabled) {
         this.documentRepository = Objects.requireNonNull(documentRepository);
         this.ePackageRegistry = Objects.requireNonNull(ePackageRegistry);
         // @formatter:off
         this.viewConverter = new ViewConverter(Objects.requireNonNull(javaServiceProviders),
                                                Objects.requireNonNull(objectService),
                                                Objects.requireNonNull(editService),
-                                               Objects.requireNonNull(customImagesService),
                                                isStudioDefinitionEnabled);
         // @formatter:on
     }

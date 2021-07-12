@@ -12,50 +12,37 @@
  *******************************************************************************/
 package org.eclipse.sirius.web.emf.view;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
 /**
- * Service layer for custom images.
+ * Service to retrieve the actual content of a custom image.
  *
  * @author pcdavid
  */
-public interface ICustomImagesService {
-    Optional<CustomImage> findById(UUID id);
+public interface ICustomImagesContentService {
 
-    Optional<byte[]> getImageContentsById(UUID id);
+    Optional<byte[]> getImageContentById(UUID id);
 
-    Optional<String> getImageContentsTypeById(UUID id);
-
-    List<CustomImage> getAvailableImages();
+    Optional<String> getImageContentTypeById(UUID id);
 
     /**
      * Implementation which does nothing, used for mocks in unit tests.
      *
      * @author pcdavid
      */
-    class NoOp implements ICustomImagesService {
+    class NoOp implements ICustomImagesContentService {
 
         @Override
-        public Optional<CustomImage> findById(UUID id) {
+        public Optional<byte[]> getImageContentById(UUID id) {
             return Optional.empty();
         }
 
         @Override
-        public Optional<byte[]> getImageContentsById(UUID id) {
+        public Optional<String> getImageContentTypeById(UUID id) {
             return Optional.empty();
-        }
-
-        @Override
-        public Optional<String> getImageContentsTypeById(UUID id) {
-            return Optional.empty();
-        }
-
-        @Override
-        public List<CustomImage> getAvailableImages() {
-            return List.of();
         }
 
     }
+
 }

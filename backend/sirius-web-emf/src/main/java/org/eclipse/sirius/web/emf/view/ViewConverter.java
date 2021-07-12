@@ -98,20 +98,16 @@ public class ViewConverter {
         return UUID.nameUUIDFromBytes(EcoreUtil.getURI(diagramElementDescription).toString().getBytes());
     };
 
-    private final ICustomImagesService customImagesService;
-
     private final boolean isStudioDefinitionEnabled;
 
     private Map<org.eclipse.sirius.web.view.NodeDescription, NodeDescription> convertedNodes;
 
     private Map<org.eclipse.sirius.web.view.EdgeDescription, EdgeDescription> convertedEdges;
 
-    public ViewConverter(List<IJavaServiceProvider> javaServiceProviders, IObjectService objectService, IEditService editService, ICustomImagesService customImagesService,
-            boolean isStudioDefinitionEnabled) {
+    public ViewConverter(List<IJavaServiceProvider> javaServiceProviders, IObjectService objectService, IEditService editService, boolean isStudioDefinitionEnabled) {
         this.javaServiceProviders = Objects.requireNonNull(javaServiceProviders);
         this.objectService = Objects.requireNonNull(objectService);
         this.editService = Objects.requireNonNull(editService);
-        this.customImagesService = Objects.requireNonNull(customImagesService);
         this.semanticTargetIdProvider = variableManager -> this.self(variableManager).map(this.objectService::getId).orElse(null);
         this.semanticTargetKindProvider = variableManager -> this.self(variableManager).map(this.objectService::getKind).orElse(null);
         this.semanticTargetLabelProvider = variableManager -> this.self(variableManager).map(this.objectService::getLabel).orElse(null);
@@ -210,9 +206,9 @@ public class ViewConverter {
                     .filter(style -> this.matches(interpreter, style.getCondition(), variableManager))
                     .map(NodeStyle.class::cast)
                     .findFirst()
-                    .orElseGet(() -> viewNodeDescription.getStyle());
+                    .orElseGet(viewNodeDescription::getStyle);
             // @formatter:on
-            return this.stylesFactory.createNodeStyle(effectiveStyle, this.customImagesService);
+            return this.stylesFactory.createNodeStyle(effectiveStyle);
         };
 
         // @formatter:off
@@ -323,7 +319,7 @@ public class ViewConverter {
                     .filter(style -> this.matches(interpreter, style.getCondition(), variableManager))
                     .map(NodeStyle.class::cast)
                     .findFirst()
-                    .orElseGet(() -> viewNodeDescription.getStyle());
+                    .orElseGet(viewNodeDescription::getStyle);
             // @formatter:on
 
             return this.stylesFactory.createLabelStyleDescription(effectiveStyle);
@@ -412,7 +408,7 @@ public class ViewConverter {
                     .filter(style -> this.matches(interpreter, style.getCondition(), variableManager))
                     .map(org.eclipse.sirius.web.view.EdgeStyle.class::cast)
                     .findFirst()
-                    .orElseGet(() -> viewEdgeDescription.getStyle());
+                    .orElseGet(viewEdgeDescription::getStyle);
             // @formatter:on
             return this.stylesFactory.createEdgeStyle(effectiveStyle);
         };

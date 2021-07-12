@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
 import javax.servlet.http.HttpServletRequest;
 
 import org.eclipse.sirius.web.api.services.IImagePathService;
-import org.eclipse.sirius.web.emf.view.ICustomImagesService;
+import org.eclipse.sirius.web.emf.view.ICustomImagesContentService;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
@@ -87,13 +87,13 @@ public class ImagesController {
 
     private final List<IImagePathService> pathResourcesServices;
 
-    private final ICustomImagesService customImagesService;
+    private final ICustomImagesContentService customImagesContentService;
 
     private final Timer timer;
 
-    public ImagesController(List<IImagePathService> pathResourcesServices, ICustomImagesService customImagesService, MeterRegistry meterRegistry) {
+    public ImagesController(List<IImagePathService> pathResourcesServices, ICustomImagesContentService customImagesService, MeterRegistry meterRegistry) {
         this.pathResourcesServices = Objects.requireNonNull(pathResourcesServices);
-        this.customImagesService = Objects.requireNonNull(customImagesService);
+        this.customImagesContentService = Objects.requireNonNull(customImagesService);
 
         this.timer = Timer.builder(TIMER).register(meterRegistry);
     }
@@ -120,9 +120,9 @@ public class ImagesController {
             }
         } else if (imagePath.startsWith(CUSTOM_IMAGE_PREFIX)) {
             UUID imageId = UUID.fromString(imagePath.substring(CUSTOM_IMAGE_PREFIX.length()));
-            Optional<byte[]> contents = this.customImagesService.getImageContentsById(imageId);
-            Optional<String> mediaType = this.customImagesService.getImageContentsTypeById(imageId);
-            if (contents.isPresent() && mediaType.isPresent()) {
+            Optional<String> mediaType = this.customImagesContentService.getImageContentTypeById(imageId);
+            Optional<byte[]> contents = this.customImagesContentService.getImageContentById(imageId);
+            if (mediaType.isPresent() && contents.isPresent()) {
                 HttpHeaders headers = new HttpHeaders();
                 headers.setContentType(MediaType.valueOf(mediaType.get()));
                 Resource resource = new ByteArrayResource(contents.get());
@@ -162,11 +162,6 @@ public class ImagesController {
                 .collect(Collectors.toList());
         // @formatter:on
 
-        // @formatter:off
-        return accessibleImagePaths.stream()
-                .filter(accessibleImagePath -> imagePath.startsWith(accessibleImagePath))
-                .findFirst()
-                .isPresent();
-        // @formatter:on
+        return accessibleImagePaths.stream().anyMatch(imagePath::startsWith);
     }
 }
