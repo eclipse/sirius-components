@@ -119,14 +119,18 @@ public class ImagesController {
                 }
             }
         } else if (imagePath.startsWith(CUSTOM_IMAGE_PREFIX)) {
-            UUID imageId = UUID.fromString(imagePath.substring(CUSTOM_IMAGE_PREFIX.length()));
-            Optional<String> mediaType = this.customImagesContentService.getImageContentTypeById(imageId);
-            Optional<byte[]> contents = this.customImagesContentService.getImageContentById(imageId);
-            if (mediaType.isPresent() && contents.isPresent()) {
-                HttpHeaders headers = new HttpHeaders();
-                headers.setContentType(MediaType.valueOf(mediaType.get()));
-                Resource resource = new ByteArrayResource(contents.get());
-                response = new ResponseEntity<>(resource, headers, HttpStatus.OK);
+            String[] imageDescriptor = imagePath.substring(CUSTOM_IMAGE_PREFIX.length()).split("/"); //$NON-NLS-1$
+            if (imageDescriptor.length == 2) {
+                UUID editingContextId = UUID.fromString(imageDescriptor[0]);
+                UUID imageId = UUID.fromString(imageDescriptor[1]);
+                Optional<String> mediaType = this.customImagesContentService.getImageContentTypeById(editingContextId, imageId);
+                Optional<byte[]> contents = this.customImagesContentService.getImageContentById(editingContextId, imageId);
+                if (mediaType.isPresent() && contents.isPresent()) {
+                    HttpHeaders headers = new HttpHeaders();
+                    headers.setContentType(MediaType.valueOf(mediaType.get()));
+                    Resource resource = new ByteArrayResource(contents.get());
+                    response = new ResponseEntity<>(resource, headers, HttpStatus.OK);
+                }
             }
         }
 

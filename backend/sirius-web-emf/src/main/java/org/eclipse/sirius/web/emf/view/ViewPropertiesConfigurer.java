@@ -26,6 +26,7 @@ import java.util.stream.Collectors;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.sirius.web.api.configuration.IPropertiesDescriptionRegistry;
 import org.eclipse.sirius.web.api.configuration.IPropertiesDescriptionRegistryConfigurer;
+import org.eclipse.sirius.web.core.api.IEditingContext;
 import org.eclipse.sirius.web.forms.components.SelectComponent;
 import org.eclipse.sirius.web.forms.description.AbstractControlDescription;
 import org.eclipse.sirius.web.forms.description.CheckboxDescription;
@@ -256,7 +257,14 @@ public class ViewPropertiesConfigurer implements IPropertiesDescriptionRegistryC
                                 .idProvider(variableManager -> "nodestyle.shapeSelector") //$NON-NLS-1$
                                 .labelProvider(variableManager -> "Shape") //$NON-NLS-1$
                                 .valueProvider(variableManager -> variableManager.get(VariableManager.SELF, NodeStyle.class).map(NodeStyle::getShape).orElse(EMPTY))
-                                .optionsProvider(variableManager -> this.customImagesService.getAvailableImages().stream().sorted(Comparator.comparing(CustomImage::getLabel)).collect(Collectors.toList()))
+                                .optionsProvider(variableManager -> {
+                                    Optional<IEditingContext> optionalEditingContext = variableManager.get(IEditingContext.EDITING_CONTEXT, IEditingContext.class);
+                                    if (optionalEditingContext.isPresent()) {
+                                        return this.customImagesService.getAvailableImages(optionalEditingContext.get().getId()).stream().sorted(Comparator.comparing(CustomImage::getLabel)).collect(Collectors.toList());
+                                    } else {
+                                        return List.of();
+                                    }
+                                })
                                 .optionIdProvider(variableManager -> variableManager.get(SelectComponent.CANDIDATE_VARIABLE, CustomImage.class).map(CustomImage::getId).map(UUID::toString).orElse(EMPTY))
                                 .optionLabelProvider(variableManager -> variableManager.get(SelectComponent.CANDIDATE_VARIABLE, CustomImage.class).map(CustomImage::getLabel).orElse(EMPTY))
                                 .newValueHandler(this.getNewShapeValueHandler())

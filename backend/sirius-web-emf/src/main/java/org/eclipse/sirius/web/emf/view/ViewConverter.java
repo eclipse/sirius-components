@@ -29,6 +29,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.sirius.web.components.Element;
 import org.eclipse.sirius.web.core.api.IEditService;
+import org.eclipse.sirius.web.core.api.IEditingContext;
 import org.eclipse.sirius.web.core.api.IObjectService;
 import org.eclipse.sirius.web.diagrams.EdgeStyle;
 import org.eclipse.sirius.web.diagrams.INodeStyle;
@@ -207,8 +208,10 @@ public class ViewConverter {
                     .map(NodeStyle.class::cast)
                     .findFirst()
                     .orElseGet(viewNodeDescription::getStyle);
+            Optional<UUID> optionalEditingContextId = variableManager.get(IEditingContext.EDITING_CONTEXT, IEditingContext.class)
+                                                                     .map(IEditingContext::getId);
             // @formatter:on
-            return this.stylesFactory.createNodeStyle(effectiveStyle);
+            return this.stylesFactory.createNodeStyle(effectiveStyle, optionalEditingContextId);
         };
 
         // @formatter:off

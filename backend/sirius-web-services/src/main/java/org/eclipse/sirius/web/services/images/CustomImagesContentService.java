@@ -35,12 +35,12 @@ public class CustomImagesContentService implements ICustomImagesContentService {
     }
 
     @Override
-    public Optional<byte[]> getImageContentById(UUID id) {
-        return this.customImageRepository.findById(id).map(CustomImageEntity::getContent);
+    public Optional<byte[]> getImageContentById(UUID editingContextId, UUID imageId) {
+        return this.customImageRepository.findById(imageId).map(CustomImageEntity::getContent);
     }
 
     @Override
-    public Optional<String> getImageContentTypeById(UUID id) {
-        return this.customImageRepository.findById(id).map(CustomImageEntity::getContentType);
+    public Optional<String> getImageContentTypeById(UUID editingContextId, UUID imageId) {
+        return this.customImageRepository.findById(imageId).map(CustomImageEntity::getContentType);
     }
 }

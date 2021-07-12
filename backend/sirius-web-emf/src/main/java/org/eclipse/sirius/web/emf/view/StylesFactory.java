@@ -13,6 +13,7 @@
 package org.eclipse.sirius.web.emf.view;
 
 import java.util.Optional;
+import java.util.UUID;
 
 import org.eclipse.sirius.web.diagrams.ArrowStyle;
 import org.eclipse.sirius.web.diagrams.EdgeStyle;
@@ -74,16 +75,28 @@ public final class StylesFactory {
         return type;
     }
 
-    public INodeStyle createNodeStyle(NodeStyle nodeStyle) {
+    public INodeStyle createNodeStyle(NodeStyle nodeStyle, Optional<UUID> optionalEditingContextId) {
         INodeStyle result = null;
         switch (this.getNodeType(nodeStyle)) {
         case NodeType.NODE_IMAGE:
-            // @formatter:off
-            result = ImageNodeStyle.newImageNodeStyle()
-                                   .scalingFactor(1)
-                                   .imageURL("/custom/" + nodeStyle.getShape()) //$NON-NLS-1$
-                                   .build();
-            // @formatter:on
+            if (optionalEditingContextId.isPresent()) {
+                // @formatter:off
+                result = ImageNodeStyle.newImageNodeStyle()
+                                       .scalingFactor(1)
+                                       .imageURL("/custom/" + optionalEditingContextId.get().toString() + "/" + nodeStyle.getShape()) //$NON-NLS-1$ //$NON-NLS-2$
+                                       .build();
+                // @formatter:on
+            } else {
+                // @formatter:off
+                result = RectangularNodeStyle.newRectangularNodeStyle()
+                                             .color(Optional.ofNullable(nodeStyle.getColor()).orElse(DEFAULT_COLOR))
+                                             .borderColor(Optional.ofNullable(nodeStyle.getBorderColor()).orElse(DEFAULT_COLOR))
+                                             .borderSize(1)
+                                             .borderStyle(LineStyle.Solid)
+                                             .borderRadius(nodeStyle.getBorderRadius())
+                                             .build();
+                // @formatter:on
+            }
             break;
         case NodeType.NODE_LIST:
             // @formatter:off
