@@ -95,7 +95,7 @@ CREATE TABLE Modeler (
 );
 
 CREATE TABLE CustomImage (
-	id UUID DEFAULT gen_random_uuid() NOT NULL,
+	id UUID NOT NULL,
 	label TEXT NOT NULL,
 	content_type TEXT NOT NULL,
 	content BYTEA NOT NULL,
