@@ -43,6 +43,7 @@ import org.eclipse.sirius.web.graphql.utils.providers.GraphQLObjectTypeProvider;
 import org.eclipse.sirius.web.graphql.utils.schema.ITypeProvider;
 import org.springframework.stereotype.Service;
 
+import graphql.Scalars;
 import graphql.schema.GraphQLFieldDefinition;
 import graphql.schema.GraphQLList;
 import graphql.schema.GraphQLNonNull;
@@ -69,6 +70,8 @@ public class DiagramTypesProvider implements ITypeProvider {
 
     public static final String TOOL_SECTIONS_FIELD = "toolSections"; //$NON-NLS-1$
 
+    public static final String AUTO_LAYOUT_FIELD = "autoLayout"; //$NON-NLS-1$
+
     private final GraphQLObjectTypeProvider graphQLObjectTypeProvider = new GraphQLObjectTypeProvider();
 
     private final GraphQLEnumTypeProvider graphQLEnumTypeProvider = new GraphQLEnumTypeProvider();
@@ -79,6 +82,7 @@ public class DiagramTypesProvider implements ITypeProvider {
         GraphQLObjectType diagramObjectType = this.graphQLObjectTypeProvider.getType(Diagram.class);
         GraphQLObjectType customDiagramObjectType = GraphQLObjectType.newObject(diagramObjectType)
             .field(this.getToolSectionsField())
+            .field(this.getAutoLayoutField())
             .build();
 
         List<Class<?>> objectClasses = List.of(
@@ -138,6 +142,15 @@ public class DiagramTypesProvider implements ITypeProvider {
         return GraphQLFieldDefinition.newFieldDefinition()
                 .name(TOOL_SECTIONS_FIELD)
                 .type(new GraphQLNonNull(new GraphQLList(new GraphQLNonNull(new GraphQLTypeReference(ToolSection.class.getSimpleName())))))
+                .build();
+        // @formatter:on
+    }
+
+    private GraphQLFieldDefinition getAutoLayoutField() {
+        // @formatter:off
+        return GraphQLFieldDefinition.newFieldDefinition()
+                .name(AUTO_LAYOUT_FIELD)
+                .type(new GraphQLNonNull(Scalars.GraphQLBoolean))
                 .build();
         // @formatter:on
     }
