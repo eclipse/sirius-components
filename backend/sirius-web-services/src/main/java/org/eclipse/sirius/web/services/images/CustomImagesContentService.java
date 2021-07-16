@@ -16,9 +16,9 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
 
-import org.eclipse.sirius.web.emf.view.ICustomImagesContentService;
 import org.eclipse.sirius.web.persistence.entities.CustomImageEntity;
 import org.eclipse.sirius.web.persistence.repositories.ICustomImageRepository;
+import org.eclipse.sirius.web.services.api.images.ICustomImagesContentService;
 import org.springframework.stereotype.Service;
 
 /**

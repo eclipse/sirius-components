@@ -24,7 +24,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.eclipse.sirius.web.api.services.IImagePathService;
-import org.eclipse.sirius.web.emf.view.ICustomImagesContentService;
+import org.eclipse.sirius.web.services.api.images.ICustomImagesContentService;
 import org.junit.jupiter.api.Test;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;

@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
 import javax.servlet.http.HttpServletRequest;
 
 import org.eclipse.sirius.web.api.services.IImagePathService;
-import org.eclipse.sirius.web.emf.view.ICustomImagesContentService;
+import org.eclipse.sirius.web.services.api.images.ICustomImagesContentService;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
