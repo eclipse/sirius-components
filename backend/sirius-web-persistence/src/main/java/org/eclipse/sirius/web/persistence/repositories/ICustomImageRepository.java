@@ -35,7 +35,4 @@ public interface ICustomImageRepository extends PagingAndSortingRepository<Custo
     @Audited
     @Override
     Optional<CustomImageEntity> findById(UUID id);
-
-    @Audited
-    Optional<CustomImageEntity> findByFileName(String fileName);
 }

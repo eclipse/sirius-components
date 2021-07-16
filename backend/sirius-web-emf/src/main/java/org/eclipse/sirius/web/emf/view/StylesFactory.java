@@ -34,8 +34,6 @@ import org.eclipse.sirius.web.view.NodeStyle;
  */
 public final class StylesFactory {
 
-    private static final String DEFAULT_SHAPE_FILE = "shape_square.svg"; //$NON-NLS-1$
-
     private static final String DEFAULT_COLOR = "black"; //$NON-NLS-1$
 
     public LabelStyleDescription createLabelStyleDescription(NodeStyle nodeStyle) {
@@ -77,18 +75,28 @@ public final class StylesFactory {
         return type;
     }
 
-    public INodeStyle createNodeStyle(NodeStyle nodeStyle, ICustomImagesService customImagesService) {
+    public INodeStyle createNodeStyle(NodeStyle nodeStyle, Optional<UUID> optionalEditingContextId) {
         INodeStyle result = null;
         switch (this.getNodeType(nodeStyle)) {
         case NodeType.NODE_IMAGE:
-            String shapeId = nodeStyle.getShape();
-            String shapeFileName = customImagesService.findById(UUID.fromString(shapeId)).map(CustomImage::getFileName).orElse(DEFAULT_SHAPE_FILE);
-            // @formatter:off
-            result = ImageNodeStyle.newImageNodeStyle()
-                                   .scalingFactor(1)
-                                   .imageURL("/custom/" + shapeFileName) //$NON-NLS-1$
-                                   .build();
-            // @formatter:on
+            if (optionalEditingContextId.isPresent()) {
+                // @formatter:off
+                result = ImageNodeStyle.newImageNodeStyle()
+                                       .scalingFactor(1)
+                                       .imageURL("/custom/" + optionalEditingContextId.get().toString() + "/" + nodeStyle.getShape()) //$NON-NLS-1$ //$NON-NLS-2$
+                                       .build();
+                // @formatter:on
+            } else {
+                // @formatter:off
+                result = RectangularNodeStyle.newRectangularNodeStyle()
+                                             .color(Optional.ofNullable(nodeStyle.getColor()).orElse(DEFAULT_COLOR))
+                                             .borderColor(Optional.ofNullable(nodeStyle.getBorderColor()).orElse(DEFAULT_COLOR))
+                                             .borderSize(1)
+                                             .borderStyle(LineStyle.Solid)
+                                             .borderRadius(nodeStyle.getBorderRadius())
+                                             .build();
+                // @formatter:on
+            }
             break;
         case NodeType.NODE_LIST:
             // @formatter:off

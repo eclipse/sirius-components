@@ -17,8 +17,6 @@ import java.util.UUID;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -31,13 +29,12 @@ import javax.persistence.Table;
 @Table(name = "CustomImage")
 public class CustomImageEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
     private String label;
 
-    @Column(name = "filename")
-    private String fileName;
+    @Column(name = "content_type")
+    private String contentType;
 
     private byte[] content;
 
@@ -57,12 +54,12 @@ public class CustomImageEntity {
         this.label = label;
     }
 
-    public String getFileName() {
-        return this.fileName;
+    public String getContentType() {
+        return this.contentType;
     }
 
-    public void setFileName(String fileName) {
-        this.fileName = fileName;
+    public void setContentType(String contentType) {
+        this.contentType = contentType;
     }
 
     public byte[] getContent() {
@@ -75,7 +72,7 @@ public class CustomImageEntity {
 
     @Override
     public String toString() {
-        String pattern = "{0} '{' id: {1}, label: {2}, fileName: {3} '}'"; //$NON-NLS-1$
-        return MessageFormat.format(pattern, this.getClass().getSimpleName(), this.id, this.label, this.fileName);
+        String pattern = "{0} '{' id: {1}, label: {2}, contentType: {3} '}'"; //$NON-NLS-1$
+        return MessageFormat.format(pattern, this.getClass().getSimpleName(), this.id, this.label, this.contentType);
     }
 }

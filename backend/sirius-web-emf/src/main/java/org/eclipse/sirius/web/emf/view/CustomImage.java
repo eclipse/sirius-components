@@ -12,6 +12,7 @@
  *******************************************************************************/
 package org.eclipse.sirius.web.emf.view;
 
+import java.text.MessageFormat;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -25,12 +26,12 @@ public class CustomImage {
 
     private String label;
 
-    private String fileName;
+    private String contentType;
 
-    public CustomImage(UUID id, String label, String fileName) {
+    public CustomImage(UUID id, String label, String contentType) {
         this.id = Objects.requireNonNull(id);
         this.label = Objects.requireNonNull(label);
-        this.fileName = Objects.requireNonNull(fileName);
+        this.contentType = Objects.requireNonNull(contentType);
     }
 
     public UUID getId() {
@@ -41,8 +42,13 @@ public class CustomImage {
         return this.label;
     }
 
-    public String getFileName() {
-        return this.fileName;
+    public String getContentType() {
+        return this.contentType;
     }
 
+    @Override
+    public String toString() {
+        String pattern = "{0} '{' id: {1}, label: {2}, contentType: {3} '}'"; //$NON-NLS-1$
+        return MessageFormat.format(pattern, this.getClass().getSimpleName(), this.id, this.label, this.contentType);
+    }
 }
