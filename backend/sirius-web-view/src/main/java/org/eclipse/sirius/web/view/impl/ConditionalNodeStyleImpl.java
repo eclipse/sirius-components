@@ -33,6 +33,12 @@ import org.eclipse.sirius.web.view.ViewPackage;
  * <li>{@link org.eclipse.sirius.web.view.impl.ConditionalNodeStyleImpl#isListMode <em>List Mode</em>}</li>
  * <li>{@link org.eclipse.sirius.web.view.impl.ConditionalNodeStyleImpl#getBorderRadius <em>Border Radius</em>}</li>
  * <li>{@link org.eclipse.sirius.web.view.impl.ConditionalNodeStyleImpl#getShape <em>Shape</em>}</li>
+ * <li>{@link org.eclipse.sirius.web.view.impl.ConditionalNodeStyleImpl#getBorderSize <em>Border Size</em>}</li>
+ * <li>{@link org.eclipse.sirius.web.view.impl.ConditionalNodeStyleImpl#getLabelColor <em>Label Color</em>}</li>
+ * <li>{@link org.eclipse.sirius.web.view.impl.ConditionalNodeStyleImpl#isItalic <em>Italic</em>}</li>
+ * <li>{@link org.eclipse.sirius.web.view.impl.ConditionalNodeStyleImpl#isBold <em>Bold</em>}</li>
+ * <li>{@link org.eclipse.sirius.web.view.impl.ConditionalNodeStyleImpl#isUnderline <em>Underline</em>}</li>
+ * <li>{@link org.eclipse.sirius.web.view.impl.ConditionalNodeStyleImpl#isStrikeThrough <em>Strike Through</em>}</li>
  * </ul>
  *
  * @generated
@@ -157,6 +163,126 @@ public class ConditionalNodeStyleImpl extends ConditionalImpl implements Conditi
      * @ordered
      */
     protected String shape = SHAPE_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getBorderSize() <em>Border Size</em>}' attribute. <!-- begin-user-doc --> <!--
+     * end-user-doc -->
+     *
+     * @see #getBorderSize()
+     * @generated
+     * @ordered
+     */
+    protected static final int BORDER_SIZE_EDEFAULT = 1;
+
+    /**
+     * The cached value of the '{@link #getBorderSize() <em>Border Size</em>}' attribute. <!-- begin-user-doc --> <!--
+     * end-user-doc -->
+     *
+     * @see #getBorderSize()
+     * @generated
+     * @ordered
+     */
+    protected int borderSize = BORDER_SIZE_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getLabelColor() <em>Label Color</em>}' attribute. <!-- begin-user-doc --> <!--
+     * end-user-doc -->
+     *
+     * @see #getLabelColor()
+     * @generated
+     * @ordered
+     */
+    protected static final String LABEL_COLOR_EDEFAULT = "black"; //$NON-NLS-1$
+
+    /**
+     * The cached value of the '{@link #getLabelColor() <em>Label Color</em>}' attribute. <!-- begin-user-doc --> <!--
+     * end-user-doc -->
+     *
+     * @see #getLabelColor()
+     * @generated
+     * @ordered
+     */
+    protected String labelColor = LABEL_COLOR_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #isItalic() <em>Italic</em>}' attribute. <!-- begin-user-doc --> <!--
+     * end-user-doc -->
+     *
+     * @see #isItalic()
+     * @generated
+     * @ordered
+     */
+    protected static final boolean ITALIC_EDEFAULT = false;
+
+    /**
+     * The cached value of the '{@link #isItalic() <em>Italic</em>}' attribute. <!-- begin-user-doc --> <!--
+     * end-user-doc -->
+     *
+     * @see #isItalic()
+     * @generated
+     * @ordered
+     */
+    protected boolean italic = ITALIC_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #isBold() <em>Bold</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     *
+     * @see #isBold()
+     * @generated
+     * @ordered
+     */
+    protected static final boolean BOLD_EDEFAULT = false;
+
+    /**
+     * The cached value of the '{@link #isBold() <em>Bold</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     *
+     * @see #isBold()
+     * @generated
+     * @ordered
+     */
+    protected boolean bold = BOLD_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #isUnderline() <em>Underline</em>}' attribute. <!-- begin-user-doc --> <!--
+     * end-user-doc -->
+     *
+     * @see #isUnderline()
+     * @generated
+     * @ordered
+     */
+    protected static final boolean UNDERLINE_EDEFAULT = false;
+
+    /**
+     * The cached value of the '{@link #isUnderline() <em>Underline</em>}' attribute. <!-- begin-user-doc --> <!--
+     * end-user-doc -->
+     *
+     * @see #isUnderline()
+     * @generated
+     * @ordered
+     */
+    protected boolean underline = UNDERLINE_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #isStrikeThrough() <em>Strike Through</em>}' attribute. <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @see #isStrikeThrough()
+     * @generated
+     * @ordered
+     */
+    protected static final boolean STRIKE_THROUGH_EDEFAULT = false;
+
+    /**
+     * The cached value of the '{@link #isStrikeThrough() <em>Strike Through</em>}' attribute. <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @see #isStrikeThrough()
+     * @generated
+     * @ordered
+     */
+    protected boolean strikeThrough = STRIKE_THROUGH_EDEFAULT;
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -321,6 +447,144 @@ public class ConditionalNodeStyleImpl extends ConditionalImpl implements Conditi
      * @generated
      */
     @Override
+    public int getBorderSize() {
+        return this.borderSize;
+    }
+
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    @Override
+    public void setBorderSize(int newBorderSize) {
+        int oldBorderSize = this.borderSize;
+        this.borderSize = newBorderSize;
+        if (this.eNotificationRequired())
+            this.eNotify(new ENotificationImpl(this, Notification.SET, ViewPackage.CONDITIONAL_NODE_STYLE__BORDER_SIZE, oldBorderSize, this.borderSize));
+    }
+
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    @Override
+    public String getLabelColor() {
+        return this.labelColor;
+    }
+
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    @Override
+    public void setLabelColor(String newLabelColor) {
+        String oldLabelColor = this.labelColor;
+        this.labelColor = newLabelColor;
+        if (this.eNotificationRequired())
+            this.eNotify(new ENotificationImpl(this, Notification.SET, ViewPackage.CONDITIONAL_NODE_STYLE__LABEL_COLOR, oldLabelColor, this.labelColor));
+    }
+
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    @Override
+    public boolean isItalic() {
+        return this.italic;
+    }
+
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    @Override
+    public void setItalic(boolean newItalic) {
+        boolean oldItalic = this.italic;
+        this.italic = newItalic;
+        if (this.eNotificationRequired())
+            this.eNotify(new ENotificationImpl(this, Notification.SET, ViewPackage.CONDITIONAL_NODE_STYLE__ITALIC, oldItalic, this.italic));
+    }
+
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    @Override
+    public boolean isBold() {
+        return this.bold;
+    }
+
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    @Override
+    public void setBold(boolean newBold) {
+        boolean oldBold = this.bold;
+        this.bold = newBold;
+        if (this.eNotificationRequired())
+            this.eNotify(new ENotificationImpl(this, Notification.SET, ViewPackage.CONDITIONAL_NODE_STYLE__BOLD, oldBold, this.bold));
+    }
+
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    @Override
+    public boolean isUnderline() {
+        return this.underline;
+    }
+
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    @Override
+    public void setUnderline(boolean newUnderline) {
+        boolean oldUnderline = this.underline;
+        this.underline = newUnderline;
+        if (this.eNotificationRequired())
+            this.eNotify(new ENotificationImpl(this, Notification.SET, ViewPackage.CONDITIONAL_NODE_STYLE__UNDERLINE, oldUnderline, this.underline));
+    }
+
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    @Override
+    public boolean isStrikeThrough() {
+        return this.strikeThrough;
+    }
+
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    @Override
+    public void setStrikeThrough(boolean newStrikeThrough) {
+        boolean oldStrikeThrough = this.strikeThrough;
+        this.strikeThrough = newStrikeThrough;
+        if (this.eNotificationRequired())
+            this.eNotify(new ENotificationImpl(this, Notification.SET, ViewPackage.CONDITIONAL_NODE_STYLE__STRIKE_THROUGH, oldStrikeThrough, this.strikeThrough));
+    }
+
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
         case ViewPackage.CONDITIONAL_NODE_STYLE__COLOR:
@@ -335,6 +599,18 @@ public class ConditionalNodeStyleImpl extends ConditionalImpl implements Conditi
             return this.getBorderRadius();
         case ViewPackage.CONDITIONAL_NODE_STYLE__SHAPE:
             return this.getShape();
+        case ViewPackage.CONDITIONAL_NODE_STYLE__BORDER_SIZE:
+            return this.getBorderSize();
+        case ViewPackage.CONDITIONAL_NODE_STYLE__LABEL_COLOR:
+            return this.getLabelColor();
+        case ViewPackage.CONDITIONAL_NODE_STYLE__ITALIC:
+            return this.isItalic();
+        case ViewPackage.CONDITIONAL_NODE_STYLE__BOLD:
+            return this.isBold();
+        case ViewPackage.CONDITIONAL_NODE_STYLE__UNDERLINE:
+            return this.isUnderline();
+        case ViewPackage.CONDITIONAL_NODE_STYLE__STRIKE_THROUGH:
+            return this.isStrikeThrough();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -364,6 +640,24 @@ public class ConditionalNodeStyleImpl extends ConditionalImpl implements Conditi
             return;
         case ViewPackage.CONDITIONAL_NODE_STYLE__SHAPE:
             this.setShape((String) newValue);
+            return;
+        case ViewPackage.CONDITIONAL_NODE_STYLE__BORDER_SIZE:
+            this.setBorderSize((Integer) newValue);
+            return;
+        case ViewPackage.CONDITIONAL_NODE_STYLE__LABEL_COLOR:
+            this.setLabelColor((String) newValue);
+            return;
+        case ViewPackage.CONDITIONAL_NODE_STYLE__ITALIC:
+            this.setItalic((Boolean) newValue);
+            return;
+        case ViewPackage.CONDITIONAL_NODE_STYLE__BOLD:
+            this.setBold((Boolean) newValue);
+            return;
+        case ViewPackage.CONDITIONAL_NODE_STYLE__UNDERLINE:
+            this.setUnderline((Boolean) newValue);
+            return;
+        case ViewPackage.CONDITIONAL_NODE_STYLE__STRIKE_THROUGH:
+            this.setStrikeThrough((Boolean) newValue);
             return;
         }
         super.eSet(featureID, newValue);
@@ -395,6 +689,24 @@ public class ConditionalNodeStyleImpl extends ConditionalImpl implements Conditi
         case ViewPackage.CONDITIONAL_NODE_STYLE__SHAPE:
             this.setShape(SHAPE_EDEFAULT);
             return;
+        case ViewPackage.CONDITIONAL_NODE_STYLE__BORDER_SIZE:
+            this.setBorderSize(BORDER_SIZE_EDEFAULT);
+            return;
+        case ViewPackage.CONDITIONAL_NODE_STYLE__LABEL_COLOR:
+            this.setLabelColor(LABEL_COLOR_EDEFAULT);
+            return;
+        case ViewPackage.CONDITIONAL_NODE_STYLE__ITALIC:
+            this.setItalic(ITALIC_EDEFAULT);
+            return;
+        case ViewPackage.CONDITIONAL_NODE_STYLE__BOLD:
+            this.setBold(BOLD_EDEFAULT);
+            return;
+        case ViewPackage.CONDITIONAL_NODE_STYLE__UNDERLINE:
+            this.setUnderline(UNDERLINE_EDEFAULT);
+            return;
+        case ViewPackage.CONDITIONAL_NODE_STYLE__STRIKE_THROUGH:
+            this.setStrikeThrough(STRIKE_THROUGH_EDEFAULT);
+            return;
         }
         super.eUnset(featureID);
     }
@@ -419,6 +731,18 @@ public class ConditionalNodeStyleImpl extends ConditionalImpl implements Conditi
             return this.borderRadius != BORDER_RADIUS_EDEFAULT;
         case ViewPackage.CONDITIONAL_NODE_STYLE__SHAPE:
             return SHAPE_EDEFAULT == null ? this.shape != null : !SHAPE_EDEFAULT.equals(this.shape);
+        case ViewPackage.CONDITIONAL_NODE_STYLE__BORDER_SIZE:
+            return this.borderSize != BORDER_SIZE_EDEFAULT;
+        case ViewPackage.CONDITIONAL_NODE_STYLE__LABEL_COLOR:
+            return LABEL_COLOR_EDEFAULT == null ? this.labelColor != null : !LABEL_COLOR_EDEFAULT.equals(this.labelColor);
+        case ViewPackage.CONDITIONAL_NODE_STYLE__ITALIC:
+            return this.italic != ITALIC_EDEFAULT;
+        case ViewPackage.CONDITIONAL_NODE_STYLE__BOLD:
+            return this.bold != BOLD_EDEFAULT;
+        case ViewPackage.CONDITIONAL_NODE_STYLE__UNDERLINE:
+            return this.underline != UNDERLINE_EDEFAULT;
+        case ViewPackage.CONDITIONAL_NODE_STYLE__STRIKE_THROUGH:
+            return this.strikeThrough != STRIKE_THROUGH_EDEFAULT;
         }
         return super.eIsSet(featureID);
     }
@@ -450,6 +774,18 @@ public class ConditionalNodeStyleImpl extends ConditionalImpl implements Conditi
                 return ViewPackage.NODE_STYLE__BORDER_RADIUS;
             case ViewPackage.CONDITIONAL_NODE_STYLE__SHAPE:
                 return ViewPackage.NODE_STYLE__SHAPE;
+            case ViewPackage.CONDITIONAL_NODE_STYLE__BORDER_SIZE:
+                return ViewPackage.NODE_STYLE__BORDER_SIZE;
+            case ViewPackage.CONDITIONAL_NODE_STYLE__LABEL_COLOR:
+                return ViewPackage.NODE_STYLE__LABEL_COLOR;
+            case ViewPackage.CONDITIONAL_NODE_STYLE__ITALIC:
+                return ViewPackage.NODE_STYLE__ITALIC;
+            case ViewPackage.CONDITIONAL_NODE_STYLE__BOLD:
+                return ViewPackage.NODE_STYLE__BOLD;
+            case ViewPackage.CONDITIONAL_NODE_STYLE__UNDERLINE:
+                return ViewPackage.NODE_STYLE__UNDERLINE;
+            case ViewPackage.CONDITIONAL_NODE_STYLE__STRIKE_THROUGH:
+                return ViewPackage.NODE_STYLE__STRIKE_THROUGH;
             default:
                 return -1;
             }
@@ -484,6 +820,18 @@ public class ConditionalNodeStyleImpl extends ConditionalImpl implements Conditi
                 return ViewPackage.CONDITIONAL_NODE_STYLE__BORDER_RADIUS;
             case ViewPackage.NODE_STYLE__SHAPE:
                 return ViewPackage.CONDITIONAL_NODE_STYLE__SHAPE;
+            case ViewPackage.NODE_STYLE__BORDER_SIZE:
+                return ViewPackage.CONDITIONAL_NODE_STYLE__BORDER_SIZE;
+            case ViewPackage.NODE_STYLE__LABEL_COLOR:
+                return ViewPackage.CONDITIONAL_NODE_STYLE__LABEL_COLOR;
+            case ViewPackage.NODE_STYLE__ITALIC:
+                return ViewPackage.CONDITIONAL_NODE_STYLE__ITALIC;
+            case ViewPackage.NODE_STYLE__BOLD:
+                return ViewPackage.CONDITIONAL_NODE_STYLE__BOLD;
+            case ViewPackage.NODE_STYLE__UNDERLINE:
+                return ViewPackage.CONDITIONAL_NODE_STYLE__UNDERLINE;
+            case ViewPackage.NODE_STYLE__STRIKE_THROUGH:
+                return ViewPackage.CONDITIONAL_NODE_STYLE__STRIKE_THROUGH;
             default:
                 return -1;
             }
@@ -514,6 +862,18 @@ public class ConditionalNodeStyleImpl extends ConditionalImpl implements Conditi
         result.append(this.borderRadius);
         result.append(", shape: "); //$NON-NLS-1$
         result.append(this.shape);
+        result.append(", borderSize: "); //$NON-NLS-1$
+        result.append(this.borderSize);
+        result.append(", labelColor: "); //$NON-NLS-1$
+        result.append(this.labelColor);
+        result.append(", italic: "); //$NON-NLS-1$
+        result.append(this.italic);
+        result.append(", bold: "); //$NON-NLS-1$
+        result.append(this.bold);
+        result.append(", underline: "); //$NON-NLS-1$
+        result.append(this.underline);
+        result.append(", strikeThrough: "); //$NON-NLS-1$
+        result.append(this.strikeThrough);
         result.append(')');
         return result.toString();
     }

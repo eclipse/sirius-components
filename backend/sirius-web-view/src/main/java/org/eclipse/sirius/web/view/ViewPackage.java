@@ -660,13 +660,61 @@ public interface ViewPackage extends EPackage {
     int NODE_STYLE__SHAPE = STYLE_FEATURE_COUNT + 2;
 
     /**
+     * The feature id for the '<em><b>Border Size</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+     *
+     * @generated
+     * @ordered
+     */
+    int NODE_STYLE__BORDER_SIZE = STYLE_FEATURE_COUNT + 3;
+
+    /**
+     * The feature id for the '<em><b>Label Color</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+     *
+     * @generated
+     * @ordered
+     */
+    int NODE_STYLE__LABEL_COLOR = STYLE_FEATURE_COUNT + 4;
+
+    /**
+     * The feature id for the '<em><b>Italic</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+     *
+     * @generated
+     * @ordered
+     */
+    int NODE_STYLE__ITALIC = STYLE_FEATURE_COUNT + 5;
+
+    /**
+     * The feature id for the '<em><b>Bold</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+     *
+     * @generated
+     * @ordered
+     */
+    int NODE_STYLE__BOLD = STYLE_FEATURE_COUNT + 6;
+
+    /**
+     * The feature id for the '<em><b>Underline</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+     *
+     * @generated
+     * @ordered
+     */
+    int NODE_STYLE__UNDERLINE = STYLE_FEATURE_COUNT + 7;
+
+    /**
+     * The feature id for the '<em><b>Strike Through</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+     *
+     * @generated
+     * @ordered
+     */
+    int NODE_STYLE__STRIKE_THROUGH = STYLE_FEATURE_COUNT + 8;
+
+    /**
      * The number of structural features of the '<em>Node Style</em>' class. <!-- begin-user-doc --> <!-- end-user-doc
      * -->
      *
      * @generated
      * @ordered
      */
-    int NODE_STYLE_FEATURE_COUNT = STYLE_FEATURE_COUNT + 3;
+    int NODE_STYLE_FEATURE_COUNT = STYLE_FEATURE_COUNT + 9;
 
     /**
      * The number of operations of the '<em>Node Style</em>' class. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -737,13 +785,21 @@ public interface ViewPackage extends EPackage {
     int EDGE_STYLE__TARGET_ARROW_STYLE = STYLE_FEATURE_COUNT + 2;
 
     /**
+     * The feature id for the '<em><b>Edge Width</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+     *
+     * @generated
+     * @ordered
+     */
+    int EDGE_STYLE__EDGE_WIDTH = STYLE_FEATURE_COUNT + 3;
+
+    /**
      * The number of structural features of the '<em>Edge Style</em>' class. <!-- begin-user-doc --> <!-- end-user-doc
      * -->
      *
      * @generated
      * @ordered
      */
-    int EDGE_STYLE_FEATURE_COUNT = STYLE_FEATURE_COUNT + 3;
+    int EDGE_STYLE_FEATURE_COUNT = STYLE_FEATURE_COUNT + 4;
 
     /**
      * The number of operations of the '<em>Edge Style</em>' class. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -1370,13 +1426,61 @@ public interface ViewPackage extends EPackage {
     int CONDITIONAL_NODE_STYLE__SHAPE = CONDITIONAL_FEATURE_COUNT + 5;
 
     /**
+     * The feature id for the '<em><b>Border Size</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+     *
+     * @generated
+     * @ordered
+     */
+    int CONDITIONAL_NODE_STYLE__BORDER_SIZE = CONDITIONAL_FEATURE_COUNT + 6;
+
+    /**
+     * The feature id for the '<em><b>Label Color</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+     *
+     * @generated
+     * @ordered
+     */
+    int CONDITIONAL_NODE_STYLE__LABEL_COLOR = CONDITIONAL_FEATURE_COUNT + 7;
+
+    /**
+     * The feature id for the '<em><b>Italic</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+     *
+     * @generated
+     * @ordered
+     */
+    int CONDITIONAL_NODE_STYLE__ITALIC = CONDITIONAL_FEATURE_COUNT + 8;
+
+    /**
+     * The feature id for the '<em><b>Bold</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+     *
+     * @generated
+     * @ordered
+     */
+    int CONDITIONAL_NODE_STYLE__BOLD = CONDITIONAL_FEATURE_COUNT + 9;
+
+    /**
+     * The feature id for the '<em><b>Underline</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+     *
+     * @generated
+     * @ordered
+     */
+    int CONDITIONAL_NODE_STYLE__UNDERLINE = CONDITIONAL_FEATURE_COUNT + 10;
+
+    /**
+     * The feature id for the '<em><b>Strike Through</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+     *
+     * @generated
+     * @ordered
+     */
+    int CONDITIONAL_NODE_STYLE__STRIKE_THROUGH = CONDITIONAL_FEATURE_COUNT + 11;
+
+    /**
      * The number of structural features of the '<em>Conditional Node Style</em>' class. <!-- begin-user-doc --> <!--
      * end-user-doc -->
      *
      * @generated
      * @ordered
      */
-    int CONDITIONAL_NODE_STYLE_FEATURE_COUNT = CONDITIONAL_FEATURE_COUNT + 6;
+    int CONDITIONAL_NODE_STYLE_FEATURE_COUNT = CONDITIONAL_FEATURE_COUNT + 12;
 
     /**
      * The number of operations of the '<em>Conditional Node Style</em>' class. <!-- begin-user-doc --> <!--
@@ -1456,13 +1560,21 @@ public interface ViewPackage extends EPackage {
     int CONDITIONAL_EDGE_STYLE__TARGET_ARROW_STYLE = CONDITIONAL_FEATURE_COUNT + 5;
 
     /**
+     * The feature id for the '<em><b>Edge Width</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+     *
+     * @generated
+     * @ordered
+     */
+    int CONDITIONAL_EDGE_STYLE__EDGE_WIDTH = CONDITIONAL_FEATURE_COUNT + 6;
+
+    /**
      * The number of structural features of the '<em>Conditional Edge Style</em>' class. <!-- begin-user-doc --> <!--
      * end-user-doc -->
      *
      * @generated
      * @ordered
      */
-    int CONDITIONAL_EDGE_STYLE_FEATURE_COUNT = CONDITIONAL_FEATURE_COUNT + 6;
+    int CONDITIONAL_EDGE_STYLE_FEATURE_COUNT = CONDITIONAL_FEATURE_COUNT + 7;
 
     /**
      * The number of operations of the '<em>Conditional Edge Style</em>' class. <!-- begin-user-doc --> <!--
@@ -1914,6 +2026,72 @@ public interface ViewPackage extends EPackage {
     EAttribute getNodeStyle_Shape();
 
     /**
+     * Returns the meta object for the attribute '{@link org.eclipse.sirius.web.view.NodeStyle#getBorderSize <em>Border
+     * Size</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+     *
+     * @return the meta object for the attribute '<em>Border Size</em>'.
+     * @see org.eclipse.sirius.web.view.NodeStyle#getBorderSize()
+     * @see #getNodeStyle()
+     * @generated
+     */
+    EAttribute getNodeStyle_BorderSize();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.eclipse.sirius.web.view.NodeStyle#getLabelColor <em>Label
+     * Color</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+     *
+     * @return the meta object for the attribute '<em>Label Color</em>'.
+     * @see org.eclipse.sirius.web.view.NodeStyle#getLabelColor()
+     * @see #getNodeStyle()
+     * @generated
+     */
+    EAttribute getNodeStyle_LabelColor();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.eclipse.sirius.web.view.NodeStyle#isItalic
+     * <em>Italic</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+     *
+     * @return the meta object for the attribute '<em>Italic</em>'.
+     * @see org.eclipse.sirius.web.view.NodeStyle#isItalic()
+     * @see #getNodeStyle()
+     * @generated
+     */
+    EAttribute getNodeStyle_Italic();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.eclipse.sirius.web.view.NodeStyle#isBold <em>Bold</em>}'.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     *
+     * @return the meta object for the attribute '<em>Bold</em>'.
+     * @see org.eclipse.sirius.web.view.NodeStyle#isBold()
+     * @see #getNodeStyle()
+     * @generated
+     */
+    EAttribute getNodeStyle_Bold();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.eclipse.sirius.web.view.NodeStyle#isUnderline
+     * <em>Underline</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+     *
+     * @return the meta object for the attribute '<em>Underline</em>'.
+     * @see org.eclipse.sirius.web.view.NodeStyle#isUnderline()
+     * @see #getNodeStyle()
+     * @generated
+     */
+    EAttribute getNodeStyle_Underline();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.eclipse.sirius.web.view.NodeStyle#isStrikeThrough
+     * <em>Strike Through</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+     *
+     * @return the meta object for the attribute '<em>Strike Through</em>'.
+     * @see org.eclipse.sirius.web.view.NodeStyle#isStrikeThrough()
+     * @see #getNodeStyle()
+     * @generated
+     */
+    EAttribute getNodeStyle_StrikeThrough();
+
+    /**
      * Returns the meta object for class '{@link org.eclipse.sirius.web.view.EdgeStyle <em>Edge Style</em>}'. <!--
      * begin-user-doc --> <!-- end-user-doc -->
      *
@@ -1955,6 +2133,17 @@ public interface ViewPackage extends EPackage {
      * @generated
      */
     EAttribute getEdgeStyle_TargetArrowStyle();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.eclipse.sirius.web.view.EdgeStyle#getEdgeWidth <em>Edge
+     * Width</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+     *
+     * @return the meta object for the attribute '<em>Edge Width</em>'.
+     * @see org.eclipse.sirius.web.view.EdgeStyle#getEdgeWidth()
+     * @see #getEdgeStyle()
+     * @generated
+     */
+    EAttribute getEdgeStyle_EdgeWidth();
 
     /**
      * Returns the meta object for class '{@link org.eclipse.sirius.web.view.Tool <em>Tool</em>}'. <!-- begin-user-doc
@@ -2592,6 +2781,54 @@ public interface ViewPackage extends EPackage {
         EAttribute NODE_STYLE__SHAPE = eINSTANCE.getNodeStyle_Shape();
 
         /**
+         * The meta object literal for the '<em><b>Border Size</b></em>' attribute feature. <!-- begin-user-doc --> <!--
+         * end-user-doc -->
+         *
+         * @generated
+         */
+        EAttribute NODE_STYLE__BORDER_SIZE = eINSTANCE.getNodeStyle_BorderSize();
+
+        /**
+         * The meta object literal for the '<em><b>Label Color</b></em>' attribute feature. <!-- begin-user-doc --> <!--
+         * end-user-doc -->
+         *
+         * @generated
+         */
+        EAttribute NODE_STYLE__LABEL_COLOR = eINSTANCE.getNodeStyle_LabelColor();
+
+        /**
+         * The meta object literal for the '<em><b>Italic</b></em>' attribute feature. <!-- begin-user-doc --> <!--
+         * end-user-doc -->
+         *
+         * @generated
+         */
+        EAttribute NODE_STYLE__ITALIC = eINSTANCE.getNodeStyle_Italic();
+
+        /**
+         * The meta object literal for the '<em><b>Bold</b></em>' attribute feature. <!-- begin-user-doc --> <!--
+         * end-user-doc -->
+         *
+         * @generated
+         */
+        EAttribute NODE_STYLE__BOLD = eINSTANCE.getNodeStyle_Bold();
+
+        /**
+         * The meta object literal for the '<em><b>Underline</b></em>' attribute feature. <!-- begin-user-doc --> <!--
+         * end-user-doc -->
+         *
+         * @generated
+         */
+        EAttribute NODE_STYLE__UNDERLINE = eINSTANCE.getNodeStyle_Underline();
+
+        /**
+         * The meta object literal for the '<em><b>Strike Through</b></em>' attribute feature. <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         *
+         * @generated
+         */
+        EAttribute NODE_STYLE__STRIKE_THROUGH = eINSTANCE.getNodeStyle_StrikeThrough();
+
+        /**
          * The meta object literal for the '{@link org.eclipse.sirius.web.view.impl.EdgeStyleImpl <em>Edge Style</em>}'
          * class. <!-- begin-user-doc --> <!-- end-user-doc -->
          *
@@ -2624,6 +2861,14 @@ public interface ViewPackage extends EPackage {
          * @generated
          */
         EAttribute EDGE_STYLE__TARGET_ARROW_STYLE = eINSTANCE.getEdgeStyle_TargetArrowStyle();
+
+        /**
+         * The meta object literal for the '<em><b>Edge Width</b></em>' attribute feature. <!-- begin-user-doc --> <!--
+         * end-user-doc -->
+         *
+         * @generated
+         */
+        EAttribute EDGE_STYLE__EDGE_WIDTH = eINSTANCE.getEdgeStyle_EdgeWidth();
 
         /**
          * The meta object literal for the '{@link org.eclipse.sirius.web.view.impl.ToolImpl <em>Tool</em>}' class. <!--

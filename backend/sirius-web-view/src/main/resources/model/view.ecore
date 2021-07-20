@@ -73,6 +73,18 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="borderRadius" lowerBound="1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt" defaultValueLiteral="3"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="shape" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="borderSize" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt" defaultValueLiteral="1"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="labelColor" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+        defaultValueLiteral="black"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="italic" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean" defaultValueLiteral="false"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="bold" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
+        defaultValueLiteral="false"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="underline" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean" defaultValueLiteral="false"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="strikeThrough" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean" defaultValueLiteral="false"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="EdgeStyle" eSuperTypes="#//Style">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="lineStyle" lowerBound="1"
@@ -81,6 +93,8 @@
         eType="#//ArrowStyle" defaultValueLiteral="None"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="targetArrowStyle" lowerBound="1"
         eType="#//ArrowStyle" defaultValueLiteral="OutputArrow"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="edgeWidth" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt" defaultValueLiteral="1"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="ArrowStyle">
     <eLiterals name="None"/>

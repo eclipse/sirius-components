@@ -29,6 +29,7 @@ import org.eclipse.sirius.web.view.ViewPackage;
  * <li>{@link org.eclipse.sirius.web.view.impl.EdgeStyleImpl#getLineStyle <em>Line Style</em>}</li>
  * <li>{@link org.eclipse.sirius.web.view.impl.EdgeStyleImpl#getSourceArrowStyle <em>Source Arrow Style</em>}</li>
  * <li>{@link org.eclipse.sirius.web.view.impl.EdgeStyleImpl#getTargetArrowStyle <em>Target Arrow Style</em>}</li>
+ * <li>{@link org.eclipse.sirius.web.view.impl.EdgeStyleImpl#getEdgeWidth <em>Edge Width</em>}</li>
  * </ul>
  *
  * @generated
@@ -93,6 +94,26 @@ public class EdgeStyleImpl extends StyleImpl implements EdgeStyle {
      * @ordered
      */
     protected ArrowStyle targetArrowStyle = TARGET_ARROW_STYLE_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getEdgeWidth() <em>Edge Width</em>}' attribute. <!-- begin-user-doc --> <!--
+     * end-user-doc -->
+     *
+     * @see #getEdgeWidth()
+     * @generated
+     * @ordered
+     */
+    protected static final int EDGE_WIDTH_EDEFAULT = 1;
+
+    /**
+     * The cached value of the '{@link #getEdgeWidth() <em>Edge Width</em>}' attribute. <!-- begin-user-doc --> <!--
+     * end-user-doc -->
+     *
+     * @see #getEdgeWidth()
+     * @generated
+     * @ordered
+     */
+    protected int edgeWidth = EDGE_WIDTH_EDEFAULT;
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -188,6 +209,29 @@ public class EdgeStyleImpl extends StyleImpl implements EdgeStyle {
      * @generated
      */
     @Override
+    public int getEdgeWidth() {
+        return this.edgeWidth;
+    }
+
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    @Override
+    public void setEdgeWidth(int newEdgeWidth) {
+        int oldEdgeWidth = this.edgeWidth;
+        this.edgeWidth = newEdgeWidth;
+        if (this.eNotificationRequired())
+            this.eNotify(new ENotificationImpl(this, Notification.SET, ViewPackage.EDGE_STYLE__EDGE_WIDTH, oldEdgeWidth, this.edgeWidth));
+    }
+
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
         case ViewPackage.EDGE_STYLE__LINE_STYLE:
@@ -196,6 +240,8 @@ public class EdgeStyleImpl extends StyleImpl implements EdgeStyle {
             return this.getSourceArrowStyle();
         case ViewPackage.EDGE_STYLE__TARGET_ARROW_STYLE:
             return this.getTargetArrowStyle();
+        case ViewPackage.EDGE_STYLE__EDGE_WIDTH:
+            return this.getEdgeWidth();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -216,6 +262,9 @@ public class EdgeStyleImpl extends StyleImpl implements EdgeStyle {
             return;
         case ViewPackage.EDGE_STYLE__TARGET_ARROW_STYLE:
             this.setTargetArrowStyle((ArrowStyle) newValue);
+            return;
+        case ViewPackage.EDGE_STYLE__EDGE_WIDTH:
+            this.setEdgeWidth((Integer) newValue);
             return;
         }
         super.eSet(featureID, newValue);
@@ -238,6 +287,9 @@ public class EdgeStyleImpl extends StyleImpl implements EdgeStyle {
         case ViewPackage.EDGE_STYLE__TARGET_ARROW_STYLE:
             this.setTargetArrowStyle(TARGET_ARROW_STYLE_EDEFAULT);
             return;
+        case ViewPackage.EDGE_STYLE__EDGE_WIDTH:
+            this.setEdgeWidth(EDGE_WIDTH_EDEFAULT);
+            return;
         }
         super.eUnset(featureID);
     }
@@ -256,6 +308,8 @@ public class EdgeStyleImpl extends StyleImpl implements EdgeStyle {
             return this.sourceArrowStyle != SOURCE_ARROW_STYLE_EDEFAULT;
         case ViewPackage.EDGE_STYLE__TARGET_ARROW_STYLE:
             return this.targetArrowStyle != TARGET_ARROW_STYLE_EDEFAULT;
+        case ViewPackage.EDGE_STYLE__EDGE_WIDTH:
+            return this.edgeWidth != EDGE_WIDTH_EDEFAULT;
         }
         return super.eIsSet(featureID);
     }
@@ -277,6 +331,8 @@ public class EdgeStyleImpl extends StyleImpl implements EdgeStyle {
         result.append(this.sourceArrowStyle);
         result.append(", targetArrowStyle: "); //$NON-NLS-1$
         result.append(this.targetArrowStyle);
+        result.append(", edgeWidth: "); //$NON-NLS-1$
+        result.append(this.edgeWidth);
         result.append(')');
         return result.toString();
     }

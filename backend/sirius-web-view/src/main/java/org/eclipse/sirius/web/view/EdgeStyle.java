@@ -22,6 +22,7 @@ package org.eclipse.sirius.web.view;
  * <li>{@link org.eclipse.sirius.web.view.EdgeStyle#getLineStyle <em>Line Style</em>}</li>
  * <li>{@link org.eclipse.sirius.web.view.EdgeStyle#getSourceArrowStyle <em>Source Arrow Style</em>}</li>
  * <li>{@link org.eclipse.sirius.web.view.EdgeStyle#getTargetArrowStyle <em>Target Arrow Style</em>}</li>
+ * <li>{@link org.eclipse.sirius.web.view.EdgeStyle#getEdgeWidth <em>Edge Width</em>}</li>
  * </ul>
  *
  * @see org.eclipse.sirius.web.view.ViewPackage#getEdgeStyle()
@@ -106,5 +107,28 @@ public interface EdgeStyle extends Style {
      * @generated
      */
     void setTargetArrowStyle(ArrowStyle value);
+
+    /**
+     * Returns the value of the '<em><b>Edge Width</b></em>' attribute. The default value is <code>"1"</code>. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     *
+     * @return the value of the '<em>Edge Width</em>' attribute.
+     * @see #setEdgeWidth(int)
+     * @see org.eclipse.sirius.web.view.ViewPackage#getEdgeStyle_EdgeWidth()
+     * @model default="1" required="true"
+     * @generated
+     */
+    int getEdgeWidth();
+
+    /**
+     * Sets the value of the '{@link org.eclipse.sirius.web.view.EdgeStyle#getEdgeWidth <em>Edge Width</em>}' attribute.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     *
+     * @param value
+     *            the new value of the '<em>Edge Width</em>' attribute.
+     * @see #getEdgeWidth()
+     * @generated
+     */
+    void setEdgeWidth(int value);
 
 } // EdgeStyle
