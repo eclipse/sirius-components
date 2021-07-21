@@ -50,6 +50,7 @@ public class SelectComponent implements IComponent {
         String id = selectDescription.getIdProvider().apply(variableManager);
         String label = selectDescription.getLabelProvider().apply(variableManager);
         List<Object> optionCandidates = selectDescription.getOptionsProvider().apply(variableManager);
+        boolean valueRequired = selectDescription.getValueRequiredProvider().apply(variableManager);
         String value = selectDescription.getValueProvider().apply(variableManager);
 
         List<Element> children = List.of(new Element(DiagnosticComponent.class, new DiagnosticComponentProps(selectDescription, variableManager)));
@@ -78,6 +79,7 @@ public class SelectComponent implements IComponent {
         SelectElementProps selectElementProps = SelectElementProps.newSelectElementProps(id)
                 .label(label)
                 .options(options)
+                .valueRequired(valueRequired)
                 .value(value)
                 .newValueHandler(specializedHandler)
                 .children(children)

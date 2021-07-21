@@ -65,6 +65,7 @@ export interface Checkbox extends Widget {
 export interface Select extends Widget {
   label: string;
   value: string;
+  valueRequired: boolean;
   options: SelectOption[];
 }
 
