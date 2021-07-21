@@ -41,12 +41,12 @@ public final class StylesFactory {
     public LabelStyleDescription createLabelStyleDescription(NodeStyle nodeStyle) {
         // @formatter:off
         return LabelStyleDescription.newLabelStyleDescription()
-                                    .colorProvider(variableManager -> nodeStyle.getBorderColor())
+                                    .colorProvider(variableManager -> nodeStyle.getLabelColor())
                                     .fontSizeProvider(variableManager -> nodeStyle.getFontSize())
-                                    .boldProvider(variableManager -> false)
-                                    .italicProvider(variableManager -> false)
-                                    .underlineProvider(variableManager -> false)
-                                    .strikeThroughProvider(variableManager -> false)
+                                    .boldProvider(variableManager -> nodeStyle.isBold())
+                                    .italicProvider(variableManager -> nodeStyle.isItalic())
+                                    .underlineProvider(variableManager -> nodeStyle.isUnderline())
+                                    .strikeThroughProvider(variableManager -> nodeStyle.isStrikeThrough())
                                     .iconURLProvider(variableManager -> "") //$NON-NLS-1$
                                     .build();
         // @formatter:on
@@ -57,7 +57,7 @@ public final class StylesFactory {
         return EdgeStyle.newEdgeStyle()
                         .color(edgeStyle.getColor())
                         .lineStyle(LineStyle.valueOf(edgeStyle.getLineStyle().getLiteral()))
-                        .size(1)
+                        .size(edgeStyle.getEdgeWidth())
                         .sourceArrow(ArrowStyle.valueOf(edgeStyle.getSourceArrowStyle().getLiteral()))
                         .targetArrow(ArrowStyle.valueOf(edgeStyle.getTargetArrowStyle().getLiteral()))
                         .build();
@@ -95,7 +95,7 @@ public final class StylesFactory {
             result = ListNodeStyle.newListNodeStyle()
                                   .color(Optional.ofNullable(nodeStyle.getColor()).orElse(DEFAULT_COLOR))
                                   .borderColor(Optional.ofNullable(nodeStyle.getBorderColor()).orElse(DEFAULT_COLOR))
-                                  .borderSize(1)
+                                  .borderSize(nodeStyle.getBorderSize())
                                   .borderStyle(LineStyle.Solid)
                                   .borderRadius(nodeStyle.getBorderRadius())
                                   .build();
@@ -110,7 +110,7 @@ public final class StylesFactory {
             result = RectangularNodeStyle.newRectangularNodeStyle()
                                          .color(Optional.ofNullable(nodeStyle.getColor()).orElse(DEFAULT_COLOR))
                                          .borderColor(Optional.ofNullable(nodeStyle.getBorderColor()).orElse(DEFAULT_COLOR))
-                                         .borderSize(1)
+                                         .borderSize(nodeStyle.getBorderSize())
                                          .borderStyle(LineStyle.Solid)
                                          .borderRadius(nodeStyle.getBorderRadius())
                                          .build();
