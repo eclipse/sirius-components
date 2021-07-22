@@ -10,14 +10,25 @@
  * Contributors:
  *     Obeo - initial API and implementation
  *******************************************************************************/
-import { ContextMenu, Entry, LEFT_START, Separator } from 'core/contextmenu/ContextMenu';
-import { Delete, Edit } from 'icons';
+import { makeStyles } from '@material-ui/core';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
+import AddIcon from '@material-ui/icons/Add';
+import DeleteIcon from '@material-ui/icons/Delete';
+import EditIcon from '@material-ui/icons/Edit';
 import React from 'react';
 import { TreeItemObjectContextMenuProps } from './TreeItemObjectContextMenu.types';
 
+const useTreeItemObjectContextMenuStyles = makeStyles((theme) => ({
+  item: {
+    paddingTop: theme.spacing(1),
+    paddingBottom: theme.spacing(1),
+  },
+}));
+
 export const TreeItemObjectContextMenu = ({
-  x,
-  y,
   onCreateNewObject,
   onCreateRepresentation,
   onRenameObject,
@@ -25,39 +36,59 @@ export const TreeItemObjectContextMenu = ({
   onDeleteObject,
   onClose,
   readOnly,
+  menuAnchor,
 }: TreeItemObjectContextMenuProps) => {
-  let renameEntry = null;
-  if (editable) {
-    renameEntry = (
-      <>
-        <Entry
-          icon={<Edit title="" />}
-          label="Rename"
-          onClick={onRenameObject}
-          data-testid="rename-object"
-          disabled={readOnly}></Entry>
-        <Separator />
-      </>
-    );
-  }
+  const classes = useTreeItemObjectContextMenuStyles();
+
   return (
-    <ContextMenu x={x} y={y} caretPosition={LEFT_START} onClose={onClose} data-testid="treeitemobject-contextmenu">
-      <Entry label="New object" onClick={onCreateNewObject} data-testid="new-object" disabled={readOnly} />
-      <Entry
-        label="New representation"
+    <Menu
+      id="treeitemobject-contextmenu"
+      anchorEl={menuAnchor}
+      keepMounted
+      open
+      onClose={onClose}
+      data-testid="treeitemobject-contextmenu"
+      getContentAnchorEl={null}
+      anchorOrigin={{
+        vertical: 'bottom',
+        horizontal: 'right',
+      }}>
+      <MenuItem onClick={onCreateNewObject} data-testid="new-object" disabled={readOnly} dense className={classes.item}>
+        <ListItemIcon>
+          <AddIcon fontSize="small" />
+        </ListItemIcon>
+        <ListItemText primary="New object" />
+      </MenuItem>
+      <MenuItem
+        divider
         onClick={onCreateRepresentation}
         data-testid="new-representation"
         disabled={readOnly}
-      />
-      <Separator />
-      {renameEntry}
-      <Entry
-        icon={<Delete title="" />}
-        label="Delete"
-        onClick={onDeleteObject}
-        data-testid="delete-object"
-        disabled={readOnly}
-      />
-    </ContextMenu>
+        dense
+        className={classes.item}>
+        <ListItemIcon>
+          <AddIcon fontSize="small" />
+        </ListItemIcon>
+        <ListItemText primary="New representation" />
+      </MenuItem>
+      <MenuItem
+        divider
+        onClick={onRenameObject}
+        data-testid="rename-object"
+        disabled={readOnly || !editable}
+        dense
+        className={classes.item}>
+        <ListItemIcon>
+          <EditIcon fontSize="small" />
+        </ListItemIcon>
+        <ListItemText primary="Rename" />
+      </MenuItem>
+      <MenuItem onClick={onDeleteObject} data-testid="delete-object" disabled={readOnly} dense className={classes.item}>
+        <ListItemIcon>
+          <DeleteIcon fontSize="small" />
+        </ListItemIcon>
+        <ListItemText primary="Delete" />
+      </MenuItem>
+    </Menu>
   );
 };

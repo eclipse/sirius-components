@@ -10,36 +10,68 @@
  * Contributors:
  *     Obeo - initial API and implementation
  *******************************************************************************/
-import { ContextMenu, Entry, LEFT_START, Separator } from 'core/contextmenu/ContextMenu';
-import { Delete, Edit } from 'icons';
+import { makeStyles } from '@material-ui/core';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
+import DeleteIcon from '@material-ui/icons/Delete';
+import EditIcon from '@material-ui/icons/Edit';
 import React from 'react';
 import { TreeItemDiagramContextMenuProps } from './TreeItemDiagramContextMenu.types';
 
+const useTreeItemDiagramContextMenuStyles = makeStyles((theme) => ({
+  item: {
+    paddingTop: theme.spacing(1),
+    paddingBottom: theme.spacing(1),
+  },
+}));
+
 export const TreeItemDiagramContextMenu = ({
-  x,
-  y,
   onDeleteRepresentation,
   onRenameRepresentation,
   onClose,
   readOnly,
+  menuAnchor,
 }: TreeItemDiagramContextMenuProps) => {
+  const classes = useTreeItemDiagramContextMenuStyles();
+
   return (
-    <ContextMenu x={x} y={y} caretPosition={LEFT_START} onClose={onClose} data-testid="treeitemdiagram-contextmenu">
-      <Entry
-        icon={<Edit title="" />}
-        label="Rename"
+    <Menu
+      id="treeitemdiagram-contextmenu"
+      anchorEl={menuAnchor}
+      keepMounted
+      open
+      onClose={onClose}
+      data-testid="treeitemdiagram-contextmenu"
+      getContentAnchorEl={null}
+      anchorOrigin={{
+        vertical: 'bottom',
+        horizontal: 'right',
+      }}>
+      <MenuItem
+        divider
         onClick={onRenameRepresentation}
         data-testid="rename-representation"
         disabled={readOnly}
-      />
-      <Separator />
-      <Entry
-        icon={<Delete title="" />}
-        label="Delete"
+        dense
+        className={classes.item}>
+        <ListItemIcon>
+          <EditIcon fontSize="small" />
+        </ListItemIcon>
+        <ListItemText primary="Rename" />
+      </MenuItem>
+      <MenuItem
         onClick={onDeleteRepresentation}
         data-testid="delete-representation"
         disabled={readOnly}
-      />
-    </ContextMenu>
+        dense
+        className={classes.item}>
+        <ListItemIcon>
+          <DeleteIcon fontSize="small" />
+        </ListItemIcon>
+        <ListItemText primary="Delete" />
+      </MenuItem>
+    </Menu>
   );
 };

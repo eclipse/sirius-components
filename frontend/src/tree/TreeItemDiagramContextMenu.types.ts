@@ -12,10 +12,9 @@
  *******************************************************************************/
 
 export interface TreeItemDiagramContextMenuProps {
-  x: number;
-  y: number;
   onDeleteRepresentation: () => void;
   onRenameRepresentation: () => void;
   onClose: () => void;
   readOnly: boolean;
+  menuAnchor: HTMLElement;
 }

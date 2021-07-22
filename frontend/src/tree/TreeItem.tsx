@@ -96,16 +96,6 @@ const renameRepresentationMutation = gql`
 // The list of characters that will enable the direct edit mechanism.
 const directEditActivationValidCharacters = /[\w&é§èàùçÔØÁÛÊË"«»’”„´$¥€£\\¿?!=+-,;:%/{}[\]–#@*.]/;
 
-/**
- * Determines where the context menu should open relative to the actual mouse position.
- * These are relative to the bottom-left corner of the "more" icon, and to the size of the
- * caret, so that the caret at the left of the menu points to the middle of the "more" icon.
- */
-const menuPositionDelta = {
-  dx: 20,
-  dy: -6,
-};
-
 export const TreeItem = ({
   editingContextId,
   item,
@@ -117,12 +107,11 @@ export const TreeItem = ({
 }: TreeItemProps) => {
   const initialState = {
     modalDisplayed: null,
-    x: 0,
-    y: 0,
     showContextMenu: false,
     editingMode: false,
     label: item.label,
     prevSelectionId: null,
+    menuAnchor: null,
   };
   const [state, setState] = useState(initialState);
   const [deleteObject] = useMutation(deleteObjectMutation);
@@ -181,23 +170,21 @@ export const TreeItem = ({
   };
 
   const onMore = (event) => {
-    const { x, y } = event.currentTarget.getBoundingClientRect();
     if (!state.showContextMenu) {
       setState((prevState) => {
         return {
           modalDisplayed: prevState.modalDisplayed,
-          x: x + menuPositionDelta.dx,
-          y: y + menuPositionDelta.dy,
           showContextMenu: true,
           editingMode: false,
           label: item.label,
           prevSelectionId: prevState.prevSelectionId,
+          menuAnchor: event.currentTarget,
         };
       });
     }
   };
 
-  const { x, y, showContextMenu, modalDisplayed, editingMode, label } = state;
+  const { showContextMenu, modalDisplayed, editingMode, label, menuAnchor } = state;
 
   const prevEditingMode = usePrevious(editingMode);
   useEffect(() => {
@@ -209,15 +196,15 @@ export const TreeItem = ({
   let contextMenu = null;
   if (showContextMenu) {
     const onCloseContextMenu = () => {
+      console.log('TreeItem - onCloseContextMenu - prevState.editingMode : ' + editingMode);
       setState((prevState) => {
         return {
           modalDisplayed: null,
-          x: 0,
-          y: 0,
           showContextMenu: false,
-          editingMode: false,
+          editingMode: prevState.editingMode,
           label: item.label,
           prevSelectionId: prevState.prevSelectionId,
+          menuAnchor: null,
         };
       });
     };
@@ -227,62 +214,57 @@ export const TreeItem = ({
         setState((prevState) => {
           return {
             modalDisplayed: 'CreateNewRootObject',
-            x: 0,
-            y: 0,
             showContextMenu: false,
             editingMode: false,
             label: item.label,
             prevSelectionId: prevState.prevSelectionId,
+            menuAnchor: null,
           };
         });
       const onRenameDocument = () =>
         setState((prevState) => {
           return {
             modalDisplayed: null,
-            x: 0,
-            y: 0,
             showContextMenu: false,
             editingMode: true,
             label: item.label,
             prevSelectionId: prevState.prevSelectionId,
+            menuAnchor: null,
           };
         });
       const onDownload = () =>
         setState((prevState) => {
           return {
             modalDisplayed: null,
-            x: 0,
-            y: 0,
             showContextMenu: false,
             editingMode: false,
             label: item.label,
             prevSelectionId: prevState.prevSelectionId,
+            menuAnchor: null,
           };
         });
       const onDeleteDocument = () =>
         setState((prevState) => {
           return {
             modalDisplayed: 'DeleteDocument',
-            x: 0,
-            y: 0,
             showContextMenu: false,
             editingMode: false,
             label: item.label,
             prevSelectionId: prevState.prevSelectionId,
+            menuAnchor: null,
           };
         });
       contextMenu = (
         <TreeItemDocumentContextMenu
           editingContextId={editingContextId}
           documentId={item.id}
-          x={x}
-          y={y}
           onNewObject={onNewObject}
           onRenameDocument={onRenameDocument}
           onDownload={onDownload}
           onDeleteDocument={onDeleteDocument}
           onClose={onCloseContextMenu}
           readOnly={readOnly}
+          menuAnchor={menuAnchor}
         />
       );
     } else if (registry.isRepresentation(item.kind)) {
@@ -300,22 +282,20 @@ export const TreeItem = ({
         setState((prevState) => {
           return {
             modalDisplayed: null,
-            x: 0,
-            y: 0,
             showContextMenu: false,
             editingMode: true,
             label: item.label,
             prevSelectionId: prevState.prevSelectionId,
+            menuAnchor: null,
           };
         });
       contextMenu = (
         <TreeItemDiagramContextMenu
           onDeleteRepresentation={onDeleteRepresentation}
           onRenameRepresentation={onRenameRepresentation}
-          x={x}
-          y={y}
           onClose={onCloseContextMenu}
           readOnly={readOnly}
+          menuAnchor={menuAnchor}
         />
       );
     } else {
@@ -323,36 +303,33 @@ export const TreeItem = ({
         setState((prevState) => {
           return {
             modalDisplayed: 'CreateNewObject',
-            x: 0,
-            y: 0,
             showContextMenu: false,
             editingMode: false,
             label: item.label,
             prevSelectionId: prevState.prevSelectionId,
+            menuAnchor: null,
           };
         });
       const onCreateRepresentation = () =>
         setState((prevState) => {
           return {
             modalDisplayed: 'CreateRepresentation',
-            x: 0,
-            y: 0,
             showContextMenu: false,
             editingMode: false,
             label: item.label,
             prevSelectionId: prevState.prevSelectionId,
+            menuAnchor: null,
           };
         });
       const onRenameObject = () =>
         setState((prevState) => {
           return {
             modalDisplayed: null,
-            x: 0,
-            y: 0,
             showContextMenu: false,
             editingMode: true,
             label: item.label,
             prevSelectionId: prevState.prevSelectionId,
+            menuAnchor: null,
           };
         });
       const onDeleteObject = () => {
@@ -368,8 +345,6 @@ export const TreeItem = ({
       };
       contextMenu = (
         <TreeItemObjectContextMenu
-          x={x}
-          y={y}
           onCreateNewObject={onCreateNewObject}
           onCreateRepresentation={onCreateRepresentation}
           editable={item.editable}
@@ -377,6 +352,7 @@ export const TreeItem = ({
           onDeleteObject={onDeleteObject}
           onClose={onCloseContextMenu}
           readOnly={readOnly}
+          menuAnchor={menuAnchor}
         />
       );
     }
@@ -385,12 +361,11 @@ export const TreeItem = ({
     setState((prevState) => {
       return {
         modalDisplayed: null,
-        x: 0,
-        y: 0,
         showContextMenu: false,
         editingMode: false,
         label: item.label,
         prevSelectionId: prevState.prevSelectionId,
+        menuAnchor: null,
       };
     });
 
@@ -413,7 +388,9 @@ export const TreeItem = ({
 
   let text;
   if (editingMode) {
+    console.log('TreeItem - editingMode : ' + editingMode);
     const handleChange = (event) => {
+      console.log('TreeItem - handleChange');
       const newLabel = event.target.value;
       setState((prevState) => {
         return { ...prevState, editingMode: true, label: newLabel };
@@ -421,6 +398,7 @@ export const TreeItem = ({
     };
 
     const doRename = () => {
+      console.log('TreeItem - doRename');
       const isNameValid = label.length >= 1;
       if (isNameValid && item) {
         if (item.kind === 'Document') {
@@ -453,9 +431,11 @@ export const TreeItem = ({
       }
     };
     const onFocusIn = (event) => {
+      console.log('TreeItem - onFocusIn');
       event.target.select();
     };
     const onFocusOut = (event) => {
+      console.log('TreeItem - onFocusOut');
       doRename();
     };
     text = (
@@ -497,12 +477,11 @@ export const TreeItem = ({
       setState((prevState) => {
         return {
           modalDisplayed: null,
-          x: 0,
-          y: 0,
           showContextMenu: false,
           editingMode: false,
           label: label,
           prevSelectionId: prevState.prevSelectionId,
+          menuAnchor: null,
         };
       });
     };
@@ -525,12 +504,11 @@ export const TreeItem = ({
       setState((prevState) => {
         return {
           modalDisplayed: null,
-          x: 0,
-          y: 0,
           showContextMenu: false,
           editingMode: false,
           label: label,
           prevSelectionId: prevState.prevSelectionId,
+          menuAnchor: null,
         };
       });
     };
@@ -554,12 +532,11 @@ export const TreeItem = ({
       setState((prevState) => {
         return {
           modalDisplayed: null,
-          x: 0,
-          y: 0,
           showContextMenu: false,
           editingMode: false,
           label: label,
           prevSelectionId: prevState.prevSelectionId,
+          menuAnchor: null,
         };
       });
     };

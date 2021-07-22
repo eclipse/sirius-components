@@ -14,12 +14,11 @@
 export interface TreeItemDocumentContextMenuProps {
   editingContextId: string;
   documentId: string;
-  x: number;
-  y: number;
   onNewObject: () => void;
   onRenameDocument: () => void;
   onDownload: () => void;
   onDeleteDocument: () => void;
   onClose: () => void;
   readOnly: boolean;
+  menuAnchor: HTMLElement;
 }

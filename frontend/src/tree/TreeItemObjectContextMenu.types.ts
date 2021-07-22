@@ -12,8 +12,6 @@
  *******************************************************************************/
 
 export interface TreeItemObjectContextMenuProps {
-  x: number;
-  y: number;
   onCreateNewObject: () => void;
   onCreateRepresentation: () => void;
   editable?: boolean;
@@ -21,4 +19,5 @@ export interface TreeItemObjectContextMenuProps {
   onDeleteObject: () => void;
   onClose: () => void;
   readOnly: boolean;
+  menuAnchor: HTMLElement;
 }
