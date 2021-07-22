@@ -77,11 +77,18 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute view.ecore#//NodeStyle/listMode"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute view.ecore#//NodeStyle/borderRadius"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute view.ecore#//NodeStyle/shape"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute view.ecore#//NodeStyle/borderSize"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute view.ecore#//NodeStyle/labelColor"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute view.ecore#//NodeStyle/italic"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute view.ecore#//NodeStyle/bold"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute view.ecore#//NodeStyle/underline"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute view.ecore#//NodeStyle/strikeThrough"/>
     </genClasses>
     <genClasses ecoreClass="view.ecore#//EdgeStyle">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute view.ecore#//EdgeStyle/lineStyle"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute view.ecore#//EdgeStyle/sourceArrowStyle"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute view.ecore#//EdgeStyle/targetArrowStyle"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute view.ecore#//EdgeStyle/edgeWidth"/>
     </genClasses>
     <genClasses image="false" ecoreClass="view.ecore#//Tool">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute view.ecore#//Tool/name"/>

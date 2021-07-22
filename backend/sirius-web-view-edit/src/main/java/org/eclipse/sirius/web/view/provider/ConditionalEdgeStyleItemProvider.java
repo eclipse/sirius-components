@@ -56,6 +56,7 @@ public class ConditionalEdgeStyleItemProvider extends ConditionalItemProvider {
             this.addLineStylePropertyDescriptor(object);
             this.addSourceArrowStylePropertyDescriptor(object);
             this.addTargetArrowStylePropertyDescriptor(object);
+            this.addEdgeWidthPropertyDescriptor(object);
         }
         return this.itemPropertyDescriptors;
     }
@@ -133,6 +134,18 @@ public class ConditionalEdgeStyleItemProvider extends ConditionalItemProvider {
     }
 
     /**
+     * This adds a property descriptor for the Edge Width feature. <!-- begin-user-doc --> <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    protected void addEdgeWidthPropertyDescriptor(Object object) {
+        this.itemPropertyDescriptors.add(this.createItemPropertyDescriptor(((ComposeableAdapterFactory) this.adapterFactory).getRootAdapterFactory(), this.getResourceLocator(),
+                this.getString("_UI_EdgeStyle_edgeWidth_feature"), //$NON-NLS-1$
+                this.getString("_UI_PropertyDescriptor_description", "_UI_EdgeStyle_edgeWidth_feature", "_UI_EdgeStyle_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+                ViewPackage.Literals.EDGE_STYLE__EDGE_WIDTH, true, false, false, ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE, null, null));
+    }
+
+    /**
      * This returns ConditionalEdgeStyle.gif. <!-- begin-user-doc --> <!-- end-user-doc -->
      *
      * @generated NOT
@@ -182,6 +195,7 @@ public class ConditionalEdgeStyleItemProvider extends ConditionalItemProvider {
         case ViewPackage.CONDITIONAL_EDGE_STYLE__LINE_STYLE:
         case ViewPackage.CONDITIONAL_EDGE_STYLE__SOURCE_ARROW_STYLE:
         case ViewPackage.CONDITIONAL_EDGE_STYLE__TARGET_ARROW_STYLE:
+        case ViewPackage.CONDITIONAL_EDGE_STYLE__EDGE_WIDTH:
             this.fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
             return;
         }

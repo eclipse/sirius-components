@@ -88,6 +88,10 @@ public class ViewPropertiesConfigurer implements IPropertiesDescriptionRegistryC
                         style -> ((ConditionalNodeStyle) style).getCondition(),
                         (style, newCondition) -> ((ConditionalNodeStyle) style).setCondition(newCondition),
                         ViewPackage.Literals.CONDITIONAL__CONDITION),
+                this.createTextField("conditionalnodestyle.labelColor", "Label Color", //$NON-NLS-1$ //$NON-NLS-2$
+                        style -> ((NodeStyle) style).getLabelColor(),
+                        (style, newLabelColor) -> ((NodeStyle) style).setLabelColor(newLabelColor),
+                        ViewPackage.Literals.NODE_STYLE__LABEL_COLOR),
                 this.createTextField("conditionalnodestyle.color", "Color", //$NON-NLS-1$ //$NON-NLS-2$
                         style -> ((NodeStyle) style).getColor(),
                         (style, newColor) -> ((NodeStyle) style).setColor(newColor),
@@ -106,6 +110,16 @@ public class ViewPropertiesConfigurer implements IPropertiesDescriptionRegistryC
                             }
                         },
                         ViewPackage.Literals.NODE_STYLE__BORDER_RADIUS),
+                this.createTextField("conditionalnodestyle.borderSize", "Border Size", //$NON-NLS-1$ //$NON-NLS-2$
+                        style -> String.valueOf(((NodeStyle) style).getBorderSize()),
+                        (style, newBorderSize) -> {
+                            try {
+                                ((NodeStyle) style).setBorderSize(Integer.parseInt(newBorderSize));
+                            } catch (NumberFormatException nfe) {
+                                // Ignore.
+                            }
+                        },
+                        ViewPackage.Literals.NODE_STYLE__BORDER_SIZE),
                 this.createCheckbox("conditionalnodestyle.listMost", "List Mode", //$NON-NLS-1$ //$NON-NLS-2$
                         style -> ((NodeStyle) style).isListMode(),
                         (style, newListMode) -> ((NodeStyle) style).setListMode(newListMode),
@@ -120,6 +134,22 @@ public class ViewPropertiesConfigurer implements IPropertiesDescriptionRegistryC
                             }
                         },
                         ViewPackage.Literals.STYLE__FONT_SIZE),
+                this.createCheckbox("conditionalnodestyle.italic", "Italic", //$NON-NLS-1$ //$NON-NLS-2$
+                        style -> ((NodeStyle) style).isItalic(),
+                        (style, newItalic) -> ((NodeStyle) style).setItalic(newItalic),
+                        ViewPackage.Literals.NODE_STYLE__ITALIC),
+                this.createCheckbox("conditionalnodestyle.bold", "Bold", //$NON-NLS-1$ //$NON-NLS-2$
+                        style -> ((NodeStyle) style).isBold(),
+                        (style, newBold) -> ((NodeStyle) style).setBold(newBold),
+                        ViewPackage.Literals.NODE_STYLE__BOLD),
+                this.createCheckbox("conditionalnodestyle.underline", "Underline", //$NON-NLS-1$ //$NON-NLS-2$
+                        style -> ((NodeStyle) style).isUnderline(),
+                        (style, newUnderline) -> ((NodeStyle) style).setUnderline(newUnderline),
+                        ViewPackage.Literals.NODE_STYLE__UNDERLINE),
+                this.createCheckbox("conditionalnodestyle.strikeThrough", "Strike Through", //$NON-NLS-1$ //$NON-NLS-2$
+                        style -> ((NodeStyle) style).isStrikeThrough(),
+                        (style, newStrikeThrough) -> ((NodeStyle) style).setStrikeThrough(newStrikeThrough),
+                        ViewPackage.Literals.NODE_STYLE__STRIKE_THROUGH),
                 this.createShapeSelectionField(ViewPackage.Literals.NODE_STYLE__SHAPE));
 
         GroupDescription groupDescription = this.createSimpleGroupDescription(controls);
@@ -150,6 +180,10 @@ public class ViewPropertiesConfigurer implements IPropertiesDescriptionRegistryC
                                                                                                      .orElse(null);
 
         List<AbstractControlDescription> controls = List.of(
+                this.createTextField("nodestyle.labelColor", "Label Color", //$NON-NLS-1$ //$NON-NLS-2$
+                        style -> ((NodeStyle) style).getLabelColor(),
+                        (style, newLabelColor) -> ((NodeStyle) style).setLabelColor(newLabelColor),
+                        ViewPackage.Literals.NODE_STYLE__LABEL_COLOR),
                 this.createTextField("nodestyle.color", "Color", //$NON-NLS-1$ //$NON-NLS-2$
                                      style -> ((NodeStyle) style).getColor(),
                                      (style, newColor) -> ((NodeStyle) style).setColor(newColor),
@@ -172,6 +206,16 @@ public class ViewPropertiesConfigurer implements IPropertiesDescriptionRegistryC
                         style -> ((NodeStyle) style).isListMode(),
                         (style, newListMode) -> ((NodeStyle) style).setListMode(newListMode),
                         ViewPackage.Literals.NODE_STYLE__LIST_MODE),
+                this.createTextField("nodestyle.borderSize", "Border Size", //$NON-NLS-1$ //$NON-NLS-2$
+                        style -> String.valueOf(((NodeStyle) style).getBorderSize()),
+                        (style, newBorderSize) -> {
+                            try {
+                                ((NodeStyle) style).setBorderSize(Integer.parseInt(newBorderSize));
+                            } catch (NumberFormatException nfe) {
+                                // Ignore.
+                            }
+                        },
+                        ViewPackage.Literals.NODE_STYLE__BORDER_SIZE),
                 this.createTextField("nodestyle.fontSize", "Font Size", //$NON-NLS-1$ //$NON-NLS-2$
                         style -> String.valueOf(((NodeStyle) style).getFontSize()),
                         (style, newColor) -> {
@@ -182,6 +226,22 @@ public class ViewPropertiesConfigurer implements IPropertiesDescriptionRegistryC
                             }
                         },
                         ViewPackage.Literals.STYLE__FONT_SIZE),
+                this.createCheckbox("nodestyle.italic", "Italic", //$NON-NLS-1$ //$NON-NLS-2$
+                        style -> ((NodeStyle) style).isItalic(),
+                        (style, newItalic) -> ((NodeStyle) style).setItalic(newItalic),
+                        ViewPackage.Literals.NODE_STYLE__ITALIC),
+                this.createCheckbox("nodestyle.bold", "Bold", //$NON-NLS-1$ //$NON-NLS-2$
+                        style -> ((NodeStyle) style).isBold(),
+                        (style, newBold) -> ((NodeStyle) style).setBold(newBold),
+                        ViewPackage.Literals.NODE_STYLE__BOLD),
+                this.createCheckbox("nodestyle.underline", "Underline", //$NON-NLS-1$ //$NON-NLS-2$
+                        style -> ((NodeStyle) style).isUnderline(),
+                        (style, newUnderline) -> ((NodeStyle) style).setUnderline(newUnderline),
+                        ViewPackage.Literals.NODE_STYLE__UNDERLINE),
+                this.createCheckbox("nodestyle.strikeThrough", "Strike Through", //$NON-NLS-1$ //$NON-NLS-2$
+                        style -> ((NodeStyle) style).isStrikeThrough(),
+                        (style, newStrikeThrough) -> ((NodeStyle) style).setStrikeThrough(newStrikeThrough),
+                        ViewPackage.Literals.NODE_STYLE__STRIKE_THROUGH),
                 this.createShapeSelectionField(ViewPackage.Literals.NODE_STYLE__SHAPE));
 
         GroupDescription groupDescription = this.createSimpleGroupDescription(controls);

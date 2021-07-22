@@ -37,6 +37,7 @@ import org.eclipse.sirius.web.view.ViewPackage;
  * Style</em>}</li>
  * <li>{@link org.eclipse.sirius.web.view.impl.ConditionalEdgeStyleImpl#getTargetArrowStyle <em>Target Arrow
  * Style</em>}</li>
+ * <li>{@link org.eclipse.sirius.web.view.impl.ConditionalEdgeStyleImpl#getEdgeWidth <em>Edge Width</em>}</li>
  * </ul>
  *
  * @generated
@@ -161,6 +162,26 @@ public class ConditionalEdgeStyleImpl extends ConditionalImpl implements Conditi
      * @ordered
      */
     protected ArrowStyle targetArrowStyle = TARGET_ARROW_STYLE_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getEdgeWidth() <em>Edge Width</em>}' attribute. <!-- begin-user-doc --> <!--
+     * end-user-doc -->
+     *
+     * @see #getEdgeWidth()
+     * @generated
+     * @ordered
+     */
+    protected static final int EDGE_WIDTH_EDEFAULT = 1;
+
+    /**
+     * The cached value of the '{@link #getEdgeWidth() <em>Edge Width</em>}' attribute. <!-- begin-user-doc --> <!--
+     * end-user-doc -->
+     *
+     * @see #getEdgeWidth()
+     * @generated
+     * @ordered
+     */
+    protected int edgeWidth = EDGE_WIDTH_EDEFAULT;
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -325,6 +346,29 @@ public class ConditionalEdgeStyleImpl extends ConditionalImpl implements Conditi
      * @generated
      */
     @Override
+    public int getEdgeWidth() {
+        return this.edgeWidth;
+    }
+
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    @Override
+    public void setEdgeWidth(int newEdgeWidth) {
+        int oldEdgeWidth = this.edgeWidth;
+        this.edgeWidth = newEdgeWidth;
+        if (this.eNotificationRequired())
+            this.eNotify(new ENotificationImpl(this, Notification.SET, ViewPackage.CONDITIONAL_EDGE_STYLE__EDGE_WIDTH, oldEdgeWidth, this.edgeWidth));
+    }
+
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
         case ViewPackage.CONDITIONAL_EDGE_STYLE__COLOR:
@@ -339,6 +383,8 @@ public class ConditionalEdgeStyleImpl extends ConditionalImpl implements Conditi
             return this.getSourceArrowStyle();
         case ViewPackage.CONDITIONAL_EDGE_STYLE__TARGET_ARROW_STYLE:
             return this.getTargetArrowStyle();
+        case ViewPackage.CONDITIONAL_EDGE_STYLE__EDGE_WIDTH:
+            return this.getEdgeWidth();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -368,6 +414,9 @@ public class ConditionalEdgeStyleImpl extends ConditionalImpl implements Conditi
             return;
         case ViewPackage.CONDITIONAL_EDGE_STYLE__TARGET_ARROW_STYLE:
             this.setTargetArrowStyle((ArrowStyle) newValue);
+            return;
+        case ViewPackage.CONDITIONAL_EDGE_STYLE__EDGE_WIDTH:
+            this.setEdgeWidth((Integer) newValue);
             return;
         }
         super.eSet(featureID, newValue);
@@ -399,6 +448,9 @@ public class ConditionalEdgeStyleImpl extends ConditionalImpl implements Conditi
         case ViewPackage.CONDITIONAL_EDGE_STYLE__TARGET_ARROW_STYLE:
             this.setTargetArrowStyle(TARGET_ARROW_STYLE_EDEFAULT);
             return;
+        case ViewPackage.CONDITIONAL_EDGE_STYLE__EDGE_WIDTH:
+            this.setEdgeWidth(EDGE_WIDTH_EDEFAULT);
+            return;
         }
         super.eUnset(featureID);
     }
@@ -423,6 +475,8 @@ public class ConditionalEdgeStyleImpl extends ConditionalImpl implements Conditi
             return this.sourceArrowStyle != SOURCE_ARROW_STYLE_EDEFAULT;
         case ViewPackage.CONDITIONAL_EDGE_STYLE__TARGET_ARROW_STYLE:
             return this.targetArrowStyle != TARGET_ARROW_STYLE_EDEFAULT;
+        case ViewPackage.CONDITIONAL_EDGE_STYLE__EDGE_WIDTH:
+            return this.edgeWidth != EDGE_WIDTH_EDEFAULT;
         }
         return super.eIsSet(featureID);
     }
@@ -454,6 +508,8 @@ public class ConditionalEdgeStyleImpl extends ConditionalImpl implements Conditi
                 return ViewPackage.EDGE_STYLE__SOURCE_ARROW_STYLE;
             case ViewPackage.CONDITIONAL_EDGE_STYLE__TARGET_ARROW_STYLE:
                 return ViewPackage.EDGE_STYLE__TARGET_ARROW_STYLE;
+            case ViewPackage.CONDITIONAL_EDGE_STYLE__EDGE_WIDTH:
+                return ViewPackage.EDGE_STYLE__EDGE_WIDTH;
             default:
                 return -1;
             }
@@ -488,6 +544,8 @@ public class ConditionalEdgeStyleImpl extends ConditionalImpl implements Conditi
                 return ViewPackage.CONDITIONAL_EDGE_STYLE__SOURCE_ARROW_STYLE;
             case ViewPackage.EDGE_STYLE__TARGET_ARROW_STYLE:
                 return ViewPackage.CONDITIONAL_EDGE_STYLE__TARGET_ARROW_STYLE;
+            case ViewPackage.EDGE_STYLE__EDGE_WIDTH:
+                return ViewPackage.CONDITIONAL_EDGE_STYLE__EDGE_WIDTH;
             default:
                 return -1;
             }
@@ -518,6 +576,8 @@ public class ConditionalEdgeStyleImpl extends ConditionalImpl implements Conditi
         result.append(this.sourceArrowStyle);
         result.append(", targetArrowStyle: "); //$NON-NLS-1$
         result.append(this.targetArrowStyle);
+        result.append(", edgeWidth: "); //$NON-NLS-1$
+        result.append(this.edgeWidth);
         result.append(')');
         return result.toString();
     }

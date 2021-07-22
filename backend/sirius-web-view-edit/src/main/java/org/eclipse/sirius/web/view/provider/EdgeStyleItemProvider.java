@@ -53,6 +53,7 @@ public class EdgeStyleItemProvider extends StyleItemProvider {
             this.addLineStylePropertyDescriptor(object);
             this.addSourceArrowStylePropertyDescriptor(object);
             this.addTargetArrowStylePropertyDescriptor(object);
+            this.addEdgeWidthPropertyDescriptor(object);
         }
         return this.itemPropertyDescriptors;
     }
@@ -91,6 +92,18 @@ public class EdgeStyleItemProvider extends StyleItemProvider {
                 this.getString("_UI_EdgeStyle_targetArrowStyle_feature"), //$NON-NLS-1$
                 this.getString("_UI_PropertyDescriptor_description", "_UI_EdgeStyle_targetArrowStyle_feature", "_UI_EdgeStyle_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
                 ViewPackage.Literals.EDGE_STYLE__TARGET_ARROW_STYLE, true, false, false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
+    }
+
+    /**
+     * This adds a property descriptor for the Edge Width feature. <!-- begin-user-doc --> <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    protected void addEdgeWidthPropertyDescriptor(Object object) {
+        this.itemPropertyDescriptors.add(this.createItemPropertyDescriptor(((ComposeableAdapterFactory) this.adapterFactory).getRootAdapterFactory(), this.getResourceLocator(),
+                this.getString("_UI_EdgeStyle_edgeWidth_feature"), //$NON-NLS-1$
+                this.getString("_UI_PropertyDescriptor_description", "_UI_EdgeStyle_edgeWidth_feature", "_UI_EdgeStyle_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+                ViewPackage.Literals.EDGE_STYLE__EDGE_WIDTH, true, false, false, ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE, null, null));
     }
 
     /**
@@ -140,6 +153,7 @@ public class EdgeStyleItemProvider extends StyleItemProvider {
         case ViewPackage.EDGE_STYLE__LINE_STYLE:
         case ViewPackage.EDGE_STYLE__SOURCE_ARROW_STYLE:
         case ViewPackage.EDGE_STYLE__TARGET_ARROW_STYLE:
+        case ViewPackage.EDGE_STYLE__EDGE_WIDTH:
             this.fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
             return;
         }
