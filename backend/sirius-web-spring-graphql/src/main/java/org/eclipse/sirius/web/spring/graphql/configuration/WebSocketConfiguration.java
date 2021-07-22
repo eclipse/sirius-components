@@ -42,7 +42,7 @@ import io.micrometer.core.instrument.MeterRegistry;
 @EnableWebSocket
 public class WebSocketConfiguration implements WebSocketConfigurer {
 
-    private final String allowedOrigins;
+    private final String[] allowedOrigins;
 
     private final GraphQL graphQL;
 
@@ -50,7 +50,7 @@ public class WebSocketConfiguration implements WebSocketConfigurer {
 
     private final MeterRegistry meterRegistry;
 
-    public WebSocketConfiguration(@Value("${sirius.web.graphql.websocket.allowed.origins}") String allowedOrigins, GraphQL graphQL, ObjectMapper objectMapper, MeterRegistry meterRegistry) {
+    public WebSocketConfiguration(@Value("${sirius.web.graphql.websocket.allowed.origins}") String[] allowedOrigins, GraphQL graphQL, ObjectMapper objectMapper, MeterRegistry meterRegistry) {
         this.allowedOrigins = Objects.requireNonNull(allowedOrigins);
         this.graphQL = Objects.requireNonNull(graphQL);
         this.objectMapper = Objects.requireNonNull(objectMapper);
