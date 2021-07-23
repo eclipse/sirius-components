@@ -230,7 +230,7 @@ public class DomainPackageImpl extends EPackageImpl implements DomainPackage {
      * @generated
      */
     @Override
-    public EReference getEntity_SuperType() {
+    public EReference getEntity_SuperTypes() {
         return (EReference) this.entityEClass.getEStructuralFeatures().get(2);
     }
 
@@ -373,7 +373,7 @@ public class DomainPackageImpl extends EPackageImpl implements DomainPackage {
         this.entityEClass = this.createEClass(ENTITY);
         this.createEReference(this.entityEClass, ENTITY__ATTRIBUTES);
         this.createEReference(this.entityEClass, ENTITY__RELATIONS);
-        this.createEReference(this.entityEClass, ENTITY__SUPER_TYPE);
+        this.createEReference(this.entityEClass, ENTITY__SUPER_TYPES);
         this.createEAttribute(this.entityEClass, ENTITY__ABSTRACT);
 
         this.featureEClass = this.createEClass(FEATURE);
@@ -441,7 +441,7 @@ public class DomainPackageImpl extends EPackageImpl implements DomainPackage {
                 !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         this.initEReference(this.getEntity_Relations(), this.getRelation(), null, "relations", null, 0, -1, Entity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, //$NON-NLS-1$
                 !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        this.initEReference(this.getEntity_SuperType(), this.getEntity(), null, "superType", null, 0, 1, Entity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, //$NON-NLS-1$
+        this.initEReference(this.getEntity_SuperTypes(), this.getEntity(), null, "superTypes", null, 0, -1, Entity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, //$NON-NLS-1$
                 !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         this.initEAttribute(this.getEntity_Abstract(), this.ecorePackage.getEBoolean(), "abstract", null, 1, 1, Entity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, //$NON-NLS-1$
                 IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

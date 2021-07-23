@@ -62,9 +62,10 @@ public class DomainConverter {
                 EReference eReference = this.convertRelation(relation, convertedTypes);
                 eClass.getEStructuralFeatures().add(eReference);
             }
-            Entity superType = entity.getSuperType();
-            if (superType != null && convertedTypes.containsKey(superType)) {
-                eClass.getESuperTypes().add(convertedTypes.get(superType));
+            for (Entity superType : entity.getSuperTypes()) {
+                if (convertedTypes.containsKey(superType)) {
+                    eClass.getESuperTypes().add(convertedTypes.get(superType));
+                }
             }
         }
 

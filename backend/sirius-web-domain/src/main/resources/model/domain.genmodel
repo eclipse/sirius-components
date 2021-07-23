@@ -28,7 +28,7 @@
     <genClasses ecoreClass="domain.ecore#//Entity">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference domain.ecore#//Entity/attributes"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference domain.ecore#//Entity/relations"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference domain.ecore#//Entity/superType"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference domain.ecore#//Entity/superTypes"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute domain.ecore#//Entity/abstract"/>
     </genClasses>
     <genClasses ecoreClass="domain.ecore#//Feature">

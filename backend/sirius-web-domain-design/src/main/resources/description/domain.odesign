@@ -44,7 +44,7 @@
             </style>
           </conditionnalStyles>
         </edgeMappings>
-        <edgeMappings name="Inheritance" sourceMapping="//@ownedViewpoints[name='Domain']/@ownedRepresentations[name='Domain']/@defaultLayer/@containerMappings[name='Entity']" targetMapping="//@ownedViewpoints[name='Domain']/@ownedRepresentations[name='Domain']/@defaultLayer/@containerMappings[name='Entity']" targetFinderExpression="feature:superType">
+        <edgeMappings name="Inheritance" sourceMapping="//@ownedViewpoints[name='Domain']/@ownedRepresentations[name='Domain']/@defaultLayer/@containerMappings[name='Entity']" targetMapping="//@ownedViewpoints[name='Domain']/@ownedRepresentations[name='Domain']/@defaultLayer/@containerMappings[name='Entity']" targetFinderExpression="feature:superTypes">
           <style strokeColor="//@userColorsPalettes[name='Sirius%20Web']/@entries[name='grey%2Fgrey-600']" targetArrow="InputClosedArrow" routingStyle="manhattan">
             <centerLabelStyleDescription labelSize="12" showIcon="false">
               <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>

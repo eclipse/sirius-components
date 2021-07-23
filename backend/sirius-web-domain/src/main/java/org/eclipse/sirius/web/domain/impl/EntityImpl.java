@@ -21,6 +21,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.sirius.web.domain.Attribute;
 import org.eclipse.sirius.web.domain.DomainPackage;
@@ -35,7 +36,7 @@ import org.eclipse.sirius.web.domain.Relation;
  * <ul>
  * <li>{@link org.eclipse.sirius.web.domain.impl.EntityImpl#getAttributes <em>Attributes</em>}</li>
  * <li>{@link org.eclipse.sirius.web.domain.impl.EntityImpl#getRelations <em>Relations</em>}</li>
- * <li>{@link org.eclipse.sirius.web.domain.impl.EntityImpl#getSuperType <em>Super Type</em>}</li>
+ * <li>{@link org.eclipse.sirius.web.domain.impl.EntityImpl#getSuperTypes <em>Super Types</em>}</li>
  * <li>{@link org.eclipse.sirius.web.domain.impl.EntityImpl#isAbstract <em>Abstract</em>}</li>
  * </ul>
  *
@@ -63,14 +64,14 @@ public class EntityImpl extends NamedElementImpl implements Entity {
     protected EList<Relation> relations;
 
     /**
-     * The cached value of the '{@link #getSuperType() <em>Super Type</em>}' reference. <!-- begin-user-doc --> <!--
-     * end-user-doc -->
+     * The cached value of the '{@link #getSuperTypes() <em>Super Types</em>}' reference list. <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      *
-     * @see #getSuperType()
+     * @see #getSuperTypes()
      * @generated
      * @ordered
      */
-    protected Entity superType;
+    protected EList<Entity> superTypes;
 
     /**
      * The default value of the '{@link #isAbstract() <em>Abstract</em>}' attribute. <!-- begin-user-doc --> <!--
@@ -143,38 +144,11 @@ public class EntityImpl extends NamedElementImpl implements Entity {
      * @generated
      */
     @Override
-    public Entity getSuperType() {
-        if (this.superType != null && this.superType.eIsProxy()) {
-            InternalEObject oldSuperType = (InternalEObject) this.superType;
-            this.superType = (Entity) this.eResolveProxy(oldSuperType);
-            if (this.superType != oldSuperType) {
-                if (this.eNotificationRequired())
-                    this.eNotify(new ENotificationImpl(this, Notification.RESOLVE, DomainPackage.ENTITY__SUPER_TYPE, oldSuperType, this.superType));
-            }
+    public EList<Entity> getSuperTypes() {
+        if (this.superTypes == null) {
+            this.superTypes = new EObjectResolvingEList<>(Entity.class, this, DomainPackage.ENTITY__SUPER_TYPES);
         }
-        return this.superType;
-    }
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     *
-     * @generated
-     */
-    public Entity basicGetSuperType() {
-        return this.superType;
-    }
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     *
-     * @generated
-     */
-    @Override
-    public void setSuperType(Entity newSuperType) {
-        Entity oldSuperType = this.superType;
-        this.superType = newSuperType;
-        if (this.eNotificationRequired())
-            this.eNotify(new ENotificationImpl(this, Notification.SET, DomainPackage.ENTITY__SUPER_TYPE, oldSuperType, this.superType));
+        return this.superTypes;
     }
 
     /**
@@ -228,10 +202,8 @@ public class EntityImpl extends NamedElementImpl implements Entity {
             return this.getAttributes();
         case DomainPackage.ENTITY__RELATIONS:
             return this.getRelations();
-        case DomainPackage.ENTITY__SUPER_TYPE:
-            if (resolve)
-                return this.getSuperType();
-            return this.basicGetSuperType();
+        case DomainPackage.ENTITY__SUPER_TYPES:
+            return this.getSuperTypes();
         case DomainPackage.ENTITY__ABSTRACT:
             return this.isAbstract();
         }
@@ -255,8 +227,9 @@ public class EntityImpl extends NamedElementImpl implements Entity {
             this.getRelations().clear();
             this.getRelations().addAll((Collection<? extends Relation>) newValue);
             return;
-        case DomainPackage.ENTITY__SUPER_TYPE:
-            this.setSuperType((Entity) newValue);
+        case DomainPackage.ENTITY__SUPER_TYPES:
+            this.getSuperTypes().clear();
+            this.getSuperTypes().addAll((Collection<? extends Entity>) newValue);
             return;
         case DomainPackage.ENTITY__ABSTRACT:
             this.setAbstract((Boolean) newValue);
@@ -279,8 +252,8 @@ public class EntityImpl extends NamedElementImpl implements Entity {
         case DomainPackage.ENTITY__RELATIONS:
             this.getRelations().clear();
             return;
-        case DomainPackage.ENTITY__SUPER_TYPE:
-            this.setSuperType((Entity) null);
+        case DomainPackage.ENTITY__SUPER_TYPES:
+            this.getSuperTypes().clear();
             return;
         case DomainPackage.ENTITY__ABSTRACT:
             this.setAbstract(ABSTRACT_EDEFAULT);
@@ -301,8 +274,8 @@ public class EntityImpl extends NamedElementImpl implements Entity {
             return this.attributes != null && !this.attributes.isEmpty();
         case DomainPackage.ENTITY__RELATIONS:
             return this.relations != null && !this.relations.isEmpty();
-        case DomainPackage.ENTITY__SUPER_TYPE:
-            return this.superType != null;
+        case DomainPackage.ENTITY__SUPER_TYPES:
+            return this.superTypes != null && !this.superTypes.isEmpty();
         case DomainPackage.ENTITY__ABSTRACT:
             return this.abstract_ != ABSTRACT_EDEFAULT;
         }

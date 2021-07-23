@@ -23,7 +23,7 @@ import org.eclipse.emf.common.util.EList;
  * <ul>
  * <li>{@link org.eclipse.sirius.web.domain.Entity#getAttributes <em>Attributes</em>}</li>
  * <li>{@link org.eclipse.sirius.web.domain.Entity#getRelations <em>Relations</em>}</li>
- * <li>{@link org.eclipse.sirius.web.domain.Entity#getSuperType <em>Super Type</em>}</li>
+ * <li>{@link org.eclipse.sirius.web.domain.Entity#getSuperTypes <em>Super Types</em>}</li>
  * <li>{@link org.eclipse.sirius.web.domain.Entity#isAbstract <em>Abstract</em>}</li>
  * </ul>
  *
@@ -55,26 +55,15 @@ public interface Entity extends NamedElement {
     EList<Relation> getRelations();
 
     /**
-     * Returns the value of the '<em><b>Super Type</b></em>' reference. <!-- begin-user-doc --> <!-- end-user-doc -->
+     * Returns the value of the '<em><b>Super Types</b></em>' reference list. The list contents are of type
+     * {@link org.eclipse.sirius.web.domain.Entity}. <!-- begin-user-doc --> <!-- end-user-doc -->
      *
-     * @return the value of the '<em>Super Type</em>' reference.
-     * @see #setSuperType(Entity)
-     * @see org.eclipse.sirius.web.domain.DomainPackage#getEntity_SuperType()
+     * @return the value of the '<em>Super Types</em>' reference list.
+     * @see org.eclipse.sirius.web.domain.DomainPackage#getEntity_SuperTypes()
      * @model
      * @generated
      */
-    Entity getSuperType();
-
-    /**
-     * Sets the value of the '{@link org.eclipse.sirius.web.domain.Entity#getSuperType <em>Super Type</em>}' reference.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     *
-     * @param value
-     *            the new value of the '<em>Super Type</em>' reference.
-     * @see #getSuperType()
-     * @generated
-     */
-    void setSuperType(Entity value);
+    EList<Entity> getSuperTypes();
 
     /**
      * Returns the value of the '<em><b>Abstract</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->

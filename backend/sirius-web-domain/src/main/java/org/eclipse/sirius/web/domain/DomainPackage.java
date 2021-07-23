@@ -185,12 +185,13 @@ public interface DomainPackage extends EPackage {
     int ENTITY__RELATIONS = NAMED_ELEMENT_FEATURE_COUNT + 1;
 
     /**
-     * The feature id for the '<em><b>Super Type</b></em>' reference. <!-- begin-user-doc --> <!-- end-user-doc -->
+     * The feature id for the '<em><b>Super Types</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
      *
      * @generated
      * @ordered
      */
-    int ENTITY__SUPER_TYPE = NAMED_ELEMENT_FEATURE_COUNT + 2;
+    int ENTITY__SUPER_TYPES = NAMED_ELEMENT_FEATURE_COUNT + 2;
 
     /**
      * The feature id for the '<em><b>Abstract</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -489,15 +490,15 @@ public interface DomainPackage extends EPackage {
     EReference getEntity_Relations();
 
     /**
-     * Returns the meta object for the reference '{@link org.eclipse.sirius.web.domain.Entity#getSuperType <em>Super
-     * Type</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+     * Returns the meta object for the reference list '{@link org.eclipse.sirius.web.domain.Entity#getSuperTypes
+     * <em>Super Types</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
      *
-     * @return the meta object for the reference '<em>Super Type</em>'.
-     * @see org.eclipse.sirius.web.domain.Entity#getSuperType()
+     * @return the meta object for the reference list '<em>Super Types</em>'.
+     * @see org.eclipse.sirius.web.domain.Entity#getSuperTypes()
      * @see #getEntity()
      * @generated
      */
-    EReference getEntity_SuperType();
+    EReference getEntity_SuperTypes();
 
     /**
      * Returns the meta object for the attribute '{@link org.eclipse.sirius.web.domain.Entity#isAbstract
@@ -698,12 +699,12 @@ public interface DomainPackage extends EPackage {
         EReference ENTITY__RELATIONS = eINSTANCE.getEntity_Relations();
 
         /**
-         * The meta object literal for the '<em><b>Super Type</b></em>' reference feature. <!-- begin-user-doc --> <!--
-         * end-user-doc -->
+         * The meta object literal for the '<em><b>Super Types</b></em>' reference list feature. <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
          *
          * @generated
          */
-        EReference ENTITY__SUPER_TYPE = eINSTANCE.getEntity_SuperType();
+        EReference ENTITY__SUPER_TYPES = eINSTANCE.getEntity_SuperTypes();
 
         /**
          * The meta object literal for the '<em><b>Abstract</b></em>' attribute feature. <!-- begin-user-doc --> <!--
