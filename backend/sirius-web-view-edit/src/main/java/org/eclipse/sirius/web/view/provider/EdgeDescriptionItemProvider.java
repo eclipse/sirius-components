@@ -22,7 +22,9 @@ import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ViewerNotification;
+import org.eclipse.sirius.web.view.ConditionalEdgeStyle;
 import org.eclipse.sirius.web.view.EdgeDescription;
+import org.eclipse.sirius.web.view.EdgeStyle;
 import org.eclipse.sirius.web.view.EdgeTool;
 import org.eclipse.sirius.web.view.ViewFactory;
 import org.eclipse.sirius.web.view.ViewPackage;
@@ -232,8 +234,13 @@ public class EdgeDescriptionItemProvider extends DiagramElementDescriptionItemPr
         newEdgeTool.getBody().add(ViewFactory.eINSTANCE.createChangeContext());
         newChildDescriptors.add(this.createChildParameter(ViewPackage.Literals.EDGE_DESCRIPTION__EDGE_TOOLS, newEdgeTool));
 
-        newChildDescriptors.add(this.createChildParameter(ViewPackage.Literals.EDGE_DESCRIPTION__STYLE, ViewFactory.eINSTANCE.createEdgeStyle()));
-        newChildDescriptors.add(this.createChildParameter(ViewPackage.Literals.EDGE_DESCRIPTION__CONDITIONAL_STYLES, ViewFactory.eINSTANCE.createConditionalEdgeStyle()));
+        EdgeStyle newEdgeStyle = ViewFactory.eINSTANCE.createEdgeStyle();
+        newEdgeStyle.setColor("#002639"); //$NON-NLS-1$
+        newChildDescriptors.add(this.createChildParameter(ViewPackage.Literals.EDGE_DESCRIPTION__STYLE, newEdgeStyle));
+
+        ConditionalEdgeStyle conditionalEdgeStyle = ViewFactory.eINSTANCE.createConditionalEdgeStyle();
+        conditionalEdgeStyle.setColor("#002639"); //$NON-NLS-1$
+        newChildDescriptors.add(this.createChildParameter(ViewPackage.Literals.EDGE_DESCRIPTION__CONDITIONAL_STYLES, conditionalEdgeStyle));
     }
 
     /**
