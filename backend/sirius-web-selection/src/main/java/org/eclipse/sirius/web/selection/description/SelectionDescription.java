@@ -52,6 +52,8 @@ public final class SelectionDescription implements IRepresentationDescription {
 
     private Function<VariableManager, List<Object>> objectsProvider;
 
+    private Function<VariableManager, String> selectionObjectsIdProvider;
+
     private Predicate<VariableManager> canCreatePredicate;
 
     private SelectionDescription() {
@@ -97,6 +99,10 @@ public final class SelectionDescription implements IRepresentationDescription {
         return this.objectsProvider;
     }
 
+    public Function<VariableManager, String> getSelectionObjectsIdProvider() {
+        return this.selectionObjectsIdProvider;
+    }
+
     @Override
     public Predicate<VariableManager> getCanCreatePredicate() {
         return this.canCreatePredicate;
@@ -134,6 +140,8 @@ public final class SelectionDescription implements IRepresentationDescription {
         private Function<VariableManager, String> messageProvider;
 
         private Function<VariableManager, List<Object>> objectsProvider;
+
+        private Function<VariableManager, String> selectionObjectsIdProvider;
 
         private Predicate<VariableManager> canCreatePredicate;
 
@@ -176,6 +184,11 @@ public final class SelectionDescription implements IRepresentationDescription {
             return this;
         }
 
+        public Builder selectionObjectsIdProvider(Function<VariableManager, String> selectionObjectsIdProvider) {
+            this.selectionObjectsIdProvider = Objects.requireNonNull(selectionObjectsIdProvider);
+            return this;
+        }
+
         public Builder canCreatePredicate(Predicate<VariableManager> canCreatePredicate) {
             this.canCreatePredicate = Objects.requireNonNull(canCreatePredicate);
             return this;
@@ -191,8 +204,10 @@ public final class SelectionDescription implements IRepresentationDescription {
             selectionDescription.iconURLProvider = Objects.requireNonNull(this.iconURLProvider);
             selectionDescription.messageProvider = Objects.requireNonNull(this.messageProvider);
             selectionDescription.objectsProvider = Objects.requireNonNull(this.objectsProvider);
+            selectionDescription.selectionObjectsIdProvider = Objects.requireNonNull(this.selectionObjectsIdProvider);
             selectionDescription.canCreatePredicate = Objects.requireNonNull(this.canCreatePredicate);
             return selectionDescription;
         }
+
     }
 }

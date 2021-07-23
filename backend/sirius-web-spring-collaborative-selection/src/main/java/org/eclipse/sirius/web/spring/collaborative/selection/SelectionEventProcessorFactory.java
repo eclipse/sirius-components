@@ -61,7 +61,7 @@ public class SelectionEventProcessorFactory implements IRepresentationEventProce
 
             // @formatter:off
             Optional<SelectionDescription> optionalSelectionDescription = this.representationDescriptionSearchService
-                    .findById(selectionConfiguration.getId())
+                    .findById(selectionConfiguration.getSelectionId())
                     .filter(SelectionDescription.class::isInstance)
                     .map(SelectionDescription.class::cast);
             // @formatter:on
@@ -71,7 +71,7 @@ public class SelectionEventProcessorFactory implements IRepresentationEventProce
                 SelectionDescription selectionDescription = optionalSelectionDescription.get();
                 Object object = optionalObject.get();
 
-                IRepresentationEventProcessor selectionEventProcessor = new SelectionEventProcessor(editingContext, selectionDescription, selectionDescription.getId(), object,
+                IRepresentationEventProcessor selectionEventProcessor = new SelectionEventProcessor(editingContext, selectionDescription, selectionConfiguration.getId(), object,
                         this.subscriptionManagerFactory.create());
 
                 // @formatter:off

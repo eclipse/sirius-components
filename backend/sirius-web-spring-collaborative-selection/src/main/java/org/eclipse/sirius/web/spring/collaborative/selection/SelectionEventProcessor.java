@@ -27,6 +27,7 @@ import org.eclipse.sirius.web.core.api.IEditingContext;
 import org.eclipse.sirius.web.core.api.IInput;
 import org.eclipse.sirius.web.core.api.IPayload;
 import org.eclipse.sirius.web.core.api.IRepresentationInput;
+import org.eclipse.sirius.web.representations.GetOrCreateRandomIdProvider;
 import org.eclipse.sirius.web.representations.IRepresentation;
 import org.eclipse.sirius.web.representations.VariableManager;
 import org.eclipse.sirius.web.selection.Selection;
@@ -56,7 +57,7 @@ public class SelectionEventProcessor implements ISelectionEventProcessor {
 
     private final SelectionDescription selectionDescription;
 
-    private final UUID selectionId;
+    private final UUID id;
 
     private final Object object;
 
@@ -68,12 +69,12 @@ public class SelectionEventProcessor implements ISelectionEventProcessor {
 
     private final AtomicReference<Selection> currentSelection = new AtomicReference<>();
 
-    public SelectionEventProcessor(IEditingContext editingContext, SelectionDescription selectionDescription, UUID selectionId, Object object, ISubscriptionManager subscriptionManager) {
-        this.logger.trace("Creating the selection event processor {}", selectionId); //$NON-NLS-1$
+    public SelectionEventProcessor(IEditingContext editingContext, SelectionDescription selectionDescription, UUID id, Object object, ISubscriptionManager subscriptionManager) {
+        this.logger.trace("Creating the selection event processor {}", id); //$NON-NLS-1$
 
         this.selectionDescription = Objects.requireNonNull(selectionDescription);
         this.editingContext = Objects.requireNonNull(editingContext);
-        this.selectionId = Objects.requireNonNull(selectionId);
+        this.id = Objects.requireNonNull(id);
         this.object = Objects.requireNonNull(object);
         this.subscriptionManager = Objects.requireNonNull(subscriptionManager);
 
@@ -115,6 +116,7 @@ public class SelectionEventProcessor implements ISelectionEventProcessor {
         VariableManager variableManager = new VariableManager();
         variableManager.put(VariableManager.SELF, this.object);
         variableManager.put(IEditingContext.EDITING_CONTEXT, this.editingContext);
+        variableManager.put(GetOrCreateRandomIdProvider.PREVIOUS_REPRESENTATION_ID, this.id);
 
         Selection selection = new SelectionRenderer(variableManager, this.selectionDescription).render();
 
@@ -136,12 +138,12 @@ public class SelectionEventProcessor implements ISelectionEventProcessor {
         .doOnSubscribe(subscription -> {
             String username = SecurityContextHolder.getContext().getAuthentication().getName();
             this.subscriptionManager.add(input, username);
-            this.logger.trace("{} has subscribed to the selection {} {}", username, this.selectionId, this.subscriptionManager); //$NON-NLS-1$
+            this.logger.trace("{} has subscribed to the selection {} {}", username, this.id, this.subscriptionManager); //$NON-NLS-1$
         })
         .doOnCancel(() -> {
             String username = SecurityContextHolder.getContext().getAuthentication().getName();
             this.subscriptionManager.remove(UUID.randomUUID(), username);
-            this.logger.trace("{} has unsubscribed from the selection {} {}", username, this.selectionId, this.subscriptionManager); //$NON-NLS-1$
+            this.logger.trace("{} has unsubscribed from the selection {} {}", username, this.id, this.subscriptionManager); //$NON-NLS-1$
 
             if (this.subscriptionManager.isEmpty()) {
                 EmitResult emitResult = this.canBeDisposedSink.tryEmitNext(Boolean.TRUE);
@@ -161,7 +163,7 @@ public class SelectionEventProcessor implements ISelectionEventProcessor {
 
     @Override
     public void dispose() {
-        this.logger.trace("Disposing the selection event processor {}", this.selectionId); //$NON-NLS-1$
+        this.logger.trace("Disposing the selection event processor {}", this.id); //$NON-NLS-1$
 
         this.subscriptionManager.dispose();
 

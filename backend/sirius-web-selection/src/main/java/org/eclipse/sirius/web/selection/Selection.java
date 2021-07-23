@@ -23,6 +23,7 @@ import org.eclipse.sirius.web.annotations.graphql.GraphQLID;
 import org.eclipse.sirius.web.annotations.graphql.GraphQLNonNull;
 import org.eclipse.sirius.web.annotations.graphql.GraphQLObjectType;
 import org.eclipse.sirius.web.representations.IRepresentation;
+import org.eclipse.sirius.web.representations.ISemanticRepresentation;
 
 /**
  * The root concept of the selection representation.
@@ -31,7 +32,7 @@ import org.eclipse.sirius.web.representations.IRepresentation;
  */
 @Immutable
 @GraphQLObjectType
-public final class Selection implements IRepresentation {
+public final class Selection implements IRepresentation, ISemanticRepresentation {
 
     public static final String KIND = "Selection"; //$NON-NLS-1$
 
@@ -83,6 +84,7 @@ public final class Selection implements IRepresentation {
         return this.label;
     }
 
+    @Override
     @GraphQLField
     @GraphQLNonNull
     public String getTargetObjectId() {

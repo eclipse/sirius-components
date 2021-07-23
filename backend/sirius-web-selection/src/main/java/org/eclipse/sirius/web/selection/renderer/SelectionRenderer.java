@@ -39,7 +39,7 @@ public class SelectionRenderer {
     }
 
     public Selection render() {
-        UUID selectionId = this.selectionDescription.getIdProvider().apply(this.variableManager);
+        UUID id = this.selectionDescription.getIdProvider().apply(this.variableManager);
         String label = this.selectionDescription.getLabelProvider().apply(this.variableManager);
         String message = this.selectionDescription.getMessageProvider().apply(this.variableManager);
         String targetObjectId = this.selectionDescription.getTargetObjectIdProvider().apply(this.variableManager);
@@ -53,7 +53,7 @@ public class SelectionRenderer {
         }
 
         // @formatter:off
-        return Selection.newSelection(selectionId)
+        return Selection.newSelection(id)
                 .descriptionId(this.selectionDescription.getId())
                 .label(label)
                 .targetObjectId(targetObjectId)
@@ -64,12 +64,12 @@ public class SelectionRenderer {
     }
 
     private SelectionObject renderSelectionObject(VariableManager selectionObjectVariableManager) {
-        UUID id = this.selectionDescription.getIdProvider().apply(selectionObjectVariableManager);
+        String id = this.selectionDescription.getSelectionObjectsIdProvider().apply(selectionObjectVariableManager);
         String label = this.selectionDescription.getLabelProvider().apply(selectionObjectVariableManager);
         String iconURL = this.selectionDescription.getIconURLProvider().apply(selectionObjectVariableManager);
 
         // @formatter:off
-        return SelectionObject.newSelectionObject(id)
+        return SelectionObject.newSelectionObject(UUID.fromString(id))
                 .label(label)
                 .iconURL(iconURL)
                 .build();

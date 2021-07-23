@@ -15,6 +15,7 @@ package org.eclipse.sirius.web.graphql.datafetchers.subscriptions;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.util.Objects;
+import java.util.UUID;
 
 import org.eclipse.sirius.web.annotations.graphql.GraphQLSubscriptionTypes;
 import org.eclipse.sirius.web.annotations.spring.graphql.SubscriptionDataFetcher;
@@ -73,7 +74,7 @@ public class SubscriptionSelectionEventDataFetcher implements IDataFetcherWithFi
     public Publisher<IPayload> get(DataFetchingEnvironment environment) throws Exception {
         Object argument = environment.getArgument(SubscriptionTypeProvider.INPUT_ARGUMENT);
         var input = this.objectMapper.convertValue(argument, SelectionEventInput.class);
-        var selectionConfiguration = new SelectionConfiguration(input.getSelectionId(), input.getTargetObjectId());
+        var selectionConfiguration = new SelectionConfiguration(UUID.randomUUID(), input.getSelectionId(), input.getTargetObjectId());
 
         // @formatter:off
         return this.editingContextEventProcessorRegistry.getOrCreateEditingContextEventProcessor(input.getEditingContextId())

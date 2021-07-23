@@ -69,7 +69,6 @@ export interface DiagramWebSocketContainerContext {
 export type ShowToastEvent = { type: 'SHOW_TOAST'; message: string };
 export type HideToastEvent = { type: 'HIDE_TOAST' };
 export type ShowSelectionDialogEvent = { type: 'SHOW_SELECTION_DIALOG'; activeTool: Tool };
-export type HideSelectionDialogEvent = { type: 'HIDE_SELECTION_DIALOG' };
 export type CloseSelectionDialogEvent = { type: 'CLOSE_SELECTION_DIALOG' };
 export type HandleSelectedObjectInSelectionDialogEvent = {
   type: 'HANDLE_SELECTED_OBJECT_IN_SELECTION_DIALOG';
@@ -108,7 +107,6 @@ export type DiagramWebSocketContainerEvent =
   | ShowToastEvent
   | HideToastEvent
   | ShowSelectionDialogEvent
-  | HideSelectionDialogEvent
   | CloseSelectionDialogEvent
   | HandleSelectedObjectInSelectionDialogEvent
   | ResetSelectedObjectInSelectionDialogEvent
@@ -293,9 +291,6 @@ export const diagramWebSocketContainerMachine = Machine<
           },
           visible: {
             on: {
-              HIDE_SELECTION_DIALOG: {
-                target: 'hidden',
-              },
               CLOSE_SELECTION_DIALOG: {
                 target: 'hidden',
                 actions: 'closeSelectionDialog',
@@ -307,6 +302,14 @@ export const diagramWebSocketContainerMachine = Machine<
               RESET_SELECTED_OBJECT_IN_SELECTION_DIALOG: {
                 target: 'visible',
                 actions: 'resetSelectedObjectInSelectionDialog',
+              },
+              SWITCH_REPRESENTATION: {
+                target: 'hidden',
+                actions: 'closeSelectionDialog',
+              },
+              HANDLE_COMPLETE: {
+                target: 'hidden',
+                actions: 'closeSelectionDialog',
               },
             },
           },

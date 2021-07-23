@@ -24,6 +24,7 @@ import org.eclipse.sirius.web.compat.services.selection.api.ISelectModelElementV
 import org.eclipse.sirius.web.core.api.IObjectService;
 import org.eclipse.sirius.web.interpreter.AQLInterpreter;
 import org.eclipse.sirius.web.interpreter.Result;
+import org.eclipse.sirius.web.representations.GetOrCreateRandomIdProvider;
 import org.eclipse.sirius.web.representations.VariableManager;
 import org.eclipse.sirius.web.selection.description.SelectionDescription;
 import org.springframework.stereotype.Service;
@@ -68,10 +69,11 @@ public class SelectModelElementVariableConverter implements ISelectModelElementV
                     }
                     return message;
                 })
-                .idProvider(variableManager -> variableManager.get(VariableManager.SELF, Object.class).map(this.objectService::getId).map(UUID::fromString).orElse(null))
+                .idProvider(new GetOrCreateRandomIdProvider())
                 .labelProvider(variableManager -> variableManager.get(VariableManager.SELF, Object.class).map(this.objectService::getLabel).orElse(null))
                 .iconURLProvider(variableManager -> variableManager.get(VariableManager.SELF, Object.class).map(this.objectService::getImagePath).orElse(null))
                 .targetObjectIdProvider(variableManager -> variableManager.get(VariableManager.SELF, Object.class).map(this.objectService::getId).orElse(null))
+                .selectionObjectsIdProvider(variableManager -> variableManager.get(VariableManager.SELF, Object.class).map(this.objectService::getId).orElse(null))
                 .label("Selection Description") //$NON-NLS-1$
                 .canCreatePredicate(variableManager -> false)
                 .build();

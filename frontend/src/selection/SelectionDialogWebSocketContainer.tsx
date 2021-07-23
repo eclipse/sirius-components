@@ -92,7 +92,7 @@ export const SelectionDialogWebSocketContainer = ({
     SelectionDialogWebSocketContainerEvent
   >(selectionDialogWebSocketContainerMachine);
 
-  const { toast, selectionWebSocketContainer } = value as SchemaValue;
+  const { toast, selectionDialogWebSocketContainer } = value as SchemaValue;
   const { id, selection, message, selectedObjectId } = context;
 
   const { error } = useSubscription<GQLSelectionEventSubscription>(selectionEventSubscription, {
@@ -105,7 +105,7 @@ export const SelectionDialogWebSocketContainer = ({
       },
     },
     fetchPolicy: 'no-cache',
-    skip: selectionWebSocketContainer === 'complete',
+    skip: selectionDialogWebSocketContainer === 'complete',
     onSubscriptionData: ({ subscriptionData }) => {
       const handleDataEvent: HandleSubscriptionResultEvent = {
         type: 'HANDLE_SUBSCRIPTION_RESULT',
@@ -126,6 +126,12 @@ export const SelectionDialogWebSocketContainer = ({
       dispatch(showToastEvent);
     }
   }, [error, dispatch]);
+
+  useEffect(() => {
+    if (selectionDialogWebSocketContainer === 'complete') {
+      onClose();
+    }
+  }, [selectionDialogWebSocketContainer, onClose]);
 
   const handleListItemClick = (selectedObjectId: string) => {
     dispatch({ type: 'HANDLE_SELECTION_UPDATED', selectedObjectId } as HandleSelectionUpdatedEvent);
