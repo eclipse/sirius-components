@@ -150,7 +150,7 @@ public class ConditionalEdgeStyleImpl extends ConditionalImpl implements Conditi
      * @generated
      * @ordered
      */
-    protected static final ArrowStyle TARGET_ARROW_STYLE_EDEFAULT = ArrowStyle.OUTPUT_ARROW;
+    protected static final ArrowStyle TARGET_ARROW_STYLE_EDEFAULT = ArrowStyle.INPUT_ARROW;
 
     /**
      * The cached value of the '{@link #getTargetArrowStyle() <em>Target Arrow Style</em>}' attribute. <!--

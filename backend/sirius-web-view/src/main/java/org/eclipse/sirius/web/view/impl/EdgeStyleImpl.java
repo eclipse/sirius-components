@@ -82,7 +82,7 @@ public class EdgeStyleImpl extends StyleImpl implements EdgeStyle {
      * @generated
      * @ordered
      */
-    protected static final ArrowStyle TARGET_ARROW_STYLE_EDEFAULT = ArrowStyle.OUTPUT_ARROW;
+    protected static final ArrowStyle TARGET_ARROW_STYLE_EDEFAULT = ArrowStyle.INPUT_ARROW;
 
     /**
      * The cached value of the '{@link #getTargetArrowStyle() <em>Target Arrow Style</em>}' attribute. <!--

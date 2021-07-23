@@ -80,7 +80,7 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="sourceArrowStyle" lowerBound="1"
         eType="#//ArrowStyle" defaultValueLiteral="None"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="targetArrowStyle" lowerBound="1"
-        eType="#//ArrowStyle" defaultValueLiteral="OutputArrow"/>
+        eType="#//ArrowStyle" defaultValueLiteral="InputArrow"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="ArrowStyle">
     <eLiterals name="None"/>
